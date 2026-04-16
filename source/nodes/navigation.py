@@ -23,7 +23,7 @@ async def navigation_node(state: JobScraperState) -> JobScraperState:
     navigation_attempt_count = int(metadata.get("navigation_attempt_count", 0) or 0)
 
     if not state.get("session_established", False):
-        errors.append("Cannot navigate because the browser session was not established")
+        errors.append(f"Cannot navigate because the browser session was not established url {navigate_to}")
         return {
             **state,
             "navigation_results": [],
@@ -55,7 +55,7 @@ async def navigation_node(state: JobScraperState) -> JobScraperState:
         }
 
     if not agent_tab:
-        errors.append("Cannot navigate because the agent tab was not prepared")
+        errors.append(f"Cannot navigate because the agent tab was not prepared {navigate_to}")
         return {
             **state,
             "navigation_results": [],

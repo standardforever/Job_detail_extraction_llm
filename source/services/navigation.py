@@ -27,7 +27,7 @@ async def _goto_with_retry(
 
     for attempt in range(1, max_attempts + 1):
         try:
-            await page.goto(url, wait_until="domcontentloaded", timeout=30_000)
+            await page.goto(url, wait_until="domcontentloaded", timeout=60_000)
             if post_navigation_delay_ms > 0:
                 await page.wait_for_timeout(post_navigation_delay_ms)
             return "navigated", None
@@ -114,7 +114,7 @@ async def navigate_to_url(
             "url": url,
             "status": "navigation_skipped",
             "current_url": None,
-            "error": "Navigation requires an attached Playwright page",
+            "error": f"Navigation requires an attached Playwright page {url}",
         }
 
     if not url:

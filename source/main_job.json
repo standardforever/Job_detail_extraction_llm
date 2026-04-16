@@ -1,22 +1,24 @@
 {
   "domains": {
-    "abbeyfield-bristol.co.uk": {
-      "errors": [],
-      "job_urls": [
-        "https://abbeyfield-bristol.co.uk/trustee-abbeyfield-bristol-and-keynsham/",
-        "https://abbeyfield-bristol.co.uk/day-support-hanham/"
+    "acornvillages.com": {
+      "errors": [
+        "Page.goto: Download is starting\nCall log:\n  - navigating to \"https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx\", waiting until \"domcontentloaded\"\n"
       ],
-      "non_webpage_job_urls": [],
+      "job_urls": [
+        "https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx"
+      ],
+      "non_webpage_job_urls": [
+        "https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx"
+      ],
       "visited_urls": [
-        "https://abbeyfield-bristol.co.uk/join-our-team/",
-        "https://abbeyfield-bristol.co.uk/trustee-abbeyfield-bristol-and-keynsham/",
-        "https://abbeyfield-bristol.co.uk/day-support-hanham/"
+        "https://acornvillages.com/jobs",
+        "https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx"
       ],
       "jobs": [
         {
-          "job_url": "https://abbeyfield-bristol.co.uk/trustee-abbeyfield-bristol-and-keynsham/",
-          "title": "Abbeyfield Bristol and Keynsham Trustee",
-          "company_name": "Abbeyfield Bristol & Keynsham",
+          "job_url": "https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx",
+          "title": null,
+          "company_name": null,
           "holiday": null,
           "location": {
             "address": null,
@@ -31,89 +33,11 @@
             "currency": null,
             "period": null,
             "actual_salary": null,
-            "raw_text_salary": null
+            "raw": null
           },
           "job_type": null,
           "contract_type": null,
           "remote_option": null,
-          "hours": {
-            "weekly": null,
-            "daily": null,
-            "details": null
-          },
-          "closing_date": {
-            "iso_format": null,
-            "raw_text": null
-          },
-          "interview_date": {
-            "iso_format": null,
-            "raw_text": null
-          },
-          "start_date": {
-            "iso_format": null,
-            "raw_text": null
-          },
-          "post_date": {
-            "iso_format": null,
-            "raw_text": null
-          },
-          "contact": {
-            "name": "Hayley Richards",
-            "email": "e-mail@abbeyfield-bristol.co.uk",
-            "phone": "0117 973 6997"
-          },
-          "job_reference": null,
-          "description": "Abbeyfield Bristol & Keynsham is seeking new trustees to join its board. The Role of a Trustee: As a Trustee, you will serve on a voluntary basis, playing a vital role in our organisation\u2019s strategic direction and governance. You will work with the dedicated Board and our Chief Executive Officer to ensure we achieve our mission and deliver on our new strategic plan. Who We Are Looking For: We are seeking passionate individuals who are committed to the welfare of older people. While we welcome applicants from all backgrounds, we are currently looking to strengthen our Board with specific skills in Finance; VCSE and Social Housing; Legal; Human Resources; Marketing & Communications. Commitment: Term is 3 years, after which re-election is possible. The Board meets quarterly to set strategic direction and monitor performance; Trustees may also be asked to be part of sub groups and are encouraged to visit the Houses. The deadline for applications is Friday 31st October. To apply: Please send your CV and covering letter explaining why you would like to become a trustee for Abbeyfield Bristol and Keynsham to e-mail@abbeyfield-bristol.co.uk. To learn more or arrange a friendly chat, email Hayley Richards, Chair of Trustees at e-mail@abbeyfield-bristol.co.uk or call 0117 973 6997.",
-          "responsibilities": [
-            "Serve on a voluntary basis, playing a vital role in the organisation\u2019s strategic direction and governance.",
-            "Work with the Board and the Chief Executive Officer to ensure we achieve our mission and deliver on the new strategic plan.",
-            "Attend quarterly Board meetings and contribute to sub-groups when required.",
-            "Visit the Abbeyfield Houses as encouraged.",
-            "Commit to a 3-year term, with eligibility for re-election."
-          ],
-          "requirements": [
-            "Finance",
-            "VCSE and Social Housing",
-            "Legal",
-            "Human Resources",
-            "Marketing & Communications"
-          ],
-          "benefits": [],
-          "company_info": "Abbeyfield Bristol & Keynsham is a charity providing supported housing and a sense of belonging for older people.",
-          "how_to_apply": "To apply: Please send your CV and covering letter explaining why you would like to become a trustee for Abbeyfield Bristol and Keynsham to e-mail@abbeyfield-bristol.co.uk. For more information or to arrange a friendly chat, email Hayley Richards, Chair of Trustees at e-mail@abbeyfield-bristol.co.uk or call 0117 973 6997. Deadline for applications: Friday 31st October.",
-          "additional_sections": {},
-          "is_job_page": true,
-          "confidence_reason": "The page appears to be a charity board trustee vacancy with explicit application instructions, role description, and required skills. No salary, location, or posting/closing date fields are provided as structured data, so those remain null.",
-          "application_method": {
-            "type": "email",
-            "url": null,
-            "email": "e-mail@abbeyfield-bristol.co.uk",
-            "instructions": "Please send your CV and covering letter to the provided email. For more information or to arrange a chat, contact the Chair of Trustees at the same email or call the listed number."
-          }
-        },
-        {
-          "job_url": "https://abbeyfield-bristol.co.uk/day-support-hanham/",
-          "title": "Day Support Kift Lodge, Hanham",
-          "company_name": "Abbeyfield Bristol & Keynsham",
-          "holiday": null,
-          "location": {
-            "address": null,
-            "city": "Hanham",
-            "region": "Bristol",
-            "postcode": null,
-            "country": "UK"
-          },
-          "salary": {
-            "min": 14.7,
-            "max": 14.7,
-            "currency": "GBP",
-            "period": "hourly",
-            "actual_salary": null,
-            "raw_text_salary": "\u00a314.70/hour"
-          },
-          "job_type": "part-time",
-          "contract_type": null,
-          "remote_option": "on-site",
           "hours": {
             "weekly": null,
             "daily": null,
@@ -141,31 +65,27 @@
             "phone": null
           },
           "job_reference": null,
-          "description": "Be the Sunshine in Someone\u2019s Day! Looking for a fulfilling daytime role? Join us as a Day Support worker and help make our supported house a warm, welcoming place for older people. Day shifts will include: Assisting with lunch service and clearing up Keeping communal areas clean and tidy Supporting residents with daily needs Dealing with resident and house emergencies, and liaising with domiciliary services and family Helping with light admin and ensuring the house runs smoothly \u00a314.70/hour | \ud83d\udd53 Shifts available are 9.00am \u2013 5.00pm Friday. You will be working in our supportive, friendly team in a beautiful Abbeyfield house in Hanham, Bristol. If you\u2019re compassionate, reliable, and love a good chat over a cuppa, we\u2019d love to meet you!",
-          "responsibilities": [
-            "Assisting with lunch service and clearing up",
-            "Keeping communal areas clean and tidy",
-            "Supporting residents with daily needs",
-            "Dealing with resident and house emergencies, and liaising with domiciliary services and family",
-            "Helping with light admin and ensuring the house runs smoothly"
-          ],
+          "description": null,
+          "responsibilities": [],
           "requirements": [],
           "benefits": [],
           "company_info": null,
           "how_to_apply": null,
-          "additional_sections": {},
-          "is_job_page": true,
-          "confidence_reason": "Page clearly describes a Day Support Worker role at Abbeyfield Bristol & Keynsham in Hanham, Bristol with hourly salary (\u00a314.70/hour) and specific shift details. Some fields (e.g., contract type, application method) are not provided in the text.",
+          "additional_sections": {
+            "non_webpage_reason": "Navigation target triggered a downloadable/non-webpage resource (docx). URL path ends with .docx"
+          },
+          "is_job_page": false,
+          "confidence_reason": "A job-related navigation target was found, but it resolves to a downloadable or non-HTML resource instead of a normal webpage.",
           "application_method": {
-            "type": null,
-            "url": null,
+            "type": "external_link",
+            "url": "https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx",
             "email": null,
             "instructions": null
           }
         }
       ],
-      "token_used": 8349
+      "token_used": 3781
     }
   },
-  "token_used": 8349
+  "token_used": 3781
 }

@@ -237,6 +237,146 @@ async def _handle_popups(page: Page) -> int:
     return closed_count
 
 
+async def _expand_accordions(page: Page) -> dict[str, int]:
+    """Expand collapsed accordion/disclosure/tab elements before extraction.
+
+    Three-phase approach:
+      1. DOM manipulation  — native <details> + aria-controls panels (zero side-effects)
+      2. JS click dispatch — fires event handlers for React/Vue/jQuery accordions
+      3. CSS force-reveal  — fallback for CSS-only (height/max-height/display) patterns
+    Sites without accordions are unaffected; each phase is a no-op when nothing matches.
+    """
+    try:
+        # ── Phase 1: safe DOM manipulation ──────────────────────────────────────
+        dom_expanded: int = await page.evaluate(
+            """
+            () => {
+                let count = 0;
+
+                // 1a. Open all native <details> elements
+                document.querySelectorAll('details:not([open])').forEach(d => {
+                    d.setAttribute('open', '');
+                    count++;
+                });
+
+                // 1b. aria-controls pattern: reveal the controlled panel directly
+                document.querySelectorAll('[aria-expanded="false"][aria-controls]').forEach(trigger => {
+                    const panelId = trigger.getAttribute('aria-controls');
+                    const panel = panelId ? document.getElementById(panelId) : null;
+                    if (panel) {
+                        panel.style.cssText +=
+                            ';display:block!important;visibility:visible!important' +
+                            ';height:auto!important;max-height:none!important' +
+                            ';overflow:visible!important;opacity:1!important;';
+                        panel.removeAttribute('hidden');
+                        panel.setAttribute('aria-hidden', 'false');
+                        trigger.setAttribute('aria-expanded', 'true');
+                        count++;
+                    }
+                });
+
+                // 1c. Tab panels hidden via aria-hidden
+                document.querySelectorAll('[role="tabpanel"][aria-hidden="true"]').forEach(panel => {
+                    panel.setAttribute('aria-hidden', 'false');
+                    panel.style.cssText +=
+                        ';display:block!important;visibility:visible!important;opacity:1!important;';
+                    count++;
+                });
+
+                return count;
+            }
+            """
+        )
+
+        # ── Phase 2: JS click dispatch for event-driven accordions ───────────────
+        # Uses element.click() (not Playwright click) so it fires JS handlers
+        # without the browser following links or navigating.
+        click_triggered: int = await page.evaluate(
+            """
+            () => {
+                let count = 0;
+                document.querySelectorAll('[aria-expanded="false"]').forEach(el => {
+                    const tag = el.tagName.toLowerCase();
+                    // Skip anchors to avoid navigation
+                    if (tag === 'a' || el.hasAttribute('href')) return;
+                    try { el.click(); count++; } catch (_) {}
+                });
+                return count;
+            }
+            """
+        )
+
+        if click_triggered > 0:
+            await asyncio.sleep(0.6)  # allow CSS transitions / re-renders to settle
+
+        # ── Phase 3: CSS force-reveal for remaining hidden content ────────────────
+        # Targets common accordion/collapse/tab content class patterns.
+        # Only force-reveals elements that contain meaningful text (> 20 chars).
+        force_revealed: int = await page.evaluate(
+            """
+            () => {
+                const SELECTORS = [
+                    // Generic accordion patterns
+                    '[class*="accordion-body"]',
+                    '[class*="accordion-content"]',
+                    '[class*="accordion-panel"]',
+                    '[class*="accordion-collapse"]',
+                    // Bootstrap / common frameworks
+                    '.collapse:not(.show)',
+                    '.tab-pane:not(.active)',
+                    // Panel / expandable patterns
+                    '[class*="panel-body"]',
+                    '[class*="panel-content"]',
+                    '[class*="expandable-content"]',
+                    '[class*="collapsible-content"]',
+                    '[class*="collapse-content"]',
+                    '[class*="drawer-content"]',
+                    // Height-based hiding (max-height animation pattern)
+                    '[class*="accordion"] [class*="content"]',
+                    '[class*="accordion"] [class*="body"]',
+                ];
+                let count = 0;
+                const seen = new Set();
+                SELECTORS.forEach(sel => {
+                    document.querySelectorAll(sel).forEach(el => {
+                        if (seen.has(el)) return;
+                        seen.add(el);
+                        const style = window.getComputedStyle(el);
+                        const hidden =
+                            style.display === 'none'
+                            || style.visibility === 'hidden'
+                            || parseFloat(style.height || '1') === 0
+                            || parseFloat(style.maxHeight || '1') === 0
+                            || parseFloat(style.opacity || '1') === 0;
+                        if (hidden && (el.textContent || '').trim().length > 20) {
+                            el.style.cssText +=
+                                ';display:block!important;visibility:visible!important' +
+                                ';height:auto!important;max-height:none!important' +
+                                ';overflow:visible!important;opacity:1!important;';
+                            count++;
+                        }
+                    });
+                });
+                return count;
+            }
+            """
+        )
+
+        logger.info(
+            "accordions_expanded dom_expanded=%s click_triggered=%s force_revealed=%s",
+            dom_expanded,
+            click_triggered,
+            force_revealed,
+        )
+        return {
+            "dom_expanded": int(dom_expanded or 0),
+            "click_triggered": int(click_triggered or 0),
+            "force_revealed": int(force_revealed or 0),
+        }
+    except Exception:
+        return {"dom_expanded": 0, "click_triggered": 0, "force_revealed": 0}
+
+
 async def _remove_overlays(page: Page) -> int:
     removed_count = 0
     for selector in OVERLAY_SELECTORS:
@@ -284,6 +424,98 @@ async def _scroll_to_load_content(page: Page, scroll_delay: float = 0.5) -> dict
         return {"scroll_count": 0, "final_height": 0}
 
 
+async def _wait_for_content_stability(
+    page: Page,
+    max_wait_seconds: float = 6.0,
+    poll_interval_seconds: float = 0.5,
+    stable_rounds_required: int = 3,
+) -> dict[str, Any]:
+    try:
+        elapsed_seconds = 0.0
+        stable_rounds = 0
+        samples = 0
+        last_snapshot: tuple[int, int, int] | None = None
+
+        while elapsed_seconds < max_wait_seconds:
+            snapshot = await page.evaluate(
+                """
+                () => {
+                  const interactiveSelector = [
+                    'a[href]',
+                    'button',
+                    'input',
+                    'select',
+                    'textarea',
+                    'summary',
+                    '[role="button"]',
+                    '[role="link"]',
+                    '[data-url]',
+                    '[data-href]',
+                    '[data-link]',
+                    '[data-permalink]',
+                    '[data-job-url]',
+                    '[data-action-url]',
+                    '[data-ep-wrapper-link]',
+                    '[onclick]'
+                  ].join(',');
+
+                  const interactiveCount = document.querySelectorAll(interactiveSelector).length;
+                  const textLength = (document.body?.innerText || '').replace(/\\s+/g, ' ').trim().length;
+                  const scrollHeight = Math.max(
+                    document.body?.scrollHeight || 0,
+                    document.documentElement?.scrollHeight || 0
+                  );
+
+                  return { interactiveCount, textLength, scrollHeight };
+                }
+                """
+            )
+
+            current_snapshot = (
+                int(snapshot.get("interactiveCount", 0) or 0),
+                int(snapshot.get("textLength", 0) or 0),
+                int(snapshot.get("scrollHeight", 0) or 0),
+            )
+            samples += 1
+
+            if current_snapshot == last_snapshot:
+                stable_rounds += 1
+                if stable_rounds >= stable_rounds_required:
+                    return {
+                        "stable": True,
+                        "elapsed_seconds": round(elapsed_seconds, 2),
+                        "samples": samples,
+                        "interactive_count": current_snapshot[0],
+                        "text_length": current_snapshot[1],
+                        "scroll_height": current_snapshot[2],
+                    }
+            else:
+                stable_rounds = 0
+                last_snapshot = current_snapshot
+
+            await asyncio.sleep(poll_interval_seconds)
+            elapsed_seconds += poll_interval_seconds
+    except Exception:
+        return {
+            "stable": False,
+            "elapsed_seconds": 0.0,
+            "samples": 0,
+            "interactive_count": 0,
+            "text_length": 0,
+            "scroll_height": 0,
+        }
+
+    interactive_count, text_length, scroll_height = last_snapshot or (0, 0, 0)
+    return {
+        "stable": False,
+        "elapsed_seconds": round(elapsed_seconds, 2),
+        "samples": samples,
+        "interactive_count": interactive_count,
+        "text_length": text_length,
+        "scroll_height": scroll_height,
+    }
+
+
 async def prepare_page_for_extraction(page: Page | None) -> dict[str, Any]:
     if page is None:
         return {
@@ -292,6 +524,8 @@ async def prepare_page_for_extraction(page: Page | None) -> dict[str, Any]:
             "popups_closed": 0,
             "overlays_removed": 0,
             "scroll_count": 0,
+            "stability_wait_seconds": 0.0,
+            "content_stable": False,
             "final_wait_seconds": 0.0,
         }
 
@@ -299,26 +533,45 @@ async def prepare_page_for_extraction(page: Page | None) -> dict[str, Any]:
     cookie_handled = await _handle_cookie_consent(page)
     popups_closed = await _handle_popups(page)
     overlays_removed = await _remove_overlays(page)
+    accordion_result = await _expand_accordions(page)
     scroll_result = await _scroll_to_load_content(page)
+    stability_result = await _wait_for_content_stability(page)
+    follow_up_scroll_result = await _scroll_to_load_content(page, scroll_delay=0.35)
 
-
-    await asyncio.sleep(1.0)
+    await asyncio.sleep(0.75)
 
     logger.info(
-        "page_prepared cookie_handled=%s popups_closed=%s overlays_removed=%s scroll_count=%s",
+        "page_prepared cookie_handled=%s popups_closed=%s overlays_removed=%s "
+        "accordions_dom=%s accordions_clicked=%s accordions_forced=%s "
+        "scroll_count=%s follow_up_scroll_count=%s content_stable=%s stability_wait_seconds=%s",
         cookie_handled,
         popups_closed,
         overlays_removed,
+        accordion_result["dom_expanded"],
+        accordion_result["click_triggered"],
+        accordion_result["force_revealed"],
         scroll_result["scroll_count"],
+        follow_up_scroll_result["scroll_count"],
+        stability_result["stable"],
+        stability_result["elapsed_seconds"],
     )
     return {
         "page_ready": True,
         "cookie_handled": cookie_handled,
         "popups_closed": popups_closed,
         "overlays_removed": overlays_removed,
-        "scroll_count": scroll_result["scroll_count"],
-        "final_scroll_height": scroll_result["final_height"],
-        "final_wait_seconds": 1.0,
+        "accordions_expanded": accordion_result,
+        "scroll_count": scroll_result["scroll_count"] + follow_up_scroll_result["scroll_count"],
+        "initial_scroll_count": scroll_result["scroll_count"],
+        "follow_up_scroll_count": follow_up_scroll_result["scroll_count"],
+        "final_scroll_height": max(scroll_result["final_height"], follow_up_scroll_result["final_height"]),
+        "content_stable": bool(stability_result["stable"]),
+        "stability_wait_seconds": float(stability_result["elapsed_seconds"]),
+        "stability_samples": int(stability_result["samples"]),
+        "stable_interactive_count": int(stability_result["interactive_count"]),
+        "stable_text_length": int(stability_result["text_length"]),
+        "stable_scroll_height": int(stability_result["scroll_height"]),
+        "final_wait_seconds": 0.75,
     }
 
 
