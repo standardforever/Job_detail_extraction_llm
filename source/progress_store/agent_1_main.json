@@ -1,0 +1,228 @@
+{
+  "domains": {
+    "bcom.ac.uk": {
+      "success": true,
+      "run_status": "No ATS - Direct Application",
+      "career_url": {
+        "url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+        "confidence": 1.0,
+        "reasoning": "Derived from discovered career page in scan."
+      },
+      "ats_detection": {
+        "ats_status": "false",
+        "job_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+        "filter_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+        "ats_provider": null,
+        "confidence": "high",
+        "reasoning": "No explicit ATS indicators (no vendor names; no embedded applicant portal). Non-ATS confirmation via presence of a mailto link using the organization domain for application (sue.leadbeater@bcnogroup.ac.uk).",
+        "detection_method": "email_application",
+        "status": null,
+        "error": null
+      },
+      "ats_check": {
+        "job_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+        "title": "Chair of the Board of Trustees",
+        "ats_detected": false,
+        "provider": null,
+        "application_style": "email_application",
+        "apply_url": null,
+        "reason": "No explicit ATS indicators (no vendor names; no embedded applicant portal). Non-ATS confirmation via presence of a mailto link using the organization domain for application (sue.leadbeater@bcnogroup.ac.uk).",
+        "ats_confidence": "high",
+        "page_access_status": "accessible",
+        "page_access_issue_detail": null,
+        "indicators_found": []
+      },
+      "errors": [],
+      "job_urls": [],
+      "non_webpage_job_urls": [],
+      "visited_urls": [
+        "https://www.bcom.ac.uk/about-us/work-with-us/"
+      ],
+      "jobs": [
+        {
+          "job_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+          "title": "Chair of the Board of Trustees",
+          "company_name": "BCNO Group",
+          "holiday": null,
+          "location": {
+            "address": null,
+            "city": "London/Kent",
+            "region": null,
+            "postcode": null,
+            "country": null
+          },
+          "salary": {
+            "min": null,
+            "max": null,
+            "currency": null,
+            "period": null,
+            "actual_salary": null,
+            "raw_text_salary": "Voluntary position with reasonable expenses reimbursed"
+          },
+          "job_type": "part-time",
+          "contract_type": null,
+          "remote_option": "hybrid",
+          "hours": {
+            "weekly": null,
+            "daily": null,
+            "details": "Approx. 2-3 days per month"
+          },
+          "closing_date": {
+            "iso_format": null,
+            "raw_text": null
+          },
+          "interview_date": {
+            "iso_format": null,
+            "raw_text": null
+          },
+          "start_date": {
+            "iso_format": null,
+            "raw_text": null
+          },
+          "post_date": {
+            "iso_format": null,
+            "raw_text": null
+          },
+          "contact": {
+            "name": "Sue Leadbeater",
+            "email": "sue.leadbeater@bcnogroup.ac.uk",
+            "phone": null
+          },
+          "job_reference": null,
+          "description": "Chair of the Board of Trustees London/Kent (hybrid/flexible) Approx. 2-3 days per month Voluntary position with reasonable expenses reimbursed See position summary Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk",
+          "responsibilities": [],
+          "requirements": [],
+          "benefits": [],
+          "company_info": null,
+          "how_to_apply": "Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk",
+          "additional_sections": {
+            "Vacancies in Education": "There are currently no vacancies available",
+            "Vacancies in Business Management and Administration": "Chair of the Board of Trustees London/Kent (hybrid/flexible) Approx. 2-3 days per month Voluntary position with reasonable expenses reimbursed See position summary Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk"
+          },
+          "is_job_page": true,
+          "confidence_reason": "No explicit ATS indicators (no vendor names; no embedded applicant portal). Non-ATS confirmation via presence of a mailto link using the organization domain for application (sue.leadbeater@bcnogroup.ac.uk).",
+          "application_method": {
+            "type": "email",
+            "url": null,
+            "email": "sue.leadbeater@bcnogroup.ac.uk",
+            "instructions": "Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk"
+          },
+          "is_ats": false,
+          "is_job_related": true,
+          "ats_confidence": "high",
+          "application_type": "email_application",
+          "ats_provider": null,
+          "apply_url": null,
+          "apply_button_text": null,
+          "detail_button": null,
+          "requires_scraping": false,
+          "indicators_found": [],
+          "page_validity_issues": null,
+          "additional_notes": "No ATS detected; HR email link on page leads to org domain; cross-domain apply handled via email.",
+          "page_access_status": "accessible",
+          "page_access_issue_detail": null
+        }
+      ],
+      "manual_reviews": [],
+      "token_used": 24144,
+      "summary": {
+        "non_domain_careers_url": [
+          {
+            "url": "https://www.eso.ac.uk/about-osteopathy/careers-information/",
+            "link_text": "career",
+            "matched_by": "text"
+          }
+        ],
+        "job_filtered": [
+          "https://www.bcom.ac.uk/about-us/work-with-us/",
+          "https://www.bcom.ac.uk/about-us/our-people/",
+          "https://www.bcom.ac.uk/about-us/hiring-our-facilities/bcom-london-room-hire/",
+          "https://www.bcom.ac.uk/about-us/work-experience/",
+          "https://www.bcom.ac.uk/about-us/support-us/",
+          "https://www.bcom.ac.uk/about-us/plymouth-university-partnership/",
+          "https://www.bcom.ac.uk/about-osteopathy/why-become-an-osteopath/",
+          "https://www.bcom.ac.uk/about-us/news-events/",
+          "https://www.bcom.ac.uk/about-us/the-bcno-group/",
+          "https://bcom.ac.uk/apply-thank-you",
+          "https://www.bcom.ac.uk/about-us/news-events/page/12/",
+          "https://www.bcom.ac.uk/membership-join/membership-registration/"
+        ],
+        "urls_checked": 1,
+        "jobs_found": 1,
+        "successful_scrapes": 1,
+        "failed_scrapes": 0,
+        "linkedin_indeed_redirects": 0,
+        "access_blocked_scrapes": 0,
+        "ats_jobs_found": 0,
+        "ats_breakdown": {
+          "ats_true_count": 0,
+          "ats_false_count": 1,
+          "ats_uncertain_count": 0,
+          "ats_unknown_count": 0,
+          "ats_true_jobs": [],
+          "ats_false_jobs": [
+            {
+              "job_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "filter_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "ats_provider": null,
+              "confidence": "high",
+              "reasoning": "No explicit ATS indicators (no vendor names; no embedded applicant portal). Non-ATS confirmation via presence of a mailto link using the organization domain for application (sue.leadbeater@bcnogroup.ac.uk).",
+              "detection_method": "email_application",
+              "status": null,
+              "error": null
+            }
+          ],
+          "ats_uncertain_jobs": [],
+          "ats_unknown_jobs": []
+        }
+      },
+      "scrape_results": [
+        {
+          "url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+          "status": "success",
+          "result_type": "jobs_found",
+          "page_access_status": "accessible",
+          "page_access_issue_detail": null,
+          "job_alert": null,
+          "manual_review": false,
+          "jobs": {
+            "count": 0,
+            "job_urls": []
+          },
+          "ats_check": {
+            "job_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+            "title": "Chair of the Board of Trustees",
+            "ats_detected": false,
+            "provider": null,
+            "application_style": "email_application",
+            "apply_url": null,
+            "reason": "No explicit ATS indicators (no vendor names; no embedded applicant portal). Non-ATS confirmation via presence of a mailto link using the organization domain for application (sue.leadbeater@bcnogroup.ac.uk).",
+            "ats_confidence": "high",
+            "page_access_status": "accessible",
+            "page_access_issue_detail": null,
+            "indicators_found": []
+          },
+          "scraping_details": {
+            "visited_urls": [
+              "https://www.bcom.ac.uk/about-us/work-with-us/"
+            ],
+            "total_tokens": 12642,
+            "llm_iterations": 1,
+            "llm_reasoning": [
+              {
+                "url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+                "page_category": "jobs_listed",
+                "confidence": 0.72,
+                "reasoning": "Page shows a vacancy listing for Chair of the Board of Trustees and notes another dropdown showing no vacancies in Education, indicating job postings are present on the page.",
+                "token_usage": 3592
+              }
+            ],
+            "message": "Page shows a vacancy listing for Chair of the Board of Trustees and notes another dropdown showing no vacancies in Education, indicating job postings are present on the page."
+          },
+          "error": null
+        }
+      ]
+    }
+  },
+  "token_used": 24144
+}

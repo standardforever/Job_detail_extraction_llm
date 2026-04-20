@@ -1,51 +1,45 @@
 {
   "domains": {
-    "acornvillages.com": {
-      "errors": [
-        "Page.goto: Download is starting\nCall log:\n  - navigating to \"https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx\", waiting until \"domcontentloaded\"\n"
-      ],
-      "job_urls": [
-        "https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx"
-      ],
-      "non_webpage_job_urls": [
-        "https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx"
-      ],
+    "unknown": {
+      "errors": [],
+      "job_urls": [],
+      "non_webpage_job_urls": [],
       "visited_urls": [
-        "https://acornvillages.com/jobs",
-        "https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx"
+        "https://www.aberdeenfoyer.com/",
+        "https://www.aberdeenfoyer.com/vacancies"
       ],
       "jobs": [
         {
-          "job_url": "https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx",
-          "title": null,
-          "company_name": null,
+          "job_url": "https://www.aberdeenfoyer.com/vacancies",
+          "title": "Youth Housing Development Coach - Aberdeen",
+          "company_name": "Aberdeen Foyer",
           "holiday": null,
           "location": {
-            "address": null,
-            "city": null,
+            "address": "Trinity Court, Crown Street, Aberdeen",
+            "city": "Aberdeen",
             "region": null,
             "postcode": null,
-            "country": null
+            "country": "United Kingdom"
           },
           "salary": {
-            "min": null,
-            "max": null,
-            "currency": null,
-            "period": null,
+            "min": 24964,
+            "max": 28376,
+            "currency": "GBP",
+            "period": "annually",
             "actual_salary": null,
-            "raw": null
+            "raw_text_salary": "\u00a324,964 - \u00a328,376 (depending on experience and qualifications)"
           },
           "job_type": null,
           "contract_type": null,
           "remote_option": null,
           "hours": {
-            "weekly": null,
+            "weekly": 36.25,
             "daily": null,
-            "details": null
+            "details": "occasional need for evening/weekend/on-call work, on a rota basis"
           },
           "closing_date": {
-            "iso_format": null,
-            "raw_text": null
+            "iso_format": "2026-04-24T17:00:00",
+            "raw_text": "5pm on Friday 24th April 2026"
           },
           "interview_date": {
             "iso_format": null,
@@ -61,31 +55,47 @@
           },
           "contact": {
             "name": null,
-            "email": null,
+            "email": "recruitment@aberdeenfoyer.com",
             "phone": null
           },
           "job_reference": null,
-          "description": null,
+          "description": "For this role, you will work with a caseload of young people aged between 16 and 25 who have experienced or are at risk of homelessness to manage their tenancy, live independently and access the resources they need to thrive.",
           "responsibilities": [],
           "requirements": [],
           "benefits": [],
           "company_info": null,
-          "how_to_apply": null,
+          "how_to_apply": "To apply, please submit your CV along with a cover letter that gives us a fuller understanding of what interests you about this position and how your experience and skills link to the role. Please send your CV and cover letter to recruitment@aberdeenfoyer.com.",
           "additional_sections": {
-            "non_webpage_reason": "Navigation target triggered a downloadable/non-webpage resource (docx). URL path ends with .docx"
+            "To Apply": "Our people are our greatest assets. We are looking for talented, like-minded people who reflect our values and our desire to bring about change to join our Foyer team. To apply, please submit your CV along with a cover letter that gives us a fuller understanding of what interests you about this position and how your experience and skills link to the role. Please send your CV and cover letter to recruitment@aberdeenfoyer.com \u2192 mailto:recruitment@aberdeenfoyer.com?. To learn more about who we are and the benefits of working for the Foyer, click here: Working at Foyer \u2014 Aberdeen Foyer \u2192 https://www.aberdeenfoyer.com/working-at-foyer. It is important to us that you have a positive recruitment experience. For more information, to discuss the role or any support you may need to apply, please contact the relevant, hiring manager as detailed on the final page of the job pack. For those who are suitably qualified, and care experienced, we offer guaranteed interviews. We look forward to receiving your application!",
+            "Job Vacancies": "Youth Housing Development Coach - Aberdeen\nTeam: Youth Housing (Aberdeen)\nSalary: \u00a324,964 - \u00a328,376 (depending on experience and qualifications)\nHours Per Week: 36.25 hours per week (occasional need for evening/weekend/on-call work, on a rota basis)\nLocation: Trinity Court, Crown Street, Aberdeen\nClick to read Click to read\nClosing Date: 5pm on Friday 24th April 2026\nFor this role, you will work with a caseload of young people aged between 16 and 25 who have experienced or are at risk of homelessness to manage their tenancy, live independently and access the resources they need to thrive.\nPlease send your CV and cover letter to recruitment@aberdeenfoyer.com."
           },
-          "is_job_page": false,
-          "confidence_reason": "A job-related navigation target was found, but it resolves to a downloadable or non-HTML resource instead of a normal webpage.",
+          "is_job_page": true,
+          "confidence_reason": "ATS detection indicates direct email application (mailto link) with no cross-domain apply URL and no vendor signals; therefore likely non-ATS with high confidence.",
           "application_method": {
-            "type": "external_link",
-            "url": "https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx",
-            "email": null,
-            "instructions": null
-          }
+            "type": "email",
+            "url": null,
+            "email": "recruitment@aberdeenfoyer.com",
+            "instructions": "Submit CV and cover letter to recruitment@aberdeenfoyer.com"
+          },
+          "is_ats": false,
+          "is_job_related": true,
+          "ats_confidence": "high",
+          "application_type": "email_application",
+          "ats_provider": null,
+          "apply_url": null,
+          "apply_button_text": null,
+          "detail_button": null,
+          "requires_scraping": false,
+          "indicators_found": [],
+          "page_validity_issues": null,
+          "additional_notes": null,
+          "page_access_status": "accessible",
+          "page_access_issue_detail": null
         }
       ],
-      "token_used": 3781
+      "manual_reviews": [],
+      "token_used": 32514
     }
   },
-  "token_used": 3781
+  "token_used": 32514
 }

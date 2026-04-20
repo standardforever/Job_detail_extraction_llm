@@ -3,7 +3,7 @@ from __future__ import annotations
 
 JOB_DETAIL_TO_JSON_SYSTEM_PROMPT = """You are a precise job-detail extraction agent.
 
-You will receive visible extracted content from a single job page or possible job page.
+You will receive visible extracted content from a single job page, possible job page, or a page that contains multiple embedded jobs.
 
 Your job is to convert the content into the exact JSON structure requested below.
 
@@ -22,72 +22,81 @@ Rules:
 - `salary.currency` should use short codes like GBP, USD, EUR when visible, otherwise null.
 - `salary.period` must be one of: "annually", "monthly", "weekly", "hourly", "daily", or null.
 - `additional_sections` should be an object whose keys are section names and whose values are the full text for that section.
+- Always return a top-level `jobs` array.
+- If the page contains one clear job, return `jobs` with exactly one item.
+- If the page contains multiple jobs, return one item per job.
+- If the page is not clearly a job page, still return one item in `jobs` with `is_job_page` set to false and explain why.
+- Do not merge multiple distinct jobs into one object.
 
 Return valid JSON only with this exact schema:
 {
-  "title": null,
-  "company_name": null,
-  "holiday": null,
-  "location": {
-    "address": null,
-    "city": null,
-    "region": null,
-    "postcode": null,
-    "country": null
-  },
-  "salary": {
-    "min": null,
-    "max": null,
-    "currency": null,
-    "period": null,
-    "actual_salary": null,
-    "raw_text_salary": null
-  },
-  "job_type": null,
-  "contract_type": null,
-  "remote_option": null,
-  "hours": {
-    "weekly": null,
-    "daily": null,
-    "details": null
-  },
-  "closing_date": {
-    "iso_format": null,
-    "raw_text": null
-  },
-  "interview_date": {
-    "iso_format": null,
-    "raw_text": null
-  },
-  "start_date": {
-    "iso_format": null,
-    "raw_text": null
-  },
-  "post_date": {
-    "iso_format": null,
-    "raw_text": null
-  },
-  "contact": {
-    "name": null,
-    "email": null,
-    "phone": null
-  },
-  "job_reference": null,
-  "description": null,
-  "responsibilities": [],
-  "requirements": [],
-  "benefits": [],
-  "company_info": null,
-  "how_to_apply": null,
-  "additional_sections": {},
-  "is_job_page": true,
-  "confidence_reason": "",
-  "application_method": {
-    "type": null,
-    "url": null,
-    "email": null,
-    "instructions": null
-  }
+  "jobs": [
+    {
+      "title": null,
+      "company_name": null,
+      "holiday": null,
+      "location": {
+        "address": null,
+        "city": null,
+        "region": null,
+        "postcode": null,
+        "country": null
+      },
+      "salary": {
+        "min": null,
+        "max": null,
+        "currency": null,
+        "period": null,
+        "actual_salary": null,
+        "raw_text_salary": null
+      },
+      "job_type": null,
+      "contract_type": null,
+      "remote_option": null,
+      "hours": {
+        "weekly": null,
+        "daily": null,
+        "details": null
+      },
+      "closing_date": {
+        "iso_format": null,
+        "raw_text": null
+      },
+      "interview_date": {
+        "iso_format": null,
+        "raw_text": null
+      },
+      "start_date": {
+        "iso_format": null,
+        "raw_text": null
+      },
+      "post_date": {
+        "iso_format": null,
+        "raw_text": null
+      },
+      "contact": {
+        "name": null,
+        "email": null,
+        "phone": null
+      },
+      "job_reference": null,
+      "description": null,
+      "responsibilities": [],
+      "requirements": [],
+      "benefits": [],
+      "company_info": null,
+      "how_to_apply": null,
+      "additional_sections": {},
+      "is_job_page": true,
+      "confidence_reason": "",
+      "application_method": {
+        "type": null,
+        "url": null,
+        "email": null,
+        "instructions": null
+      }
+    }
+  ]
 }
 """
 

@@ -1,0 +1,1103 @@
+{
+  "grid_url": "http://127.0.0.1:4445/wd/hub",
+  "agent_count": 2,
+  "agent_index": 1,
+  "assigned_urls": [
+    "https://www.bcom.ac.uk/about-us/work-with-us/"
+  ],
+  "current_domain_key": "bcom.ac.uk",
+  "navigate_to": null,
+  "completed_urls": [
+    "https://www.bcom.ac.uk/about-us/work-with-us/"
+  ],
+  "completed_job_urls": [],
+  "session_id": "b1bc574ae88389b7bf95e155b3da1342",
+  "cdp_url": "ws://127.0.0.1:4445/session/b1bc574ae88389b7bf95e155b3da1342/se/cdp",
+  "session_established": true,
+  "domain_records": {
+    "bcom.ac.uk": {
+      "domain": "bcom.ac.uk",
+      "input_urls": [
+        "https://www.bcom.ac.uk/about-us/work-with-us/"
+      ],
+      "current_input_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+      "navigate_to": "https://www.bcom.ac.uk/about-us/work-with-us/",
+      "navigation_results": [
+        {
+          "agent_index": 1,
+          "handle": "ws://127.0.0.1:4445/session/b1bc574ae88389b7bf95e155b3da1342/se/cdp",
+          "url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+          "status": "navigated",
+          "current_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+          "error": null
+        }
+      ],
+      "discovered_job_urls": [
+        "https://www.bcom.ac.uk/about-us/work-with-us/",
+        "https://www.bcom.ac.uk/about-us/our-people/",
+        "https://www.bcom.ac.uk/about-us/hiring-our-facilities/bcom-london-room-hire/",
+        "https://www.bcom.ac.uk/about-us/work-experience/",
+        "https://www.bcom.ac.uk/about-us/support-us/",
+        "https://www.bcom.ac.uk/about-us/plymouth-university-partnership/",
+        "https://www.bcom.ac.uk/about-osteopathy/why-become-an-osteopath/",
+        "https://www.bcom.ac.uk/about-us/news-events/",
+        "https://www.bcom.ac.uk/about-us/the-bcno-group/",
+        "https://bcom.ac.uk/apply-thank-you",
+        "https://www.bcom.ac.uk/about-us/news-events/page/12/",
+        "https://www.bcom.ac.uk/membership-join/membership-registration/"
+      ],
+      "non_domain_career_urls": [
+        {
+          "url": "https://www.eso.ac.uk/about-osteopathy/careers-information/",
+          "link_text": "career",
+          "matched_by": "text"
+        }
+      ],
+      "career_page_analyses": {
+        "https://www.bcom.ac.uk/about-us/work-with-us/": {
+          "page_category": "jobs_listed",
+          "confidence": 0.72,
+          "reasoning": "Page shows a vacancy listing for Chair of the Board of Trustees and notes another dropdown showing no vacancies in Education, indicating job postings are present on the page.",
+          "job_alert": null,
+          "page_access_status": "accessible",
+          "page_access_issue_detail": null,
+          "next_action_target": {
+            "url": null,
+            "button": null,
+            "element_type": null
+          },
+          "jobs_listed_on_page": [
+            {
+              "title": "Chair of the Board of Trustees London/Kent (hybrid/flexible) Approx. 2-3 days per month Voluntary position with reasonable expenses reimbursed",
+              "job_url": null
+            }
+          ],
+          "listing_ui": {
+            "ui_category": "linked_cards",
+            "filter_present": true,
+            "filter_types": [
+              "Vacancies in Education",
+              "Vacancies in Business Management and Administration"
+            ],
+            "sort_present": false,
+            "sort_types": [],
+            "pagination_present": false,
+            "pagination_type": null,
+            "next_page_url": null
+          },
+          "analysis_tokens": 3592
+        }
+      },
+      "ats_check_result": {
+        "job_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+        "title": "Chair of the Board of Trustees",
+        "ats_detected": false,
+        "provider": null,
+        "application_style": "email_application",
+        "apply_url": null,
+        "reason": "No explicit ATS indicators (no vendor names; no embedded applicant portal). Non-ATS confirmation via presence of a mailto link using the organization domain for application (sue.leadbeater@bcnogroup.ac.uk).",
+        "ats_confidence": "high",
+        "page_access_status": "accessible",
+        "page_access_issue_detail": null,
+        "indicators_found": []
+      },
+      "extracted_content": {
+        "title": "Work With Us At The BCNO Group | Osteopathy Jobs",
+        "url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+        "markdown": "Skip to content \u2192 https://www.bcom.ac.uk/about-us/work-with-us/#fl-main-content\n\nH3: NEXT ESO OPEN DAY - THURSDAY 13TH NOVEMBER 2025\n\nFind out more \u2192 https://www.eso.ac.uk/opendayeso/\n\nH1: Work With Us\n\nIf you\u2019re looking to join a dedicated and enthusiastic team that delivers high-quality education and osteopathic care, then we\u2019d like to hear from you\nIf you\u2019re looking to join a dedicated and enthusiastic team that delivers high quality education to students and osteopathic care for people of all ages, then we\u2019d like to hear from you. To enquire about vacancies please contact Helen Jones, Head of HR, on 01622 685989 \u2192 tel:00441622671558\n/ email hr@bcnogroup.ac.uk \u2192 mailto:hr@bcnogroup.ac.uk\n.\n[DROPDOWN: Vacancies in Education]\n  H3: There are currently no vacancies available\n[DROPDOWN: Vacancies in Business Management and Administration]\n  Chair of the Board of Trustees London/Kent (hybrid/flexible) Approx. 2-3 days per month Voluntary position with reasonable expenses reimbursed\n  See position summary\n  Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk \u2192 mailto:sue.leadbeater@bcnogroup.ac.uk\nThe BCNO Group is committed to providing equal opportunities in employment, recruitment, training, development and promotion of its employees and to avoiding unlawful discrimination. We also strive to ensure that the work environment is free of harassment and bullying and that everyone is treated with dignity and respect. To view our Equality and Diversity Policy please click here \u2192 https://www.bcom.ac.uk/wp-content/uploads/2024/04/Equality-Diversity-Policy.pdf\n.",
+        "metadata": {
+          "sections": [
+            "body"
+          ],
+          "selector_map": {
+            "2125": {
+              "node_id": 2125,
+              "tag": "a",
+              "kind": "link",
+              "label": "Skip to content",
+              "attributes": {
+                "aria-label": "Skip to content",
+                "href": "#fl-main-content"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/a[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": "https://www.bcom.ac.uk/about-us/work-with-us/#fl-main-content",
+              "is_link": true,
+              "is_button": false
+            },
+            "3194": {
+              "node_id": 3194,
+              "tag": "a",
+              "kind": "link",
+              "label": "Find out more",
+              "attributes": {
+                "href": "https://www.eso.ac.uk/opendayeso/"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[1]/div[0]/a[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": "https://www.eso.ac.uk/opendayeso/",
+              "is_link": true,
+              "is_button": false
+            },
+            "4923": {
+              "node_id": 4923,
+              "tag": "a",
+              "kind": "link",
+              "label": "click here",
+              "attributes": {
+                "href": "https://www.bcom.ac.uk/wp-content/uploads/2024/04/Equality-Diversity-Policy.pdf"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[1]/div[0]/div[0]/div[0]/article[0]/div[0]/div[0]/div[2]/div[0]/div[0]/div[0]/div[0]/div[0]/div[1]/div[0]/div[0]/p[0]/a[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": "https://www.bcom.ac.uk/wp-content/uploads/2024/04/Equality-Diversity-Policy.pdf",
+              "is_link": true,
+              "is_button": false
+            },
+            "5130": {
+              "node_id": 5130,
+              "tag": "a",
+              "kind": "link",
+              "label": "hr@bcnogroup.ac.uk",
+              "attributes": {
+                "href": "mailto:hr@bcnogroup.ac.uk"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[1]/div[0]/div[0]/div[0]/article[0]/div[0]/div[0]/div[1]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/p[0]/a[1]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": "mailto:hr@bcnogroup.ac.uk",
+              "is_link": true,
+              "is_button": false
+            },
+            "5161": {
+              "node_id": 5161,
+              "tag": "a",
+              "kind": "link",
+              "label": "01622 685989",
+              "attributes": {
+                "href": "tel:00441622671558"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[1]/div[0]/div[0]/div[0]/article[0]/div[0]/div[0]/div[1]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/p[0]/a[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": "tel:00441622671558",
+              "is_link": true,
+              "is_button": false
+            },
+            "5248": {
+              "node_id": 5248,
+              "tag": "a",
+              "kind": "link",
+              "label": "sue.leadbeater@bcnogroup.ac.uk",
+              "attributes": {
+                "href": "mailto:sue.leadbeater@bcnogroup.ac.uk"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[1]/div[0]/div[0]/div[0]/article[0]/div[0]/div[0]/div[2]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[1]/div[1]/div[0]/p[2]/a[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": "mailto:sue.leadbeater@bcnogroup.ac.uk",
+              "is_link": true,
+              "is_button": false
+            },
+            "6158": {
+              "node_id": 6158,
+              "tag": "a",
+              "kind": "link",
+              "label": "here",
+              "attributes": {
+                "href": "https://www.bcom.ac.uk/wp-content/uploads/2026/03/Chair-of-Board-of-Trustees-Role-Summary.pdf"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[1]/div[0]/div[0]/div[0]/article[0]/div[0]/div[0]/div[2]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[1]/div[1]/div[0]/p[1]/em[0]/a[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": "https://www.bcom.ac.uk/wp-content/uploads/2026/03/Chair-of-Board-of-Trustees-Role-Summary.pdf",
+              "is_link": true,
+              "is_button": false
+            },
+            "6384": {
+              "node_id": 6384,
+              "tag": "div",
+              "kind": "dropdown",
+              "label": "Vacancies in Business Management and Administration",
+              "attributes": {
+                "id": "pp-accordion-zh6sxjvu2l5b-tab-1",
+                "role": "button"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[1]/div[0]/div[0]/div[0]/article[0]/div[0]/div[0]/div[2]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[1]/div[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": null,
+              "is_link": false,
+              "is_button": true
+            },
+            "7449": {
+              "node_id": 7449,
+              "tag": "div",
+              "kind": "dropdown",
+              "label": "Vacancies in Education",
+              "attributes": {
+                "id": "pp-accordion-zh6sxjvu2l5b-tab-0",
+                "role": "button"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[1]/div[0]/div[0]/div[0]/article[0]/div[0]/div[0]/div[2]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": null,
+              "is_link": false,
+              "is_button": true
+            }
+          },
+          "preparation": {
+            "page_ready": true,
+            "cookie_handled": false,
+            "popups_closed": 0,
+            "overlays_removed": 0,
+            "accordions_expanded": {
+              "dom_expanded": 5,
+              "click_triggered": 0,
+              "force_revealed": 2
+            },
+            "scroll_count": 6,
+            "initial_scroll_count": 3,
+            "follow_up_scroll_count": 3,
+            "final_scroll_height": 2244,
+            "content_stable": true,
+            "stability_wait_seconds": 2.0,
+            "stability_samples": 5,
+            "stable_interactive_count": 121,
+            "stable_text_length": 1992,
+            "stable_scroll_height": 2244,
+            "final_wait_seconds": 0.75
+          }
+        }
+      },
+      "page_category": {
+        "category": "jobs_listed",
+        "confidence": 0.72,
+        "reason": "Page shows a vacancy listing for Chair of the Board of Trustees and notes another dropdown showing no vacancies in Education, indicating job postings are present on the page.",
+        "navigation_target": {
+          "url": null,
+          "button": null
+        }
+      },
+      "button_click_result": null,
+      "job_page_features": null,
+      "job_listing_page_analysis": null,
+      "job_urls": [],
+      "selected_job_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+      "completed_job_urls": [
+        "https://www.bcom.ac.uk/about-us/work-with-us/"
+      ],
+      "job_detail_extracted_content": {
+        "title": "Work With Us At The BCNO Group | Osteopathy Jobs",
+        "url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+        "markdown": "Skip to content \u2192 https://www.bcom.ac.uk/about-us/work-with-us/#fl-main-content\n\nH3: NEXT ESO OPEN DAY - THURSDAY 13TH NOVEMBER 2025\n\nFind out more \u2192 https://www.eso.ac.uk/opendayeso/\n\nH1: Work With Us\n\nIf you\u2019re looking to join a dedicated and enthusiastic team that delivers high-quality education and osteopathic care, then we\u2019d like to hear from you\nIf you\u2019re looking to join a dedicated and enthusiastic team that delivers high quality education to students and osteopathic care for people of all ages, then we\u2019d like to hear from you. To enquire about vacancies please contact Helen Jones, Head of HR, on 01622 685989 \u2192 tel:00441622671558\n/ email hr@bcnogroup.ac.uk \u2192 mailto:hr@bcnogroup.ac.uk\n.\n[DROPDOWN: Vacancies in Education]\n  H3: There are currently no vacancies available\n[DROPDOWN: Vacancies in Business Management and Administration]\n  Chair of the Board of Trustees London/Kent (hybrid/flexible) Approx. 2-3 days per month Voluntary position with reasonable expenses reimbursed\n  See position summary\n  Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk \u2192 mailto:sue.leadbeater@bcnogroup.ac.uk\nThe BCNO Group is committed to providing equal opportunities in employment, recruitment, training, development and promotion of its employees and to avoiding unlawful discrimination. We also strive to ensure that the work environment is free of harassment and bullying and that everyone is treated with dignity and respect. To view our Equality and Diversity Policy please click here \u2192 https://www.bcom.ac.uk/wp-content/uploads/2024/04/Equality-Diversity-Policy.pdf\n.",
+        "metadata": {
+          "sections": [
+            "body"
+          ],
+          "selector_map": {
+            "2125": {
+              "node_id": 2125,
+              "tag": "a",
+              "kind": "link",
+              "label": "Skip to content",
+              "attributes": {
+                "aria-label": "Skip to content",
+                "href": "#fl-main-content"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/a[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": "https://www.bcom.ac.uk/about-us/work-with-us/#fl-main-content",
+              "is_link": true,
+              "is_button": false
+            },
+            "3194": {
+              "node_id": 3194,
+              "tag": "a",
+              "kind": "link",
+              "label": "Find out more",
+              "attributes": {
+                "href": "https://www.eso.ac.uk/opendayeso/"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[1]/div[0]/a[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": "https://www.eso.ac.uk/opendayeso/",
+              "is_link": true,
+              "is_button": false
+            },
+            "4923": {
+              "node_id": 4923,
+              "tag": "a",
+              "kind": "link",
+              "label": "click here",
+              "attributes": {
+                "href": "https://www.bcom.ac.uk/wp-content/uploads/2024/04/Equality-Diversity-Policy.pdf"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[1]/div[0]/div[0]/div[0]/article[0]/div[0]/div[0]/div[2]/div[0]/div[0]/div[0]/div[0]/div[0]/div[1]/div[0]/div[0]/p[0]/a[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": "https://www.bcom.ac.uk/wp-content/uploads/2024/04/Equality-Diversity-Policy.pdf",
+              "is_link": true,
+              "is_button": false
+            },
+            "5130": {
+              "node_id": 5130,
+              "tag": "a",
+              "kind": "link",
+              "label": "hr@bcnogroup.ac.uk",
+              "attributes": {
+                "href": "mailto:hr@bcnogroup.ac.uk"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[1]/div[0]/div[0]/div[0]/article[0]/div[0]/div[0]/div[1]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/p[0]/a[1]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": "mailto:hr@bcnogroup.ac.uk",
+              "is_link": true,
+              "is_button": false
+            },
+            "5161": {
+              "node_id": 5161,
+              "tag": "a",
+              "kind": "link",
+              "label": "01622 685989",
+              "attributes": {
+                "href": "tel:00441622671558"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[1]/div[0]/div[0]/div[0]/article[0]/div[0]/div[0]/div[1]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/p[0]/a[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": "tel:00441622671558",
+              "is_link": true,
+              "is_button": false
+            },
+            "5248": {
+              "node_id": 5248,
+              "tag": "a",
+              "kind": "link",
+              "label": "sue.leadbeater@bcnogroup.ac.uk",
+              "attributes": {
+                "href": "mailto:sue.leadbeater@bcnogroup.ac.uk"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[1]/div[0]/div[0]/div[0]/article[0]/div[0]/div[0]/div[2]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[1]/div[1]/div[0]/p[2]/a[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": "mailto:sue.leadbeater@bcnogroup.ac.uk",
+              "is_link": true,
+              "is_button": false
+            },
+            "6158": {
+              "node_id": 6158,
+              "tag": "a",
+              "kind": "link",
+              "label": "here",
+              "attributes": {
+                "href": "https://www.bcom.ac.uk/wp-content/uploads/2026/03/Chair-of-Board-of-Trustees-Role-Summary.pdf"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[1]/div[0]/div[0]/div[0]/article[0]/div[0]/div[0]/div[2]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[1]/div[1]/div[0]/p[1]/em[0]/a[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": "https://www.bcom.ac.uk/wp-content/uploads/2026/03/Chair-of-Board-of-Trustees-Role-Summary.pdf",
+              "is_link": true,
+              "is_button": false
+            },
+            "6384": {
+              "node_id": 6384,
+              "tag": "div",
+              "kind": "dropdown",
+              "label": "Vacancies in Business Management and Administration",
+              "attributes": {
+                "id": "pp-accordion-zh6sxjvu2l5b-tab-1",
+                "role": "button"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[1]/div[0]/div[0]/div[0]/article[0]/div[0]/div[0]/div[2]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[1]/div[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": null,
+              "is_link": false,
+              "is_button": true
+            },
+            "7449": {
+              "node_id": 7449,
+              "tag": "div",
+              "kind": "dropdown",
+              "label": "Vacancies in Education",
+              "attributes": {
+                "id": "pp-accordion-zh6sxjvu2l5b-tab-0",
+                "role": "button"
+              },
+              "dom_path": "html[0]/body[0]/div[1]/div[0]/div[1]/div[0]/div[0]/div[0]/article[0]/div[0]/div[0]/div[2]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]/div[0]",
+              "frame_index": 0,
+              "frame_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "parent_id": null,
+              "interactive": true,
+              "expanded": null,
+              "has_popup": null,
+              "action_url": null,
+              "is_link": false,
+              "is_button": true
+            }
+          },
+          "preparation": {
+            "page_ready": true,
+            "cookie_handled": false,
+            "popups_closed": 0,
+            "overlays_removed": 0,
+            "accordions_expanded": {
+              "dom_expanded": 5,
+              "click_triggered": 0,
+              "force_revealed": 2
+            },
+            "scroll_count": 6,
+            "initial_scroll_count": 3,
+            "follow_up_scroll_count": 3,
+            "final_scroll_height": 2244,
+            "content_stable": true,
+            "stability_wait_seconds": 2.0,
+            "stability_samples": 5,
+            "stable_interactive_count": 121,
+            "stable_text_length": 1992,
+            "stable_scroll_height": 2244,
+            "final_wait_seconds": 0.75
+          }
+        }
+      },
+      "structured_job_detail": {
+        "job_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+        "title": "Chair of the Board of Trustees",
+        "company_name": "BCNO Group",
+        "holiday": null,
+        "location": {
+          "address": null,
+          "city": "London/Kent",
+          "region": null,
+          "postcode": null,
+          "country": null
+        },
+        "salary": {
+          "min": null,
+          "max": null,
+          "currency": null,
+          "period": null,
+          "actual_salary": null,
+          "raw_text_salary": "Voluntary position with reasonable expenses reimbursed"
+        },
+        "job_type": "part-time",
+        "contract_type": null,
+        "remote_option": "hybrid",
+        "hours": {
+          "weekly": null,
+          "daily": null,
+          "details": "Approx. 2-3 days per month"
+        },
+        "closing_date": {
+          "iso_format": null,
+          "raw_text": null
+        },
+        "interview_date": {
+          "iso_format": null,
+          "raw_text": null
+        },
+        "start_date": {
+          "iso_format": null,
+          "raw_text": null
+        },
+        "post_date": {
+          "iso_format": null,
+          "raw_text": null
+        },
+        "contact": {
+          "name": "Sue Leadbeater",
+          "email": "sue.leadbeater@bcnogroup.ac.uk",
+          "phone": null
+        },
+        "job_reference": null,
+        "description": "Chair of the Board of Trustees London/Kent (hybrid/flexible) Approx. 2-3 days per month Voluntary position with reasonable expenses reimbursed See position summary Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk",
+        "responsibilities": [],
+        "requirements": [],
+        "benefits": [],
+        "company_info": null,
+        "how_to_apply": "Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk",
+        "additional_sections": {
+          "Vacancies in Education": "There are currently no vacancies available",
+          "Vacancies in Business Management and Administration": "Chair of the Board of Trustees London/Kent (hybrid/flexible) Approx. 2-3 days per month Voluntary position with reasonable expenses reimbursed See position summary Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk"
+        },
+        "is_job_page": true,
+        "confidence_reason": "No explicit ATS indicators (no vendor names; no embedded applicant portal). Non-ATS confirmation via presence of a mailto link using the organization domain for application (sue.leadbeater@bcnogroup.ac.uk).",
+        "application_method": {
+          "type": "email",
+          "url": null,
+          "email": "sue.leadbeater@bcnogroup.ac.uk",
+          "instructions": "Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk"
+        },
+        "is_ats": false,
+        "is_job_related": true,
+        "ats_confidence": "high",
+        "application_type": "email_application",
+        "ats_provider": null,
+        "apply_url": null,
+        "apply_button_text": null,
+        "detail_button": null,
+        "requires_scraping": false,
+        "indicators_found": [],
+        "page_validity_issues": null,
+        "additional_notes": "No ATS detected; HR email link on page leads to org domain; cross-domain apply handled via email.",
+        "page_access_status": "accessible",
+        "page_access_issue_detail": null
+      },
+      "extracted_jobs": [
+        {
+          "job_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+          "page_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+          "raw_markdown": "Skip to content \u2192 https://www.bcom.ac.uk/about-us/work-with-us/#fl-main-content\n\nH3: NEXT ESO OPEN DAY - THURSDAY 13TH NOVEMBER 2025\n\nFind out more \u2192 https://www.eso.ac.uk/opendayeso/\n\nH1: Work With Us\n\nIf you\u2019re looking to join a dedicated and enthusiastic team that delivers high-quality education and osteopathic care, then we\u2019d like to hear from you\nIf you\u2019re looking to join a dedicated and enthusiastic team that delivers high quality education to students and osteopathic care for people of all ages, then we\u2019d like to hear from you. To enquire about vacancies please contact Helen Jones, Head of HR, on 01622 685989 \u2192 tel:00441622671558\n/ email hr@bcnogroup.ac.uk \u2192 mailto:hr@bcnogroup.ac.uk\n.\n[DROPDOWN: Vacancies in Education]\n  H3: There are currently no vacancies available\n[DROPDOWN: Vacancies in Business Management and Administration]\n  Chair of the Board of Trustees London/Kent (hybrid/flexible) Approx. 2-3 days per month Voluntary position with reasonable expenses reimbursed\n  See position summary\n  Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk \u2192 mailto:sue.leadbeater@bcnogroup.ac.uk\nThe BCNO Group is committed to providing equal opportunities in employment, recruitment, training, development and promotion of its employees and to avoiding unlawful discrimination. We also strive to ensure that the work environment is free of harassment and bullying and that everyone is treated with dignity and respect. To view our Equality and Diversity Policy please click here \u2192 https://www.bcom.ac.uk/wp-content/uploads/2024/04/Equality-Diversity-Policy.pdf\n.",
+          "structured_data": {
+            "job_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+            "title": "Chair of the Board of Trustees",
+            "company_name": "BCNO Group",
+            "holiday": null,
+            "location": {
+              "address": null,
+              "city": "London/Kent",
+              "region": null,
+              "postcode": null,
+              "country": null
+            },
+            "salary": {
+              "min": null,
+              "max": null,
+              "currency": null,
+              "period": null,
+              "actual_salary": null,
+              "raw_text_salary": "Voluntary position with reasonable expenses reimbursed"
+            },
+            "job_type": "part-time",
+            "contract_type": null,
+            "remote_option": "hybrid",
+            "hours": {
+              "weekly": null,
+              "daily": null,
+              "details": "Approx. 2-3 days per month"
+            },
+            "closing_date": {
+              "iso_format": null,
+              "raw_text": null
+            },
+            "interview_date": {
+              "iso_format": null,
+              "raw_text": null
+            },
+            "start_date": {
+              "iso_format": null,
+              "raw_text": null
+            },
+            "post_date": {
+              "iso_format": null,
+              "raw_text": null
+            },
+            "contact": {
+              "name": "Sue Leadbeater",
+              "email": "sue.leadbeater@bcnogroup.ac.uk",
+              "phone": null
+            },
+            "job_reference": null,
+            "description": "Chair of the Board of Trustees London/Kent (hybrid/flexible) Approx. 2-3 days per month Voluntary position with reasonable expenses reimbursed See position summary Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk",
+            "responsibilities": [],
+            "requirements": [],
+            "benefits": [],
+            "company_info": null,
+            "how_to_apply": "Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk",
+            "additional_sections": {
+              "Vacancies in Education": "There are currently no vacancies available",
+              "Vacancies in Business Management and Administration": "Chair of the Board of Trustees London/Kent (hybrid/flexible) Approx. 2-3 days per month Voluntary position with reasonable expenses reimbursed See position summary Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk"
+            },
+            "is_job_page": true,
+            "confidence_reason": "No explicit ATS indicators (no vendor names; no embedded applicant portal). Non-ATS confirmation via presence of a mailto link using the organization domain for application (sue.leadbeater@bcnogroup.ac.uk).",
+            "application_method": {
+              "type": "email",
+              "url": null,
+              "email": "sue.leadbeater@bcnogroup.ac.uk",
+              "instructions": "Initial expressions of interest should be emailed to Sue Leadbeater, Company Secretary at sue.leadbeater@bcnogroup.ac.uk"
+            },
+            "is_ats": false,
+            "is_job_related": true,
+            "ats_confidence": "high",
+            "application_type": "email_application",
+            "ats_provider": null,
+            "apply_url": null,
+            "apply_button_text": null,
+            "detail_button": null,
+            "requires_scraping": false,
+            "indicators_found": [],
+            "page_validity_issues": null,
+            "additional_notes": "No ATS detected; HR email link on page leads to org domain; cross-domain apply handled via email.",
+            "page_access_status": "accessible",
+            "page_access_issue_detail": null
+          }
+        }
+      ],
+      "errors": [],
+      "metadata": {
+        "select_next_url_status": "ready",
+        "url_extraction_status": "ready_for_navigation",
+        "job_filtered": [
+          "https://www.bcom.ac.uk/about-us/work-with-us/",
+          "https://www.bcom.ac.uk/about-us/our-people/",
+          "https://www.bcom.ac.uk/about-us/hiring-our-facilities/bcom-london-room-hire/",
+          "https://www.bcom.ac.uk/about-us/work-experience/",
+          "https://www.bcom.ac.uk/about-us/support-us/",
+          "https://www.bcom.ac.uk/about-us/plymouth-university-partnership/",
+          "https://www.bcom.ac.uk/about-osteopathy/why-become-an-osteopath/",
+          "https://www.bcom.ac.uk/about-us/news-events/",
+          "https://www.bcom.ac.uk/about-us/the-bcno-group/",
+          "https://bcom.ac.uk/apply-thank-you",
+          "https://www.bcom.ac.uk/about-us/news-events/page/12/",
+          "https://www.bcom.ac.uk/membership-join/membership-registration/"
+        ],
+        "non_domain_careers_url": [
+          {
+            "url": "https://www.eso.ac.uk/about-osteopathy/careers-information/",
+            "link_text": "career",
+            "matched_by": "text"
+          }
+        ],
+        "redirected_url": "https://www.bcom.ac.uk/",
+        "redirected_domain": "bcom.ac.uk",
+        "url_extraction_result": {
+          "input_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+          "normalized_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+          "registered_domain": "bcom.ac.uk",
+          "discovery_domain": "bcom.ac.uk",
+          "is_main_domain_input": false,
+          "has_subdomain": false,
+          "has_path_or_query": true,
+          "status": "ready_for_navigation",
+          "skip_current_url": false,
+          "skip_reason": null,
+          "job_filtered": [
+            "https://www.bcom.ac.uk/about-us/work-with-us/",
+            "https://www.bcom.ac.uk/about-us/our-people/",
+            "https://www.bcom.ac.uk/about-us/hiring-our-facilities/bcom-london-room-hire/",
+            "https://www.bcom.ac.uk/about-us/work-experience/",
+            "https://www.bcom.ac.uk/about-us/support-us/",
+            "https://www.bcom.ac.uk/about-us/plymouth-university-partnership/",
+            "https://www.bcom.ac.uk/about-osteopathy/why-become-an-osteopath/",
+            "https://www.bcom.ac.uk/about-us/news-events/",
+            "https://www.bcom.ac.uk/about-us/the-bcno-group/",
+            "https://bcom.ac.uk/apply-thank-you",
+            "https://www.bcom.ac.uk/about-us/news-events/page/12/",
+            "https://www.bcom.ac.uk/membership-join/membership-registration/"
+          ],
+          "non_domain_careers_url": [
+            {
+              "url": "https://www.eso.ac.uk/about-osteopathy/careers-information/",
+              "link_text": "career",
+              "matched_by": "text"
+            }
+          ],
+          "fallback_success": true,
+          "fallback_error": "",
+          "fallback_status": "",
+          "search_success": true,
+          "search_error": "",
+          "redirect_detected": false,
+          "redirected_url": "https://www.bcom.ac.uk/",
+          "redirected_domain": "bcom.ac.uk",
+          "fallback_meta_data": {
+            "redirected": false,
+            "original_url": "https://bcom.ac.uk",
+            "final_url": "https://www.bcom.ac.uk/",
+            "original_domain": "bcom.ac.uk",
+            "final_domain": "bcom.ac.uk",
+            "job_urls": 9,
+            "all_urls": [
+              "https://twitter.com/OfficialBCOM",
+              "https://www.bcom.ac.uk/student-life/bcom-london/",
+              "https://www.bcom.ac.uk/about-us/our-people/",
+              "https://www.eso.ac.uk/eso-clinic/",
+              "https://twitter.com/ESOMaidstone",
+              "https://www.bcom.ac.uk/clinics/",
+              "https://www.bcom.ac.uk/about-us/support-us/",
+              "https://www.bcom.ac.uk/postgraduate/cpd/",
+              "https://www.bcom.ac.uk/student-life/bcom-london/student-facilities/",
+              "https://www.eso.ac.uk/",
+              "https://bcnogroup.ac.uk/policies/",
+              "https://www.bcom.ac.uk/student-life/",
+              "https://www.bcom.ac.uk/contact/",
+              "https://www.tiktok.com/@osteopathy.bcno",
+              "https://youtube.com/c/EsoAcUkOsteopathy",
+              "https://www.bcom.ac.uk/student-life/term-dates/",
+              "https://www.bcom.ac.uk/",
+              "https://www.bcom.ac.uk/student-life/bcom-london/accommodation/",
+              "https://www.bcom.ac.uk/about-us/plymouth-university-partnership/",
+              "https://www.facebook.com/BritishCollegeOfOsteopathicMedicine",
+              "https://www.bcom.ac.uk/contact-admissions/",
+              "https://www.bcom.ac.uk/learning-resources/",
+              "https://www.bcom.ac.uk/disclaimer/",
+              "https://www.bcom.ac.uk/student-life/bcom-london/studying-here/",
+              "https://www.bcom.ac.uk/about-us/hiring-our-facilities/bcom-london-room-hire/",
+              "https://www.bcom.ac.uk/postgraduate/",
+              "https://www.bcom.ac.uk/alumni/",
+              "https://www.eso.ac.uk/opendayeso/",
+              "https://www.bcom.ac.uk/visits-and-open-days/",
+              "https://www.bcom.ac.uk/about-us/work-experience/",
+              "https://www.bcom.ac.uk/bcom-clinic/",
+              "https://www.eso.ac.uk/courses/undergraduate/bschonsosteopathicmedicine/",
+              "https://www.bcom.ac.uk/about-osteopathy/why-become-an-osteopath/",
+              "https://www.bcom.ac.uk/courses/undergraduate/most/",
+              "https://www.bcom.ac.uk/clinics/bcom-london/",
+              "https://www.eso.ac.uk/courses/",
+              "https://www.bcom.ac.uk/privacy-cookie-policy/",
+              "https://www.bcom.ac.uk/#fl-main-content",
+              "https://instagram.com/eso_maidstone/",
+              "https://www.bcom.ac.uk/research/",
+              "https://www.bcom.ac.uk/student-life/bcom-london/exploring-london/",
+              "http://www.bcno-vle.com/",
+              "https://www.linkedin.com/school/british-college-of-osteopathic-medicine/",
+              "https://www.instagram.com/bcomlondon/?hl=en",
+              "https://www.linkedin.com/school/european-school-of-osteopathy/",
+              "https://www.eso.ac.uk/about-osteopathy/careers-information/",
+              "https://www.bcom.ac.uk/courses/undergraduate/bsc-hons/",
+              "https://www.eso.ac.uk/about-osteopathy/what-is-osteopathy/",
+              "https://www.bcom.ac.uk/student-funding/",
+              "https://www.bcom.ac.uk/student-life/bcom-london/student-testimonials/",
+              "https://www.youtube.com/channel/UCRXxnSgn9uCr-i46FwZtLjg",
+              "https://www.bcom.ac.uk/most/",
+              "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "https://www.bcom.ac.uk/about-us/news-events/",
+              "https://www.bcom.ac.uk/#",
+              "https://www.bcom.ac.uk/valueformoney/",
+              "https://www.bcom.ac.uk/about-us/the-bcno-group/",
+              "https://www.facebook.com/EuropeanSchoolofOsteopathy",
+              "https://esointernational.com/"
+            ]
+          },
+          "search_meta_data": {
+            "original_domain": "bcom.ac.uk",
+            "job_urls": 5,
+            "engine_used": "unknown",
+            "total_raw_results": 10,
+            "all_urls": [
+              "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "https://www.bcom.ac.uk/about-us/work-experience/",
+              "https://www.bcom.ac.uk/page/5/",
+              "https://www.bcom.ac.uk/page/2/?s=2025",
+              "https://bcom.ac.uk/apply-thank-you",
+              "https://www.bcom.ac.uk/about-us/news-events/page/12/",
+              "http://www.bcom.ac.uk/contact-admissions/",
+              "https://www.bcom.ac.uk/membership-join/membership-registration/",
+              "http://www.bcom.ac.uk/students/facilities/college-campus",
+              "https://www.bcom.ac.uk/courses/open_days.asp"
+            ]
+          },
+          "career_meta_data": {
+            "base_domain": "bcom.ac.uk",
+            "total_matched": 2,
+            "external_career_urls": 1
+          }
+        },
+        "url_extraction_history": [
+          {
+            "input_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+            "normalized_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+            "registered_domain": "bcom.ac.uk",
+            "discovery_domain": "bcom.ac.uk",
+            "is_main_domain_input": false,
+            "has_subdomain": false,
+            "has_path_or_query": true,
+            "status": "ready_for_navigation",
+            "skip_current_url": false,
+            "skip_reason": null,
+            "job_filtered": [
+              "https://www.bcom.ac.uk/about-us/work-with-us/",
+              "https://www.bcom.ac.uk/about-us/our-people/",
+              "https://www.bcom.ac.uk/about-us/hiring-our-facilities/bcom-london-room-hire/",
+              "https://www.bcom.ac.uk/about-us/work-experience/",
+              "https://www.bcom.ac.uk/about-us/support-us/",
+              "https://www.bcom.ac.uk/about-us/plymouth-university-partnership/",
+              "https://www.bcom.ac.uk/about-osteopathy/why-become-an-osteopath/",
+              "https://www.bcom.ac.uk/about-us/news-events/",
+              "https://www.bcom.ac.uk/about-us/the-bcno-group/",
+              "https://bcom.ac.uk/apply-thank-you",
+              "https://www.bcom.ac.uk/about-us/news-events/page/12/",
+              "https://www.bcom.ac.uk/membership-join/membership-registration/"
+            ],
+            "non_domain_careers_url": [
+              {
+                "url": "https://www.eso.ac.uk/about-osteopathy/careers-information/",
+                "link_text": "career",
+                "matched_by": "text"
+              }
+            ],
+            "fallback_success": true,
+            "fallback_error": "",
+            "fallback_status": "",
+            "search_success": true,
+            "search_error": "",
+            "redirect_detected": false,
+            "redirected_url": "https://www.bcom.ac.uk/",
+            "redirected_domain": "bcom.ac.uk",
+            "fallback_meta_data": {
+              "redirected": false,
+              "original_url": "https://bcom.ac.uk",
+              "final_url": "https://www.bcom.ac.uk/",
+              "original_domain": "bcom.ac.uk",
+              "final_domain": "bcom.ac.uk",
+              "job_urls": 9,
+              "all_urls": [
+                "https://twitter.com/OfficialBCOM",
+                "https://www.bcom.ac.uk/student-life/bcom-london/",
+                "https://www.bcom.ac.uk/about-us/our-people/",
+                "https://www.eso.ac.uk/eso-clinic/",
+                "https://twitter.com/ESOMaidstone",
+                "https://www.bcom.ac.uk/clinics/",
+                "https://www.bcom.ac.uk/about-us/support-us/",
+                "https://www.bcom.ac.uk/postgraduate/cpd/",
+                "https://www.bcom.ac.uk/student-life/bcom-london/student-facilities/",
+                "https://www.eso.ac.uk/",
+                "https://bcnogroup.ac.uk/policies/",
+                "https://www.bcom.ac.uk/student-life/",
+                "https://www.bcom.ac.uk/contact/",
+                "https://www.tiktok.com/@osteopathy.bcno",
+                "https://youtube.com/c/EsoAcUkOsteopathy",
+                "https://www.bcom.ac.uk/student-life/term-dates/",
+                "https://www.bcom.ac.uk/",
+                "https://www.bcom.ac.uk/student-life/bcom-london/accommodation/",
+                "https://www.bcom.ac.uk/about-us/plymouth-university-partnership/",
+                "https://www.facebook.com/BritishCollegeOfOsteopathicMedicine",
+                "https://www.bcom.ac.uk/contact-admissions/",
+                "https://www.bcom.ac.uk/learning-resources/",
+                "https://www.bcom.ac.uk/disclaimer/",
+                "https://www.bcom.ac.uk/student-life/bcom-london/studying-here/",
+                "https://www.bcom.ac.uk/about-us/hiring-our-facilities/bcom-london-room-hire/",
+                "https://www.bcom.ac.uk/postgraduate/",
+                "https://www.bcom.ac.uk/alumni/",
+                "https://www.eso.ac.uk/opendayeso/",
+                "https://www.bcom.ac.uk/visits-and-open-days/",
+                "https://www.bcom.ac.uk/about-us/work-experience/",
+                "https://www.bcom.ac.uk/bcom-clinic/",
+                "https://www.eso.ac.uk/courses/undergraduate/bschonsosteopathicmedicine/",
+                "https://www.bcom.ac.uk/about-osteopathy/why-become-an-osteopath/",
+                "https://www.bcom.ac.uk/courses/undergraduate/most/",
+                "https://www.bcom.ac.uk/clinics/bcom-london/",
+                "https://www.eso.ac.uk/courses/",
+                "https://www.bcom.ac.uk/privacy-cookie-policy/",
+                "https://www.bcom.ac.uk/#fl-main-content",
+                "https://instagram.com/eso_maidstone/",
+                "https://www.bcom.ac.uk/research/",
+                "https://www.bcom.ac.uk/student-life/bcom-london/exploring-london/",
+                "http://www.bcno-vle.com/",
+                "https://www.linkedin.com/school/british-college-of-osteopathic-medicine/",
+                "https://www.instagram.com/bcomlondon/?hl=en",
+                "https://www.linkedin.com/school/european-school-of-osteopathy/",
+                "https://www.eso.ac.uk/about-osteopathy/careers-information/",
+                "https://www.bcom.ac.uk/courses/undergraduate/bsc-hons/",
+                "https://www.eso.ac.uk/about-osteopathy/what-is-osteopathy/",
+                "https://www.bcom.ac.uk/student-funding/",
+                "https://www.bcom.ac.uk/student-life/bcom-london/student-testimonials/",
+                "https://www.youtube.com/channel/UCRXxnSgn9uCr-i46FwZtLjg",
+                "https://www.bcom.ac.uk/most/",
+                "https://www.bcom.ac.uk/about-us/work-with-us/",
+                "https://www.bcom.ac.uk/about-us/news-events/",
+                "https://www.bcom.ac.uk/#",
+                "https://www.bcom.ac.uk/valueformoney/",
+                "https://www.bcom.ac.uk/about-us/the-bcno-group/",
+                "https://www.facebook.com/EuropeanSchoolofOsteopathy",
+                "https://esointernational.com/"
+              ]
+            },
+            "search_meta_data": {
+              "original_domain": "bcom.ac.uk",
+              "job_urls": 5,
+              "engine_used": "unknown",
+              "total_raw_results": 10,
+              "all_urls": [
+                "https://www.bcom.ac.uk/about-us/work-with-us/",
+                "https://www.bcom.ac.uk/about-us/work-experience/",
+                "https://www.bcom.ac.uk/page/5/",
+                "https://www.bcom.ac.uk/page/2/?s=2025",
+                "https://bcom.ac.uk/apply-thank-you",
+                "https://www.bcom.ac.uk/about-us/news-events/page/12/",
+                "http://www.bcom.ac.uk/contact-admissions/",
+                "https://www.bcom.ac.uk/membership-join/membership-registration/",
+                "http://www.bcom.ac.uk/students/facilities/college-campus",
+                "https://www.bcom.ac.uk/courses/open_days.asp"
+              ]
+            },
+            "career_meta_data": {
+              "base_domain": "bcom.ac.uk",
+              "total_matched": 2,
+              "external_career_urls": 1
+            }
+          }
+        ],
+        "current_candidate_url": null,
+        "checked_candidate_urls": [
+          "https://www.bcom.ac.uk/about-us/work-with-us/"
+        ],
+        "career_page_scan_status": "ats_check_required",
+        "career_page_found_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+        "career_navigation_steps": 0,
+        "career_navigation_target_url": null,
+        "career_navigation_target_button": null,
+        "visited_candidate_urls": [
+          "https://www.bcom.ac.uk/about-us/work-with-us/"
+        ],
+        "llm_reasoning": [
+          {
+            "url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+            "page_category": "jobs_listed",
+            "confidence": 0.72,
+            "reasoning": "Page shows a vacancy listing for Chair of the Board of Trustees and notes another dropdown showing no vacancies in Education, indicating job postings are present on the page.",
+            "token_usage": 3592
+          }
+        ],
+        "manual_review_required": false,
+        "manual_reviews": [],
+        "processing_mode": "both",
+        "last_navigate_to": "https://www.bcom.ac.uk/about-us/work-with-us/",
+        "navigated_url_count": 1,
+        "navigation_status": "navigated",
+        "navigation_attempt_count": 0,
+        "post_navigation_delay_ms": 5000,
+        "extract_status": "extracted",
+        "extract_attempt_count": 0,
+        "extracted_markdown_length": 1648,
+        "extraction_preparation": {
+          "page_ready": true,
+          "cookie_handled": false,
+          "popups_closed": 0,
+          "overlays_removed": 0,
+          "accordions_expanded": {
+            "dom_expanded": 5,
+            "click_triggered": 0,
+            "force_revealed": 2
+          },
+          "scroll_count": 6,
+          "initial_scroll_count": 3,
+          "follow_up_scroll_count": 3,
+          "final_scroll_height": 2244,
+          "content_stable": true,
+          "stability_wait_seconds": 2.0,
+          "stability_samples": 5,
+          "stable_interactive_count": 121,
+          "stable_text_length": 1992,
+          "stable_scroll_height": 2244,
+          "final_wait_seconds": 0.75
+        },
+        "career_page_category_tokens": 3592,
+        "last_career_category": "jobs_listed",
+        "ats_check_required": true,
+        "should_convert_jobs": true,
+        "embedded_jobs_present": true,
+        "embedded_jobs_listed_on_page": [
+          {
+            "title": "Chair of the Board of Trustees London/Kent (hybrid/flexible) Approx. 2-3 days per month Voluntary position with reasonable expenses reimbursed",
+            "job_url": null
+          }
+        ],
+        "external_job_board_targets": {},
+        "ats_check_status": "completed",
+        "ats_check_tokens": 4318,
+        "next_job_url_selection_status": "ready",
+        "remaining_job_url_count": 0,
+        "use_embedded_job_page": false,
+        "job_detail_page_extraction_status": "extracted",
+        "selected_job_url": "https://www.bcom.ac.uk/about-us/work-with-us/",
+        "job_detail_extraction_sections": [
+          "body"
+        ],
+        "convert_job_page_to_json_status": "converted",
+        "converted_job_count": 1,
+        "converted_jobs_from_page_count": 1,
+        "job_detail_json_tokens": 9050,
+        "job_detail_ats_status": "completed"
+      }
+    }
+  },
+  "job_urls": [],
+  "processing_mode": "both",
+  "extracted_jobs": [],
+  "metadata": {
+    "allocation_status": "queued",
+    "allocated_url_count": 1,
+    "headless": false,
+    "processing_mode": "both",
+    "reused_existing_session": true,
+    "task_id": "677c54e939764cdfbd6830ccc02606ce",
+    "artifact_path": "/Users/great/workshop/Job_detail_extraction_llm/source/job_runs/job_test_3.json",
+    "bootstrap_attempt_count": 1,
+    "bootstrap_status": "connected"
+  }
+}

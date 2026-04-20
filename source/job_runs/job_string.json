@@ -1,0 +1,314 @@
+{
+  "artifact_name": "job_string.json",
+  "artifact_path": "/Users/great/workshop/Job_detail_extraction_llm/source/job_runs/job_string.json",
+  "debug_artifact_name": "job_debug_string.json",
+  "debug_artifact_path": "/Users/great/workshop/Job_detail_extraction_llm/source/job_runs/job_debug_string.json",
+  "created_at": "2026-04-20T13:17:50.435688+00:00",
+  "updated_at": "2026-04-20T13:23:19.521895+00:00",
+  "run_count": 1,
+  "runs": [
+    {
+      "run_id": "71d42024743a4592a84f4d4601d4d15f",
+      "created_at": "2026-04-20T13:17:50.435648+00:00",
+      "updated_at": "2026-04-20T13:23:19.520677+00:00",
+      "status": "completed",
+      "request": {
+        "urls": [
+          "toynbeehall.org.uk"
+        ],
+        "processing_mode": "ats_check",
+        "agent_count": 1,
+        "artifact_name": "string"
+      },
+      "progress": {
+        "total_urls": 1,
+        "completed_urls": 1,
+        "completed_job_urls": 0,
+        "domains_processed": 1,
+        "jobs_extracted": 0
+      },
+      "error": null,
+      "main_result": {
+        "domains": {
+          "toynbeehall.org.uk": {
+            "success": true,
+            "run_status": "Jobs Found",
+            "career_url": {
+              "url": "https://www.toynbeehall.org.uk/get-involved/work-for-us/",
+              "confidence": 1.0,
+              "reasoning": "Derived from discovered career page in scan."
+            },
+            "ats_detection": null,
+            "ats_check": null,
+            "errors": [],
+            "job_urls": [
+              "https://www.harrishill.co.uk/job/director-of-finance-and-operations-47209?source=google.com"
+            ],
+            "non_webpage_job_urls": [],
+            "visited_urls": [
+              "toynbeehall.org.uk",
+              "https://www.toynbeehall.org.uk/get-involved/work-for-us/"
+            ],
+            "jobs": [],
+            "manual_reviews": [],
+            "token_used": 41264,
+            "summary": {
+              "non_domain_careers_url": [],
+              "job_filtered": [
+                "https://www.toynbeehall.org.uk/about-us/our-team/",
+                "https://www.toynbeehall.org.uk/about-us/our-team/trustees/",
+                "https://www.toynbeehall.org.uk/about-us/how-we-work/",
+                "https://www.toynbeehall.org.uk/about-us/our-strategy/",
+                "https://www.toynbeehall.org.uk/11/03/2026/do-you-have-a-disability-or-health-condition-that-limits-or-prevents-your-capacity-to-work/",
+                "https://www.toynbeehall.org.uk/about-us/",
+                "https://www.toynbeehall.org.uk/get-involved/work-for-us/",
+                "https://www.toynbeehall.org.uk/about-us/our-history/",
+                "https://www.toynbeehall.org.uk/about-us",
+                "https://www.toynbeehall.org.uk/about-us/our-impact/",
+                "https://www.toynbeehall.org.uk/research/emotional-support-for-young-people/",
+                "https://www.toynbeehall.org.uk/about-us/senior-management-team/"
+              ],
+              "urls_checked": 4,
+              "jobs_found": 0,
+              "successful_scrapes": 4,
+              "failed_scrapes": 0,
+              "linkedin_indeed_redirects": 0,
+              "access_blocked_scrapes": 0,
+              "ats_jobs_found": 0,
+              "ats_breakdown": {
+                "ats_true_count": 0,
+                "ats_false_count": 0,
+                "ats_uncertain_count": 0,
+                "ats_unknown_count": 0,
+                "ats_true_jobs": [],
+                "ats_false_jobs": [],
+                "ats_uncertain_jobs": [],
+                "ats_unknown_jobs": []
+              }
+            },
+            "scrape_results": [
+              {
+                "url": "https://www.toynbeehall.org.uk/about-us/our-team/",
+                "status": "success",
+                "result_type": "no_jobs_found",
+                "page_access_status": "accessible",
+                "page_access_issue_detail": null,
+                "job_alert": null,
+                "manual_review": false,
+                "jobs": {
+                  "count": 0,
+                  "job_urls": []
+                },
+                "ats_check": null,
+                "scraping_details": {
+                  "visited_urls": [
+                    "https://www.toynbeehall.org.uk/get-involved/work-for-us/",
+                    "https://www.toynbeehall.org.uk/about-us/our-team/"
+                  ],
+                  "total_tokens": 3925,
+                  "llm_iterations": 4,
+                  "llm_reasoning": [
+                    {
+                      "url": "https://www.toynbeehall.org.uk/about-us/our-team/",
+                      "page_category": "not_job_related",
+                      "confidence": 0.82,
+                      "reasoning": "The page presents the Toynbee Hall team (Our People report and Senior Management Team) with no job postings, application links, or vacancy listings.",
+                      "token_usage": 3925
+                    },
+                    {
+                      "url": "https://www.toynbeehall.org.uk/about-us/our-team/trustees/",
+                      "page_category": "not_job_related",
+                      "confidence": 0.88,
+                      "reasoning": "Page provides information about Toynbee Hall trustees; no job listings or vacancies are present.",
+                      "token_usage": 4982
+                    },
+                    {
+                      "url": "https://www.toynbeehall.org.uk/about-us/how-we-work/",
+                      "page_category": "navigation_required",
+                      "confidence": 0.65,
+                      "reasoning": "No job listings are displayed on the page. It provides general information about how the organization works and a link to the job opportunities page (Join our team).",
+                      "token_usage": 4573
+                    },
+                    {
+                      "url": "https://www.toynbeehall.org.uk/get-involved/work-for-us/",
+                      "page_category": "job_listings_preview_page",
+                      "confidence": 0.75,
+                      "reasoning": "Page shows one job listing (Director of Finance & Operations) with a link to apply externally and includes a 'Careers Page' link to view all opportunities.",
+                      "token_usage": 4768
+                    }
+                  ],
+                  "message": "The page presents the Toynbee Hall team (Our People report and Senior Management Team) with no job postings, application links, or vacancy listings."
+                },
+                "error": null
+              },
+              {
+                "url": "https://www.toynbeehall.org.uk/about-us/our-team/trustees/",
+                "status": "success",
+                "result_type": "no_jobs_found",
+                "page_access_status": "accessible",
+                "page_access_issue_detail": null,
+                "job_alert": null,
+                "manual_review": false,
+                "jobs": {
+                  "count": 0,
+                  "job_urls": []
+                },
+                "ats_check": null,
+                "scraping_details": {
+                  "visited_urls": [
+                    "https://www.toynbeehall.org.uk/get-involved/work-for-us/",
+                    "https://www.toynbeehall.org.uk/about-us/our-team/trustees/"
+                  ],
+                  "total_tokens": 4982,
+                  "llm_iterations": 4,
+                  "llm_reasoning": [
+                    {
+                      "url": "https://www.toynbeehall.org.uk/about-us/our-team/",
+                      "page_category": "not_job_related",
+                      "confidence": 0.82,
+                      "reasoning": "The page presents the Toynbee Hall team (Our People report and Senior Management Team) with no job postings, application links, or vacancy listings.",
+                      "token_usage": 3925
+                    },
+                    {
+                      "url": "https://www.toynbeehall.org.uk/about-us/our-team/trustees/",
+                      "page_category": "not_job_related",
+                      "confidence": 0.88,
+                      "reasoning": "Page provides information about Toynbee Hall trustees; no job listings or vacancies are present.",
+                      "token_usage": 4982
+                    },
+                    {
+                      "url": "https://www.toynbeehall.org.uk/about-us/how-we-work/",
+                      "page_category": "navigation_required",
+                      "confidence": 0.65,
+                      "reasoning": "No job listings are displayed on the page. It provides general information about how the organization works and a link to the job opportunities page (Join our team).",
+                      "token_usage": 4573
+                    },
+                    {
+                      "url": "https://www.toynbeehall.org.uk/get-involved/work-for-us/",
+                      "page_category": "job_listings_preview_page",
+                      "confidence": 0.75,
+                      "reasoning": "Page shows one job listing (Director of Finance & Operations) with a link to apply externally and includes a 'Careers Page' link to view all opportunities.",
+                      "token_usage": 4768
+                    }
+                  ],
+                  "message": "Page provides information about Toynbee Hall trustees; no job listings or vacancies are present."
+                },
+                "error": null
+              },
+              {
+                "url": "https://www.toynbeehall.org.uk/about-us/how-we-work/",
+                "status": "success",
+                "result_type": "navigation_required",
+                "page_access_status": "accessible",
+                "page_access_issue_detail": null,
+                "job_alert": null,
+                "manual_review": false,
+                "jobs": {
+                  "count": 0,
+                  "job_urls": []
+                },
+                "ats_check": null,
+                "scraping_details": {
+                  "visited_urls": [
+                    "https://www.toynbeehall.org.uk/get-involved/work-for-us/",
+                    "https://www.toynbeehall.org.uk/about-us/how-we-work/"
+                  ],
+                  "total_tokens": 4573,
+                  "llm_iterations": 4,
+                  "llm_reasoning": [
+                    {
+                      "url": "https://www.toynbeehall.org.uk/about-us/our-team/",
+                      "page_category": "not_job_related",
+                      "confidence": 0.82,
+                      "reasoning": "The page presents the Toynbee Hall team (Our People report and Senior Management Team) with no job postings, application links, or vacancy listings.",
+                      "token_usage": 3925
+                    },
+                    {
+                      "url": "https://www.toynbeehall.org.uk/about-us/our-team/trustees/",
+                      "page_category": "not_job_related",
+                      "confidence": 0.88,
+                      "reasoning": "Page provides information about Toynbee Hall trustees; no job listings or vacancies are present.",
+                      "token_usage": 4982
+                    },
+                    {
+                      "url": "https://www.toynbeehall.org.uk/about-us/how-we-work/",
+                      "page_category": "navigation_required",
+                      "confidence": 0.65,
+                      "reasoning": "No job listings are displayed on the page. It provides general information about how the organization works and a link to the job opportunities page (Join our team).",
+                      "token_usage": 4573
+                    },
+                    {
+                      "url": "https://www.toynbeehall.org.uk/get-involved/work-for-us/",
+                      "page_category": "job_listings_preview_page",
+                      "confidence": 0.75,
+                      "reasoning": "Page shows one job listing (Director of Finance & Operations) with a link to apply externally and includes a 'Careers Page' link to view all opportunities.",
+                      "token_usage": 4768
+                    }
+                  ],
+                  "message": "No job listings are displayed on the page. It provides general information about how the organization works and a link to the job opportunities page (Join our team)."
+                },
+                "error": null
+              },
+              {
+                "url": "https://www.toynbeehall.org.uk/get-involved/work-for-us/",
+                "status": "success",
+                "result_type": "jobs_found",
+                "page_access_status": "accessible",
+                "page_access_issue_detail": null,
+                "job_alert": null,
+                "manual_review": false,
+                "jobs": {
+                  "count": 1,
+                  "job_urls": [
+                    "https://www.harrishill.co.uk/job/director-of-finance-and-operations-47209?source=google.com"
+                  ]
+                },
+                "ats_check": null,
+                "scraping_details": {
+                  "visited_urls": [
+                    "https://www.toynbeehall.org.uk/get-involved/work-for-us/"
+                  ],
+                  "total_tokens": 4768,
+                  "llm_iterations": 4,
+                  "llm_reasoning": [
+                    {
+                      "url": "https://www.toynbeehall.org.uk/about-us/our-team/",
+                      "page_category": "not_job_related",
+                      "confidence": 0.82,
+                      "reasoning": "The page presents the Toynbee Hall team (Our People report and Senior Management Team) with no job postings, application links, or vacancy listings.",
+                      "token_usage": 3925
+                    },
+                    {
+                      "url": "https://www.toynbeehall.org.uk/about-us/our-team/trustees/",
+                      "page_category": "not_job_related",
+                      "confidence": 0.88,
+                      "reasoning": "Page provides information about Toynbee Hall trustees; no job listings or vacancies are present.",
+                      "token_usage": 4982
+                    },
+                    {
+                      "url": "https://www.toynbeehall.org.uk/about-us/how-we-work/",
+                      "page_category": "navigation_required",
+                      "confidence": 0.65,
+                      "reasoning": "No job listings are displayed on the page. It provides general information about how the organization works and a link to the job opportunities page (Join our team).",
+                      "token_usage": 4573
+                    },
+                    {
+                      "url": "https://www.toynbeehall.org.uk/get-involved/work-for-us/",
+                      "page_category": "job_listings_preview_page",
+                      "confidence": 0.75,
+                      "reasoning": "Page shows one job listing (Director of Finance & Operations) with a link to apply externally and includes a 'Careers Page' link to view all opportunities.",
+                      "token_usage": 4768
+                    }
+                  ],
+                  "message": "Page shows one job listing (Director of Finance & Operations) with a link to apply externally and includes a 'Careers Page' link to view all opportunities."
+                },
+                "error": null
+              }
+            ]
+          }
+        },
+        "token_used": 41264
+      }
+    }
+  ]
+}

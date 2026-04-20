@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 from typing import Any
+from urllib.parse import urlparse
 
 try:
     from playwright.async_api import Page, TimeoutError as PlaywrightTimeoutError
@@ -9,11 +10,18 @@ except Exception:  # pragma: no cover - handled gracefully at runtime
     Page = None
     PlaywrightTimeoutError = TimeoutError
 
-from js_helper.job_detail_page_extraction import extract_page_markdown
-from services.pipeline_logging import get_logger
+from js_helper.page_extraction import page_extraction
+from utils.logging import get_logger, log_event
 from state import ExtractedPageContent
 
 logger = get_logger("content_extraction")
+
+
+def _page_domain(page: Page | None) -> str:
+    try:
+        return urlparse(page.url if page else "").netloc.lower() or "unknown"
+    except Exception:
+        return "unknown"
 
 
 COOKIE_SELECTORS = [
@@ -233,7 +241,14 @@ async def _handle_popups(page: Page) -> int:
                     continue
         except Exception:
             continue
-    logger.info("popups_handled closed_count=%s", closed_count)
+    log_event(
+        logger,
+        "info",
+        "popups_handled closed_count=%s",
+        closed_count,
+        domain=_page_domain(page),
+        closed_count=closed_count,
+    )
     return closed_count
 
 
@@ -362,11 +377,17 @@ async def _expand_accordions(page: Page) -> dict[str, int]:
             """
         )
 
-        logger.info(
+        log_event(
+            logger,
+            "info",
             "accordions_expanded dom_expanded=%s click_triggered=%s force_revealed=%s",
             dom_expanded,
             click_triggered,
             force_revealed,
+            domain=_page_domain(page),
+            dom_expanded=int(dom_expanded or 0),
+            click_triggered=int(click_triggered or 0),
+            force_revealed=int(force_revealed or 0),
         )
         return {
             "dom_expanded": int(dom_expanded or 0),
@@ -540,7 +561,9 @@ async def prepare_page_for_extraction(page: Page | None) -> dict[str, Any]:
 
     await asyncio.sleep(0.75)
 
-    logger.info(
+    log_event(
+        logger,
+        "info",
         "page_prepared cookie_handled=%s popups_closed=%s overlays_removed=%s "
         "accordions_dom=%s accordions_clicked=%s accordions_forced=%s "
         "scroll_count=%s follow_up_scroll_count=%s content_stable=%s stability_wait_seconds=%s",
@@ -554,6 +577,17 @@ async def prepare_page_for_extraction(page: Page | None) -> dict[str, Any]:
         follow_up_scroll_result["scroll_count"],
         stability_result["stable"],
         stability_result["elapsed_seconds"],
+        domain=_page_domain(page),
+        cookie_handled=cookie_handled,
+        popups_closed=popups_closed,
+        overlays_removed=overlays_removed,
+        accordions_dom=accordion_result["dom_expanded"],
+        accordions_clicked=accordion_result["click_triggered"],
+        accordions_forced=accordion_result["force_revealed"],
+        scroll_count=scroll_result["scroll_count"],
+        follow_up_scroll_count=follow_up_scroll_result["scroll_count"],
+        content_stable=stability_result["stable"],
+        stability_wait_seconds=stability_result["elapsed_seconds"],
     )
     return {
         "page_ready": True,
@@ -584,7 +618,7 @@ async def extract_page_content(
         return None
 
     preparation = await prepare_page_for_extraction(page)
-    script = custom_script or await extract_page_markdown()
+    script = custom_script or await page_extraction()
     extraction_sections = sections or ["body"]
     result: Any = await page.evaluate(script, {"sections": extraction_sections})
     
@@ -595,7 +629,16 @@ async def extract_page_content(
     page_url = str(result.get("page_url", "") or page.url or "")
     content = str(result.get("content", "") or "")
     selector_map = result.get("selector_map", {})
-    logger.info("content_extracted page_url=%s markdown_length=%s", page_url, len(content))
+    log_event(
+        logger,
+        "info",
+        "content_extracted page_url=%s markdown_length=%s",
+        page_url,
+        len(content),
+        domain=urlparse(page_url).netloc.lower() or _page_domain(page),
+        page_url=page_url,
+        markdown_length=len(content),
+    )
     return {
         "title": title or "",
         "url": page_url,

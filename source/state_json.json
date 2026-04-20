@@ -1,0 +1,856 @@
+{
+    "grid_url": null,
+    "agent_count": 1,
+    "urls": [
+        "https://acornvillages.com/jobs"
+    ],
+    "assignments": [
+        {
+            "agent_index": 0,
+            "status": "queued",
+            "urls": [
+                "https://acornvillages.com/jobs"
+            ],
+            "url_count": 1
+        }
+    ],
+    "worker_results": [
+        {
+            "grid_url": null,
+            "agent_count": 1,
+            "agent_index": 0,
+            "assigned_urls": [
+                "https://acornvillages.com/jobs"
+            ],
+            "current_domain_key": "acornvillages.com",
+            "navigate_to": null,
+            "completed_urls": [
+                "https://acornvillages.com/jobs"
+            ],
+            "completed_job_urls": [],
+            "session_id": "bafea48819eb0b3cbfff7cd633686eaf",
+            "cdp_url": "ws://127.0.0.1:4445/session/bafea48819eb0b3cbfff7cd633686eaf/se/cdp",
+            "session_established": true,
+            "agent_tab": {
+                "agent_index": 0,
+                "handle": "ws://127.0.0.1:4445/session/bafea48819eb0b3cbfff7cd633686eaf/se/cdp",
+                "status": "ready"
+            },
+            "domain_records": {
+                "acornvillages.com": {
+                    "domain": "acornvillages.com",
+                    "input_urls": [
+                        "https://acornvillages.com/jobs"
+                    ],
+                    "current_input_url": "https://acornvillages.com/jobs",
+                    "navigate_to": "https://acornvillages.com/jobs",
+                    "navigation_results": [
+                        {
+                            "agent_index": 0,
+                            "handle": "ws://127.0.0.1:4445/session/bafea48819eb0b3cbfff7cd633686eaf/se/cdp",
+                            "url": "https://acornvillages.com/jobs",
+                            "status": "navigated",
+                            "current_url": "https://acornvillages.com/jobs",
+                            "error": null
+                        }
+                    ],
+                    "discovered_job_urls": [
+                        "https://acornvillages.com/jobs",
+                        "https://acornvillages.com/about-us/meet-the-team",
+                        "https://acornvillages.com/about-us/our-philosophy-care",
+                        "https://acornvillages.com/about-us/our-history",
+                        "https://acornvillages.com/my-office-job/ml"
+                    ],
+                    "non_domain_career_urls": [],
+                    "career_page_analyses": {
+                        "https://acornvillages.com/jobs": {
+                            "page_category": "jobs_listed",
+                            "confidence": 0.72,
+                            "reasoning": "Page shows multiple job postings under Current Vacancies with expandable sections (DROPDOWN), no individual job detail pages or external links detected.",
+                            "job_alert": null,
+                            "page_access_status": "accessible",
+                            "page_access_issue_detail": null,
+                            "next_action_target": {
+                                "url": null,
+                                "button": null,
+                                "element_type": null
+                            },
+                            "jobs_listed_on_page": [
+                                {
+                                    "title": "Sleep in Care Support Worker",
+                                    "job_url": null
+                                },
+                                {
+                                    "title": "Female Care Support Workers",
+                                    "job_url": null
+                                }
+                            ],
+                            "listing_ui": {
+                                "ui_category": "expandable_accordion",
+                                "filter_present": false,
+                                "filter_types": [],
+                                "sort_present": false,
+                                "sort_types": [],
+                                "pagination_present": false,
+                                "pagination_type": null,
+                                "next_page_url": null
+                            },
+                            "analysis_tokens": 4371
+                        }
+                    },
+                    "ats_check_result": {
+                        "ats_detected": true,
+                        "provider": "Acorn Village",
+                        "application_style": "external_redirect",
+                        "apply_url": "https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx",
+                        "reason": "The page shows a 'How to Apply' section with downloadable application forms (staff application form and equal opportunities form) and an instruction to email completed forms, rather than an on-page embedded form. This indicates an ATS-style workflow with external document-based applications.",
+                        "page_url": "https://acornvillages.com/jobs",
+                        "analysis_tokens": 4499
+                    },
+                    "extracted_content": {
+                        "title": "Work with Us | Acorn",
+                        "url": "https://acornvillages.com/jobs",
+                        "markdown": "[BUTTON: Accessibility]\n[BUTTON: High Contrast]\n[BUTTON: Dark mode]\n[BUTTON: A+ Increase Text]\n[BUTTON: Aa Original Text]\n[BUTTON: A- Decrease Text]\n[BUTTON: Marker Line]\n[BUTTON: Reading Line]\n[BUTTON: Reset]\n[IMAGE: 101Smart Ltd.]\nHome \u2192 https://acornvillages.com/\nJobs\n\nH1: Work with Us\n\nMake a Real Difference \u2014 Every Single Day\nAt Acorn Village, we believe life is for living - for the incredible people we support, and for the dedicated team who make it all possible.\nWhen you join us, you become part of a warm, inclusive community where your compassion, creativity, and care truly matter. Every day brings opportunities to make a real difference - helping someone build confidence, learn a new skill, or simply share a smile. In doing so, you\u2019ll discover that the lives you change include your own.\nJoin us \u2014 and be proud of the difference you make.\n\nH4: Training and Development\n\nWe\u2019re passionate about helping our team grow. Every new member of staff receives a thorough induction programme, followed by regular ongoing training designed to build confidence, knowledge, and professional skills.\nOur training includes:\nMandatory care training (e.g. safeguarding, first aid, manual handling)\nSpecialist learning disability support\nPerson-centred care approaches\nHealth & safety and compliance updates\nOpportunities for professional development and recognised qualifications\nAt Acorn Village, we believe learning never stops. We\u2019ll support you every step of the way \u2014 so you can deliver the best care, and be the very best version of yourself.\n\nH2: Benefits of Working at Acorn\n\n[DROPDOWN: Working Well]\n  We strive to embed a workplace culture of understanding, awareness, support and kindness .\n  With a strategy dedicated to \u2018Staff & Volunteer Wellbeing\u2019, we pride ourselves on our tailored supportive structures and variety of available provisions designed to meet the wellbeing support needs of everyone within the Acorn team.\n  This commitment has been formally recognised through our achievement of Level 3 Working Well Accreditation. We work hard to maintain this standard.\n  The team have access to our Wellbeing Pod, a growing number of Mental Health First Aiders, spiritual support, a wide-ranging information resource, Mental Health training and a variety of holistic therapies including; free Counselling, Pilates, Reiki, Meditation, Reflexology, Massage and injury support.\n  We regularly raise awareness of wellbeing themed nation-wide events to offer opportunities for; education, self-awareness, reflective practice, an opening of minds, a starting of conversations, promoting inclusion and enhancing employee psychological safety.\n[DROPDOWN: What We Offer]\n  As an employee at Acorn Village, you\u2019ll be part of a supportive, friendly team that truly makes a difference every day. We value our staff and are committed to helping everyone feel confident, appreciated, and supported in their role.\n  We offer:\n  An induction and ongoing training programme to help you succeed and grow in your role\n  Long Service Awards to recognise your dedication and commitment\n  Staff discounts in our on-site Walled Garden Caf\u00e9 and charity shops\n  Access to health and wellbeing support to promote a positive work-life balance\n  A Refer a Friend Scheme with rewards for successful introductions\n  Opportunities for career development and further qualifications\n  A caring, inclusive environment where everyone\u2019s contribution is valued\n\nH2: Current Vacancies\n\n[DROPDOWN: How to Apply]\n  Staff Application Form 2025 \u2192 https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx\n  Equal Opportunities Form \u2192 https://acornvillages.com/media/houpdgee/equal-opps-2025.docx\n  To apply for a vacancy listed please read the role's Job Description and then download and complete the Application Form and Equal Opportunities Form here. Please then return both via email to recruitment@acornvillages.com \u2192 mailto:recruitment@acornvillages.com\n  If you have any questions please contact the Recruitment Team on 01206 394124.\n  We look forward to hearing from you!\n[DROPDOWN: Sleep in Care Support Worker]\n  [IMAGE: \ud83d\udea8]\n  We\u2019re Hiring \u2013 Sleep in Care Support Worker!\n  [IMAGE: \ud83d\udea8]\n  Do\n  you have a passion for helping adults with learning disabilities?\n  [IMAGE: \ud83d\udc9c]\n  We\u2019re looking for a Sleep in Care Support Worker to join our team\n  [IMAGE: \u2728]\n  Minimum of 24 hours\n  [IMAGE: \u2728]\n  Provide person-centred care in a safe, empowering environment at our 14-acre site in Mistley\n  If you\u2019re caring, compassionate, and ready to make a real difference, we\u2019d love to hear from you! Email recruitment@acornvillages.com and complete our application form.\n[DROPDOWN: Female Care Support Workers]\n  [IMAGE: \ud83d\udea8]\n  We\u2019re Hiring \u2013 Female Care Support Workers!\n  [IMAGE: \ud83d\udea8]\n  Do\n  you have a passion for helping adults with learning disabilities?\n  [IMAGE: \ud83d\udc9c]\n  We\u2019re looking for Female Care Support Workers to join our dedicated team.\n  [IMAGE: \u2728]\n  Full-time & part-time roles available\n  [IMAGE: \u2728]\n  Full flexibility required\n  [IMAGE: \u2728]\n  Provide person-centred care in a safe, empowering environment at our 14-acre site in Mistley\n  *Advertising for females only as this role involves close personal care, and due to the nature of the support required, there is a genuine occupational requirement for female staff under Schedule 9, Part 1 of the Equality Act 2010.*\n  If you\u2019re caring, compassionate, and ready to make a real difference, we\u2019d love to hear from you! Email recruitment@acornvillages.com and complete our application form.\n\nH2: Important Information\n\n[DROPDOWN: Equality and Diversity]\n  Acorn Village values diversity and is committed to promoting equal opportunities in the workplace. We are committed to ensuring that every job applicant, employee or worker will be treated fairly and equally with dignity and respect regardless of age, disability, gender reassignment, marital or civil partner status, pregnancy or maternity, race, colour, social class, nationality, ethnic or national origin, religious belief, union membership, political opinion, sex, sexual orientation or any other protected characteristics.\n[DROPDOWN: Safeguarding]\n  It is a criminal offence for people who are barred from working in Regulated Activity (under the Safeguarding and Vulnerable Groups Act 2006) to apply for roles that require them to work unsupervised with vulnerable adults.\n[DROPDOWN: Modern Slavery Statement]\n  Modern Slavery Statement \u2192 https://acornvillages.com/media/kwflcmrw/acorn-villages-modern-slavery-statement.docx\n  Learn more here.\n\nH2: Phil's Training and Career Development\n\n\"I joined Acorn in 2012 as a Support Worker and have been supported every step of the way to learn, develop and progress. Acorn has given me access to fantastic training \u2014 from regular mandatory refreshers to specialist courses like Health & Social Care, Team Leading, and the Senior Staff Development Programme.\nThanks to this ongoing support, I\u2019ve grown from Support Worker to Head of Day Services. Acorn really invests in its people \u2014 if you\u2019re passionate about making a difference and want a place that helps you build a career, not just a job, this is the place to be.\"",
+                        "metadata": {
+                            "sections": [
+                                "body"
+                            ],
+                            "selector_map": {
+                                "1122": {
+                                    "node_id": 1122,
+                                    "tag": "button",
+                                    "kind": "dropdown",
+                                    "label": "Female Care Support Workers",
+                                    "attributes": {
+                                        "type": "button",
+                                        "aria-expanded": "true"
+                                    },
+                                    "dom_path": "html[0]/body[0]/main[0]/article[0]/div[2]/div[0]/div[3]/div[0]/div[2]/h2[0]/button[0]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": true,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "1610": {
+                                    "node_id": 1610,
+                                    "tag": "button",
+                                    "kind": "dropdown",
+                                    "label": "Safeguarding",
+                                    "attributes": {
+                                        "type": "button",
+                                        "aria-expanded": "true"
+                                    },
+                                    "dom_path": "html[0]/body[0]/main[0]/article[0]/div[2]/div[0]/div[4]/div[0]/div[1]/h2[0]/button[0]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": true,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "1871": {
+                                    "node_id": 1871,
+                                    "tag": "button",
+                                    "kind": "dropdown",
+                                    "label": "Working Well",
+                                    "attributes": {
+                                        "type": "button",
+                                        "aria-expanded": "true"
+                                    },
+                                    "dom_path": "html[0]/body[0]/main[0]/article[0]/div[2]/div[0]/div[2]/div[0]/div[0]/h2[0]/button[0]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": true,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "2183": {
+                                    "node_id": 2183,
+                                    "tag": "a",
+                                    "kind": "link",
+                                    "label": "Staff Application Form 2025",
+                                    "attributes": {
+                                        "href": "/media/5vkjsac4/staff-application-form-2025.docx",
+                                        "title": "Staff Application Form 2025"
+                                    },
+                                    "dom_path": "html[0]/body[0]/main[0]/article[0]/div[2]/div[0]/div[3]/div[0]/div[0]/div[0]/div[0]/p[0]/a[0]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": null,
+                                    "has_popup": null,
+                                    "action_url": "https://acornvillages.com/media/5vkjsac4/staff-application-form-2025.docx",
+                                    "is_link": true,
+                                    "is_button": false
+                                },
+                                "3257": {
+                                    "node_id": 3257,
+                                    "tag": "button",
+                                    "kind": "dropdown",
+                                    "label": "Equality and Diversity",
+                                    "attributes": {
+                                        "type": "button",
+                                        "aria-expanded": "true"
+                                    },
+                                    "dom_path": "html[0]/body[0]/main[0]/article[0]/div[2]/div[0]/div[4]/div[0]/div[0]/h2[0]/button[0]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": true,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "4498": {
+                                    "node_id": 4498,
+                                    "tag": "a",
+                                    "kind": "link",
+                                    "label": "Equal Opportunities Form",
+                                    "attributes": {
+                                        "href": "/media/houpdgee/equal-opps-2025.docx",
+                                        "title": "Equal Opportunities Form"
+                                    },
+                                    "dom_path": "html[0]/body[0]/main[0]/article[0]/div[2]/div[0]/div[3]/div[0]/div[0]/div[0]/div[0]/p[1]/a[0]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": null,
+                                    "has_popup": null,
+                                    "action_url": "https://acornvillages.com/media/houpdgee/equal-opps-2025.docx",
+                                    "is_link": true,
+                                    "is_button": false
+                                },
+                                "5025": {
+                                    "node_id": 5025,
+                                    "tag": "a",
+                                    "kind": "link",
+                                    "label": "Home",
+                                    "attributes": {
+                                        "href": "/",
+                                        "title": "Home"
+                                    },
+                                    "dom_path": "html[0]/body[0]/main[0]/article[0]/div[2]/div[0]/div[0]/nav[0]/ol[0]/li[0]/a[0]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": null,
+                                    "has_popup": null,
+                                    "action_url": "https://acornvillages.com/",
+                                    "is_link": true,
+                                    "is_button": false
+                                },
+                                "5055": {
+                                    "node_id": 5055,
+                                    "tag": "button",
+                                    "kind": "button",
+                                    "label": "Reset",
+                                    "attributes": {
+                                        "type": "button"
+                                    },
+                                    "dom_path": "html[0]/body[0]/div[2]/button[8]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": null,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "5086": {
+                                    "node_id": 5086,
+                                    "tag": "button",
+                                    "kind": "button",
+                                    "label": "Reading Line",
+                                    "attributes": {
+                                        "type": "button"
+                                    },
+                                    "dom_path": "html[0]/body[0]/div[2]/button[7]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": null,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "5117": {
+                                    "node_id": 5117,
+                                    "tag": "button",
+                                    "kind": "button",
+                                    "label": "Marker Line",
+                                    "attributes": {
+                                        "type": "button"
+                                    },
+                                    "dom_path": "html[0]/body[0]/div[2]/button[6]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": null,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "5148": {
+                                    "node_id": 5148,
+                                    "tag": "button",
+                                    "kind": "button",
+                                    "label": "A- Decrease Text",
+                                    "attributes": {
+                                        "type": "button"
+                                    },
+                                    "dom_path": "html[0]/body[0]/div[2]/button[5]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": null,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "5179": {
+                                    "node_id": 5179,
+                                    "tag": "button",
+                                    "kind": "button",
+                                    "label": "Aa Original Text",
+                                    "attributes": {
+                                        "type": "button"
+                                    },
+                                    "dom_path": "html[0]/body[0]/div[2]/button[4]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": null,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "5210": {
+                                    "node_id": 5210,
+                                    "tag": "button",
+                                    "kind": "button",
+                                    "label": "A+ Increase Text",
+                                    "attributes": {
+                                        "type": "button"
+                                    },
+                                    "dom_path": "html[0]/body[0]/div[2]/button[3]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": null,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "5241": {
+                                    "node_id": 5241,
+                                    "tag": "button",
+                                    "kind": "button",
+                                    "label": "Dark mode",
+                                    "attributes": {
+                                        "type": "button"
+                                    },
+                                    "dom_path": "html[0]/body[0]/div[2]/button[2]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": null,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "5272": {
+                                    "node_id": 5272,
+                                    "tag": "button",
+                                    "kind": "button",
+                                    "label": "High Contrast",
+                                    "attributes": {
+                                        "type": "button"
+                                    },
+                                    "dom_path": "html[0]/body[0]/div[2]/button[1]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": null,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "5303": {
+                                    "node_id": 5303,
+                                    "tag": "button",
+                                    "kind": "button",
+                                    "label": "Accessibility",
+                                    "attributes": {
+                                        "id": "universalAccessBtn",
+                                        "type": "button"
+                                    },
+                                    "dom_path": "html[0]/body[0]/div[2]/button[0]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": null,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "6584": {
+                                    "node_id": 6584,
+                                    "tag": "button",
+                                    "kind": "dropdown",
+                                    "label": "How to Apply",
+                                    "attributes": {
+                                        "type": "button",
+                                        "aria-expanded": "true"
+                                    },
+                                    "dom_path": "html[0]/body[0]/main[0]/article[0]/div[2]/div[0]/div[3]/div[0]/div[0]/h2[0]/button[0]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": true,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "7072": {
+                                    "node_id": 7072,
+                                    "tag": "button",
+                                    "kind": "dropdown",
+                                    "label": "What We Offer",
+                                    "attributes": {
+                                        "type": "button",
+                                        "aria-expanded": "true"
+                                    },
+                                    "dom_path": "html[0]/body[0]/main[0]/article[0]/div[2]/div[0]/div[2]/div[0]/div[1]/h2[0]/button[0]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": true,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "7333": {
+                                    "node_id": 7333,
+                                    "tag": "button",
+                                    "kind": "dropdown",
+                                    "label": "Modern Slavery Statement",
+                                    "attributes": {
+                                        "type": "button",
+                                        "aria-expanded": "true"
+                                    },
+                                    "dom_path": "html[0]/body[0]/main[0]/article[0]/div[2]/div[0]/div[4]/div[0]/div[2]/h2[0]/button[0]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": true,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "8231": {
+                                    "node_id": 8231,
+                                    "tag": "button",
+                                    "kind": "dropdown",
+                                    "label": "Sleep in Care Support Worker",
+                                    "attributes": {
+                                        "type": "button",
+                                        "aria-expanded": "true"
+                                    },
+                                    "dom_path": "html[0]/body[0]/main[0]/article[0]/div[2]/div[0]/div[3]/div[0]/div[1]/h2[0]/button[0]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": true,
+                                    "has_popup": null,
+                                    "action_url": null,
+                                    "is_link": false,
+                                    "is_button": true
+                                },
+                                "9179": {
+                                    "node_id": 9179,
+                                    "tag": "a",
+                                    "kind": "link",
+                                    "label": "recruitment@acornvillages.com",
+                                    "attributes": {
+                                        "href": "mailto:recruitment@acornvillages.com"
+                                    },
+                                    "dom_path": "html[0]/body[0]/main[0]/article[0]/div[2]/div[0]/div[3]/div[0]/div[0]/div[0]/div[0]/p[2]/a[0]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": null,
+                                    "has_popup": null,
+                                    "action_url": "mailto:recruitment@acornvillages.com",
+                                    "is_link": true,
+                                    "is_button": false
+                                },
+                                "9430": {
+                                    "node_id": 9430,
+                                    "tag": "a",
+                                    "kind": "link",
+                                    "label": "Modern Slavery Statement",
+                                    "attributes": {
+                                        "href": "/media/kwflcmrw/acorn-villages-modern-slavery-statement.docx",
+                                        "title": "Modern Statement Statement"
+                                    },
+                                    "dom_path": "html[0]/body[0]/main[0]/article[0]/div[2]/div[0]/div[4]/div[0]/div[2]/div[0]/div[0]/p[0]/a[0]",
+                                    "frame_index": 0,
+                                    "frame_url": "https://acornvillages.com/jobs",
+                                    "parent_id": null,
+                                    "interactive": true,
+                                    "expanded": null,
+                                    "has_popup": null,
+                                    "action_url": "https://acornvillages.com/media/kwflcmrw/acorn-villages-modern-slavery-statement.docx",
+                                    "is_link": true,
+                                    "is_button": false
+                                }
+                            },
+                            "preparation": {
+                                "page_ready": true,
+                                "cookie_handled": false,
+                                "popups_closed": 0,
+                                "overlays_removed": 0,
+                                "accordions_expanded": {
+                                    "dom_expanded": 1,
+                                    "click_triggered": 0,
+                                    "force_revealed": 8
+                                },
+                                "scroll_count": 14,
+                                "initial_scroll_count": 7,
+                                "follow_up_scroll_count": 7,
+                                "final_scroll_height": 6236,
+                                "content_stable": true,
+                                "stability_wait_seconds": 1.5,
+                                "stability_samples": 4,
+                                "stable_interactive_count": 72,
+                                "stable_text_length": 7051,
+                                "stable_scroll_height": 6209,
+                                "final_wait_seconds": 0.75
+                            }
+                        }
+                    },
+                    "page_category": {
+                        "category": "jobs_listed",
+                        "confidence": 0.72,
+                        "reason": "Page shows multiple job postings under Current Vacancies with expandable sections (DROPDOWN), no individual job detail pages or external links detected.",
+                        "navigation_target": {
+                            "url": null,
+                            "button": null
+                        }
+                    },
+                    "button_click_result": null,
+                    "job_page_features": null,
+                    "job_listing_page_analysis": null,
+                    "job_urls": [],
+                    "selected_job_url": null,
+                    "completed_job_urls": [],
+                    "job_detail_extracted_content": null,
+                    "structured_job_detail": null,
+                    "extracted_jobs": [],
+                    "errors": [],
+                    "metadata": {
+                        "select_next_url_status": "ready",
+                        "url_extraction_status": "ready_for_navigation",
+                        "job_filtered": [
+                            "https://acornvillages.com/jobs",
+                            "https://acornvillages.com/about-us/meet-the-team",
+                            "https://acornvillages.com/about-us/our-philosophy-care",
+                            "https://acornvillages.com/about-us/our-history",
+                            "https://acornvillages.com/my-office-job/ml"
+                        ],
+                        "non_domain_careers_url": [],
+                        "redirected_url": "https://acornvillages.com/",
+                        "redirected_domain": "acornvillages.com",
+                        "url_extraction_result": {
+                            "input_url": "https://acornvillages.com/jobs",
+                            "normalized_url": "https://acornvillages.com/jobs",
+                            "registered_domain": "acornvillages.com",
+                            "discovery_domain": "acornvillages.com",
+                            "is_main_domain_input": false,
+                            "has_subdomain": false,
+                            "has_path_or_query": true,
+                            "status": "ready_for_navigation",
+                            "skip_current_url": false,
+                            "skip_reason": null,
+                            "job_filtered": [
+                                "https://acornvillages.com/jobs",
+                                "https://acornvillages.com/about-us/meet-the-team",
+                                "https://acornvillages.com/about-us/our-philosophy-care",
+                                "https://acornvillages.com/about-us/our-history",
+                                "https://acornvillages.com/my-office-job/ml"
+                            ],
+                            "non_domain_careers_url": [],
+                            "fallback_success": true,
+                            "fallback_error": "",
+                            "fallback_status": "",
+                            "search_success": true,
+                            "search_error": "",
+                            "redirect_detected": false,
+                            "redirected_url": "https://acornvillages.com/",
+                            "redirected_domain": "acornvillages.com",
+                            "fallback_meta_data": {
+                                "redirected": false,
+                                "original_url": "https://acornvillages.com",
+                                "final_url": "https://acornvillages.com/",
+                                "original_domain": "acornvillages.com",
+                                "final_domain": "acornvillages.com",
+                                "job_urls": 4,
+                                "all_urls": [
+                                    "https://acornvillages.com/terms-conditions",
+                                    "https://acornvillages.com/about-us/our-philosophy-care",
+                                    "https://acornvillages.com/get-involved/the-sale-of-donated-goods",
+                                    "https://acornvillages.com/cafe",
+                                    "https://acornvillages.com/training-and-the-oakroom",
+                                    "https://www.itgovernance.co.uk/cyber-essentials-infographic",
+                                    "https://www.justgiving.com/acornvillagesltd",
+                                    "https://acornvillages.com/get-involved/corporate-support",
+                                    "https://acornvillages.com/",
+                                    "https://acornvillages.com/events",
+                                    "https://acornvillages.com/our-services/day-services",
+                                    "https://acornvillages.com/get-involved/why-support-acorn-village",
+                                    "https://acornvillages.com/jobs",
+                                    "https://www.google.com/maps/place/Acorn+Villages+Ltd/@51.9376332,1.062539,17z/data=!3m1!4b1!4m6!3m5!1s0x47d90bfc01361269:0xe1d7936dd9387f4e!8m2!3d51.9376332!4d1.0651139!16s%2Fg%2F1tj49r9z?entry=ttu&g_ep=EgoyMDI1MDcyOC4wIKXMDSoASAFQAw%3D%3D",
+                                    "https://acornvillages.com/news",
+                                    "https://acornvillages.com/our-services/wellbeing",
+                                    "https://www.facebook.com/AcornVillageCharity",
+                                    "https://acornvillages.com/our-services/supported-living",
+                                    "https://acornvillages.com/about-us/our-history",
+                                    "https://what3words.com/lately.random.twee",
+                                    "https://acornvillages.com/privacy-statement",
+                                    "https://acornvillages.com/get-involved/fundraising-stories",
+                                    "https://acornvillages.com/news/the-manningtree-library",
+                                    "https://acornvillages.com/about-us/meet-the-team",
+                                    "https://101ltd.com/",
+                                    "https://acornvillages.com/our-services/residential-care",
+                                    "https://acornvillages.com/get-involved/volunteering",
+                                    "https://www.instagram.com/acornvillagecharity/",
+                                    "https://acornvillages.com/get-involved/fundraise-in-memory-and-legacies",
+                                    "https://acornvillages.com/#",
+                                    "https://acornvillages.com/get-involved/fundraise-your-way"
+                                ]
+                            },
+                            "search_meta_data": {
+                                "original_domain": "acornvillages.com",
+                                "job_urls": 4,
+                                "engine_used": "unknown",
+                                "total_raw_results": 10,
+                                "all_urls": [
+                                    "https://acornvillages.com/jobs",
+                                    "https://acornvillages.com/?trk=public_post-text",
+                                    "https://acornvillages.com/my-office-job/ml",
+                                    "https://www.acornvillages.com/?apbct__email_id__search_form_64926=64926&apbct_submit_id__search_form_64926=64926",
+                                    "https://acornvillages.com/not-long-to-go/website/",
+                                    "https://acornvillages.com/providing-care/residential-care/residential-house",
+                                    "https://acornvillages.com/providing-care/butterfly-bg",
+                                    "https://acornvillages.com/about-us/our-philosophy-care",
+                                    "https://acornvillages.com/about-us/meet-the-team",
+                                    "http://acornvillages.com/get-involved/corporate-support"
+                                ]
+                            },
+                            "career_meta_data": {
+                                "base_domain": "acornvillages.com",
+                                "total_matched": 1,
+                                "external_career_urls": 0
+                            }
+                        },
+                        "url_extraction_history": [
+                            {
+                                "input_url": "https://acornvillages.com/jobs",
+                                "normalized_url": "https://acornvillages.com/jobs",
+                                "registered_domain": "acornvillages.com",
+                                "discovery_domain": "acornvillages.com",
+                                "is_main_domain_input": false,
+                                "has_subdomain": false,
+                                "has_path_or_query": true,
+                                "status": "ready_for_navigation",
+                                "skip_current_url": false,
+                                "skip_reason": null,
+                                "job_filtered": [
+                                    "https://acornvillages.com/jobs",
+                                    "https://acornvillages.com/about-us/meet-the-team",
+                                    "https://acornvillages.com/about-us/our-philosophy-care",
+                                    "https://acornvillages.com/about-us/our-history",
+                                    "https://acornvillages.com/my-office-job/ml"
+                                ],
+                                "non_domain_careers_url": [],
+                                "fallback_success": true,
+                                "fallback_error": "",
+                                "fallback_status": "",
+                                "search_success": true,
+                                "search_error": "",
+                                "redirect_detected": false,
+                                "redirected_url": "https://acornvillages.com/",
+                                "redirected_domain": "acornvillages.com",
+                                "fallback_meta_data": {
+                                    "redirected": false,
+                                    "original_url": "https://acornvillages.com",
+                                    "final_url": "https://acornvillages.com/",
+                                    "original_domain": "acornvillages.com",
+                                    "final_domain": "acornvillages.com",
+                                    "job_urls": 4,
+                                    "all_urls": [
+                                        "https://acornvillages.com/terms-conditions",
+                                        "https://acornvillages.com/about-us/our-philosophy-care",
+                                        "https://acornvillages.com/get-involved/the-sale-of-donated-goods",
+                                        "https://acornvillages.com/cafe",
+                                        "https://acornvillages.com/training-and-the-oakroom",
+                                        "https://www.itgovernance.co.uk/cyber-essentials-infographic",
+                                        "https://www.justgiving.com/acornvillagesltd",
+                                        "https://acornvillages.com/get-involved/corporate-support",
+                                        "https://acornvillages.com/",
+                                        "https://acornvillages.com/events",
+                                        "https://acornvillages.com/our-services/day-services",
+                                        "https://acornvillages.com/get-involved/why-support-acorn-village",
+                                        "https://acornvillages.com/jobs",
+                                        "https://www.google.com/maps/place/Acorn+Villages+Ltd/@51.9376332,1.062539,17z/data=!3m1!4b1!4m6!3m5!1s0x47d90bfc01361269:0xe1d7936dd9387f4e!8m2!3d51.9376332!4d1.0651139!16s%2Fg%2F1tj49r9z?entry=ttu&g_ep=EgoyMDI1MDcyOC4wIKXMDSoASAFQAw%3D%3D",
+                                        "https://acornvillages.com/news",
+                                        "https://acornvillages.com/our-services/wellbeing",
+                                        "https://www.facebook.com/AcornVillageCharity",
+                                        "https://acornvillages.com/our-services/supported-living",
+                                        "https://acornvillages.com/about-us/our-history",
+                                        "https://what3words.com/lately.random.twee",
+                                        "https://acornvillages.com/privacy-statement",
+                                        "https://acornvillages.com/get-involved/fundraising-stories",
+                                        "https://acornvillages.com/news/the-manningtree-library",
+                                        "https://acornvillages.com/about-us/meet-the-team",
+                                        "https://101ltd.com/",
+                                        "https://acornvillages.com/our-services/residential-care",
+                                        "https://acornvillages.com/get-involved/volunteering",
+                                        "https://www.instagram.com/acornvillagecharity/",
+                                        "https://acornvillages.com/get-involved/fundraise-in-memory-and-legacies",
+                                        "https://acornvillages.com/#",
+                                        "https://acornvillages.com/get-involved/fundraise-your-way"
+                                    ]
+                                },
+                                "search_meta_data": {
+                                    "original_domain": "acornvillages.com",
+                                    "job_urls": 4,
+                                    "engine_used": "unknown",
+                                    "total_raw_results": 10,
+                                    "all_urls": [
+                                        "https://acornvillages.com/jobs",
+                                        "https://acornvillages.com/?trk=public_post-text",
+                                        "https://acornvillages.com/my-office-job/ml",
+                                        "https://www.acornvillages.com/?apbct__email_id__search_form_64926=64926&apbct_submit_id__search_form_64926=64926",
+                                        "https://acornvillages.com/not-long-to-go/website/",
+                                        "https://acornvillages.com/providing-care/residential-care/residential-house",
+                                        "https://acornvillages.com/providing-care/butterfly-bg",
+                                        "https://acornvillages.com/about-us/our-philosophy-care",
+                                        "https://acornvillages.com/about-us/meet-the-team",
+                                        "http://acornvillages.com/get-involved/corporate-support"
+                                    ]
+                                },
+                                "career_meta_data": {
+                                    "base_domain": "acornvillages.com",
+                                    "total_matched": 1,
+                                    "external_career_urls": 0
+                                }
+                            }
+                        ],
+                        "current_candidate_url": null,
+                        "checked_candidate_urls": [
+                            "https://acornvillages.com/jobs"
+                        ],
+                        "career_page_scan_status": "ats_check_required",
+                        "career_page_found_url": "https://acornvillages.com/jobs",
+                        "career_navigation_steps": 0,
+                        "career_navigation_target_url": null,
+                        "career_navigation_target_button": null,
+                        "processing_mode": "both",
+                        "last_navigate_to": "https://acornvillages.com/jobs",
+                        "navigated_url_count": 1,
+                        "navigation_status": "navigated",
+                        "navigation_attempt_count": 0,
+                        "post_navigation_delay_ms": 5000,
+                        "extract_status": "extracted",
+                        "extract_attempt_count": 0,
+                        "extracted_markdown_length": 7173,
+                        "extraction_preparation": {
+                            "page_ready": true,
+                            "cookie_handled": false,
+                            "popups_closed": 0,
+                            "overlays_removed": 0,
+                            "accordions_expanded": {
+                                "dom_expanded": 1,
+                                "click_triggered": 0,
+                                "force_revealed": 8
+                            },
+                            "scroll_count": 14,
+                            "initial_scroll_count": 7,
+                            "follow_up_scroll_count": 7,
+                            "final_scroll_height": 6236,
+                            "content_stable": true,
+                            "stability_wait_seconds": 1.5,
+                            "stability_samples": 4,
+                            "stable_interactive_count": 72,
+                            "stable_text_length": 7051,
+                            "stable_scroll_height": 6209,
+                            "final_wait_seconds": 0.75
+                        },
+                        "career_page_category_tokens": 4371,
+                        "last_career_category": "jobs_listed",
+                        "ats_check_required": true,
+                        "should_convert_jobs": true,
+                        "ats_check_status": "completed",
+                        "ats_check_tokens": 4499
+                    }
+                }
+            },
+            "job_urls": [],
+            "processing_mode": "both",
+            "extracted_jobs": [],
+            "metadata": {
+                "allocation_status": "queued",
+                "allocated_url_count": 1,
+                "headless": false,
+                "processing_mode": "both",
+                "reused_existing_session": true,
+                "bootstrap_attempt_count": 1,
+                "bootstrap_status": "connected"
+            }
+        }
+    ]
+}

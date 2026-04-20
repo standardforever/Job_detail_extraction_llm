@@ -83,6 +83,7 @@ class JobScraperState(TypedDict, total=False):
     agent_index: int
     urls: list[str]
     assigned_urls: list[str]
+    current_domain_key: str | None
     navigate_to: str | None
     completed_urls: list[str]
     completed_job_urls: list[str]
@@ -91,6 +92,7 @@ class JobScraperState(TypedDict, total=False):
     cdp_url: str | None
     session_established: bool
     agent_tab: AgentTab
+    domain_records: dict[str, dict[str, Any]]
     navigation_results: list[NavigationResult]
     extracted_content: ExtractedPageContent | None
     page_category: PageCategoryResult | None
@@ -98,9 +100,14 @@ class JobScraperState(TypedDict, total=False):
     job_page_features: JobPageFeatures | None
     job_listing_page_analysis: JobListingPageAnalysis | None
     job_urls: list[str]
+    discovered_job_urls: list[str]
+    non_domain_career_urls: list[dict[str, Any]]
+    career_page_analyses: dict[str, dict[str, Any]]
+    processing_mode: str
+    ats_check_result: dict[str, Any] | None
     selected_job_url: str | None
     job_detail_extracted_content: ExtractedPageContent | None
-    structured_job_detail: dict[str, Any] | None
+    structured_job_detail: dict[str, Any] | list[dict[str, Any]] | None
     extracted_jobs: list[dict[str, Any]]
     errors: list[str]
     metadata: dict[str, Any]
