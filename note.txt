@@ -1,0 +1,197 @@
+Job scrapping notes
+
+Notes for scrapping:
+
+Uk jobs - we only want uk jobs scrapped.
+
+If in doubt extract the role and assume it is a uk role.
+
+pagination: do not attempt to move to new pages. If possible Try and filter to just show UK roles and sort roles by date so you capture the most recent jobs. 
+
+do highlight in your report that this data was captured from a paginated page.
+
+Also separately highlight if the job filter and sort was able to be achieved.
+
+Data we need to extract:
+
+ALL THE BELOW AHOULD IDEALLY BE EXTRACTED FROM SET FIELDS RATHER THAN HAVING TO EXTRACT FROM THE MAIN DESCRIPTION AREA OF THE ADVERT
+
+Job title
+
+Date posted (this is not the date we scrapped the job sometimes the job will state the date it was first published)
+
+Location
+
+Location postcode (if this can be extracted it’s not always listed)
+
+Salary description (this is the text on how they list the salary)
+
+Salary min
+
+Salary max
+
+Benefits description
+
+Job ref (this is the employers reference)
+
+Employer name
+
+Remote status (if known) - for example remote, hybrid, onsite
+
+Employment type: for example full time, part time
+
+Contract type: for example permanent, fixed term contract etc
+
+Closing date:
+
+Main job description
+
+It is really important to try and capture (when it exists in an advert):
+
+ - name of the person looking after the advert
+ - their email address
+ - their job title
+
+ADDITIONAL INFO 
+
+This is stuff we know but should be added to the job record for each job scrapped.
+
+Careers page url (this is the origin domain that we gave to the agent where it started its search for jobs)
+
+Our job id: this is our sequential number that counts up from 1 and is always unique even when we move from the first scrap project to the second.
+
+Date scrapped
+
+SCRAPPING PROJECT NOTES
+
+I will group job pages into separate groups based on how the job data is displayed. 
+
+For example:
+
+1. Job data contained in pdfs
+2. Job data iframe embedded onto the page
+3. Multiple jobs added to a normal html page
+4. Single job added to a normal html page
+
+I will find more as I go through the ATS checks data.
+
+I will also provide a list of 2-3 of the most popular ATS in the uk. I was hoping you could try and build separate agents to extract data from these urls.
+
+So as we move forward the ATS checks project will give us the urls and I can add them to the correct job scrapping list so it ca be processed by the relevant agent.
+
+
+
+
+
+
+This is what we are extracting initially 
+
+
+[
+  "title",
+  "company_name",
+  "holiday",
+  "location",
+  "salary",
+  "job_type",
+  "contract_type",
+  "remote_option",
+  "hours",
+  "closing_date",
+  "interview_date",
+  "start_date",
+  "post_date",
+  "contact",
+  "job_reference",
+  "description",
+  "responsibilities",
+  "requirements",
+  "benefits",
+  "company_info",
+  "how_to_apply",
+  "application_method",
+  "additional_sections"
+]
+
+
+
+
+
+Uk jobs - we only want uk jobs scrapped.
+
+If in doubt extract the role and assume it is a uk role.
+
+pagination: do not attempt to move to new pages. If possible Try and filter to just show UK roles and sort roles by date so you capture the most recent jobs. 
+
+do highlight in your report that this data was captured from a paginated page.
+
+Also separately highlight if the job filter and sort was able to be achieved.
+
+Data we need to extract:
+
+ALL THE BELOW AHOULD IDEALLY BE EXTRACTED FROM SET FIELDS RATHER THAN HAVING TO EXTRACT FROM THE MAIN DESCRIPTION AREA OF THE ADVERT
+
+Job title
+
+Date posted (this is not the date we scrapped the job sometimes the job will state the date it was first published)
+
+Location
+
+Location postcode (if this can be extracted it’s not always listed)
+
+Salary description (this is the text on how they list the salary)
+
+Salary min
+
+Salary max
+
+Benefits description
+
+Job ref (this is the employers reference)
+
+Employer name
+
+Remote status (if known) - for example remote, hybrid, onsite
+
+Employment type: for example full time, part time
+
+Contract type: for example permanent, fixed term contract etc
+
+Closing date:
+
+Main job description
+
+It is really important to try and capture (when it exists in an advert):
+
+ - name of the person looking after the advert
+ - their email address
+ - their job title
+
+ADDITIONAL INFO 
+
+This is stuff we know but should be added to the job record for each job scrapped.
+
+Careers page url (this is the origin domain that we gave to the agent where it started its search for jobs)
+
+Our job id: this is our sequential number that counts up from 1 and is always unique even when we move from the first scrap project to the second.
+
+Date scrapped
+
+SCRAPPING PROJECT NOTES
+
+I will group job pages into separate groups based on how the job data is displayed. 
+
+For example:
+
+1. Job data contained in pdfs
+2. Job data iframe embedded onto the page
+3. Multiple jobs added to a normal html page
+4. Single job added to a normal html page
+
+I will find more as I go through the ATS checks data.
+
+I will also provide a list of 2-3 of the most popular ATS in the uk. I was hoping you could try and build separate agents to extract data from these urls.
+
+So as we move forward the ATS checks project will give us the urls and I can add them to the correct job scrapping list so it ca be processed by the relevant agent.
+
+

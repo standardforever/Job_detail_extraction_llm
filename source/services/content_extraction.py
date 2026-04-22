@@ -128,6 +128,67 @@ async def _wait_for_page_ready(page: Page) -> None:
         pass
 
 
+async def _wait_for_dynamic_job_app(page: Page) -> dict[str, Any]:
+    try:
+        page_url = str(page.url or "").lower()
+        has_webitrent_marker = "webitrent.com" in page_url or await page.evaluate(
+            """
+            () => Boolean(
+              document.querySelector('#FILTER\\\\.STD_HID_FLDS\\\\.ET_BASE\\\\.1-1')
+              || document.querySelector('[id^="FILTER.STD_HID_FLDS"]')
+              || document.querySelector('script[src*="mhr_webrec_job_search"]')
+            )
+            """
+        )
+        if not has_webitrent_marker:
+            return {"dynamic_app": None, "waited": False, "rendered": False}
+
+        try:
+            await page.wait_for_function(
+                """
+                () => Boolean(
+                  document.querySelector('.Mhr-jobDetail')
+                  || document.querySelector('.Mhr-jobSearchResultsOuter')
+                  || document.querySelector('.Mhr-jobSearchMatchCount')
+                  || document.querySelector('[data-type="jobs"]')
+                  || document.querySelector('[data-type="no-jobs"]')
+                  || document.querySelector('[data-type="jobs-error"]')
+                )
+                """,
+                timeout=12_000,
+            )
+        except PlaywrightTimeoutError:
+            pass
+
+        rendered = await page.evaluate(
+            """
+            () => ({
+              jobCards: document.querySelectorAll('.Mhr-jobDetail').length,
+              resultContainers: document.querySelectorAll('.Mhr-jobSearchResultsOuter, .Mhr-jobSearchJobs').length,
+              matchText: document.querySelector('.Mhr-jobSearchMatchCount')?.innerText || '',
+              displayType: document.body?.dataset?.displayType || '',
+            })
+            """
+        )
+        return {
+            "dynamic_app": "webitrent",
+            "waited": True,
+            "rendered": bool(
+                int(rendered.get("jobCards", 0) or 0)
+                or int(rendered.get("resultContainers", 0) or 0)
+                or str(rendered.get("matchText") or "").strip()
+            ),
+            "details": rendered,
+        }
+    except Exception as exc:
+        return {
+            "dynamic_app": "unknown",
+            "waited": False,
+            "rendered": False,
+            "error": str(exc),
+        }
+
+
 async def _handle_cookie_consent(page: Page) -> bool:
     for selector in COOKIE_SELECTORS:
         try:
@@ -551,6 +612,7 @@ async def prepare_page_for_extraction(page: Page | None) -> dict[str, Any]:
         }
 
     await _wait_for_page_ready(page)
+    dynamic_app_result = await _wait_for_dynamic_job_app(page)
     cookie_handled = await _handle_cookie_consent(page)
     popups_closed = await _handle_popups(page)
     overlays_removed = await _remove_overlays(page)
@@ -578,6 +640,7 @@ async def prepare_page_for_extraction(page: Page | None) -> dict[str, Any]:
         stability_result["stable"],
         stability_result["elapsed_seconds"],
         domain=_page_domain(page),
+        dynamic_app=dynamic_app_result,
         cookie_handled=cookie_handled,
         popups_closed=popups_closed,
         overlays_removed=overlays_removed,
@@ -591,6 +654,7 @@ async def prepare_page_for_extraction(page: Page | None) -> dict[str, Any]:
     )
     return {
         "page_ready": True,
+        "dynamic_app": dynamic_app_result,
         "cookie_handled": cookie_handled,
         "popups_closed": popups_closed,
         "overlays_removed": overlays_removed,

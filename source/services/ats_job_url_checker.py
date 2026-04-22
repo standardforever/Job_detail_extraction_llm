@@ -4,7 +4,7 @@ from typing import Any
 from urllib.parse import urlparse
 
 from prompts.ats_check_prompt import build_ats_check_prompt
-from services.ats_domain_registry import extract_base_domain, get_domain_classification, reconcile_ats_result
+from services.ats_domain_registry import classify_job_url_by_domain, extract_base_domain, get_domain_classification, reconcile_ats_result
 from services.content_extraction import extract_page_content
 from services.navigation import navigate_to_url
 from services.openai_service import OpenAIAnalysisService
@@ -52,6 +52,20 @@ def _detect_ats_from_url(job_url: str, company_domain: str) -> dict[str, Any]:
             "detection_reason": f"Known non-ATS domain from stored list: {job_domain}",
         }
 
+    if is_external:
+        return {
+            "is_ats": True,
+            "is_external_application": True,
+            "is_known_ats": False,
+            "ats_provider": job_domain,
+            "job_domain": job_domain,
+            "company_domain": company_domain_clean,
+            "detection_reason": (
+                f"External job domain ({job_domain}) differs from company ({company_domain_clean}) "
+                "and is not in either registry list; treated as unknown ATS."
+            ),
+        }
+
     return {
         "is_ats": False,
         "is_external_application": is_external,
@@ -70,7 +84,7 @@ def _detect_ats_from_url(job_url: str, company_domain: str) -> dict[str, Any]:
 def _normalize_ats_result(response: dict[str, Any]) -> dict[str, Any]:
     indicators = [str(item).strip() for item in (response.get("indicators_found") or []) if str(item).strip()]
     reasoning = str(response.get("reasoning", "") or response.get("reason", "") or "").strip()
-    return {
+    normalized = {
         "is_ats": response.get("is_ats") if "is_ats" in response else None,
         "ats_detected": response.get("is_ats") if "is_ats" in response else None,
         "confidence": str(response.get("confidence", "") or "").strip() or None,
@@ -86,6 +100,22 @@ def _normalize_ats_result(response: dict[str, Any]) -> dict[str, Any]:
         "reasoning": reasoning,
         "is_job_related": response.get("is_job_related"),
     }
+    page_access_status = str(normalized.get("page_access_status") or "").strip().lower()
+    is_accessible = page_access_status in {"", "accessible"}
+    is_job_related = normalized.get("is_job_related") is not False
+    has_no_ats_evidence = (
+        not normalized.get("ats_provider")
+        and not normalized.get("apply_url")
+        and not normalized.get("indicators_found")
+        and not normalized.get("requires_scraping")
+    )
+    if normalized.get("is_ats") is None and is_accessible and is_job_related and has_no_ats_evidence:
+        normalized["is_ats"] = False
+        normalized["ats_detected"] = False
+        normalized["confidence"] = normalized.get("confidence") if normalized.get("confidence") in {"high", "medium"} else "high"
+        fallback_reason = "Accessible job page with no ATS URL, provider, or indicators; defaulted to non-ATS."
+        normalized["reasoning"] = f"{normalized.get('reasoning') or ''} {fallback_reason}".strip()
+    return normalized
 
 
 async def _process_single_job(
@@ -113,6 +143,14 @@ async def _process_single_job(
             "token_usage": 0,
         }
         return reconcile_ats_result(result, page_url=job_url, main_domain=domain)
+
+    domain_rule_result = classify_job_url_by_domain(job_url, domain)
+    if domain_rule_result.get("is_external_application") or domain_rule_result.get("domain_registry_status") in {"known_ats", "known_non_ats", "unknown_ats"}:
+        return {
+            **domain_rule_result,
+            "status": "success",
+            "token_usage": 0,
+        }
 
     ats_info = _detect_ats_from_url(job_url, domain)
     if ats_info["is_ats"]:

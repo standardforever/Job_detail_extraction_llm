@@ -48,20 +48,38 @@ class JsonFormatter(logging.Formatter):
 class NewFileRotatingHandler(BaseRotatingHandler):
     """
     Writes to  logs/job_process_<start_timestamp>.log
+    On startup, resumes the most recent log file if it is still under MAX_BYTES
+    so that application restarts do not fragment logs into many small files.
     When the current file reaches MAX_BYTES a new timestamped file is opened.
     Old files are never touched.
     """
 
     def __init__(self, log_dir: Path, max_bytes: int = MAX_BYTES, encoding: str = "utf-8"):
-        self.log_dir  = log_dir
+        self.log_dir   = log_dir
         self.max_bytes = max_bytes
-        first_path = self._new_path()
+        first_path = self._resume_or_new_path()
         super().__init__(str(first_path), mode="a", encoding=encoding, delay=False)
 
     # ── internal helpers ───────────────────────────────────────────────────────
     def _new_path(self) -> Path:
         ts = datetime.now(tz=timezone.utc).strftime("%Y%m%dT%H%M%S")
         return self.log_dir / f"job_process_{ts}.log"
+
+    def _resume_or_new_path(self) -> Path:
+        """
+        Return the most recently modified log file in log_dir if it is still
+        under max_bytes; otherwise create a fresh timestamped path.
+        This lets the handler survive application restarts without fragmenting
+        logs into tiny files.
+        """
+        existing = sorted(
+            self.log_dir.glob("job_process_*.log"),
+            key=lambda p: p.stat().st_mtime,
+            reverse=True,
+        )
+        if existing and existing[0].stat().st_size < self.max_bytes:
+            return existing[0]
+        return self._new_path()
 
     def _open_new_file(self) -> None:
         """Close current stream and open a brand-new timestamped file."""
@@ -101,7 +119,7 @@ def configure_logging() -> None:
     stream_handler.setFormatter(formatter)
     root_logger.addHandler(stream_handler)
 
-    # Rotating file — creates new timestamped file, never deletes old ones
+    # Rotating file — resumes latest file on restart, creates new only when full
     file_handler = NewFileRotatingHandler(LOG_DIR, max_bytes=MAX_BYTES)
     file_handler.setFormatter(formatter)
     root_logger.addHandler(file_handler)

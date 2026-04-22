@@ -163,6 +163,11 @@ def _derive_lookup_domain(result: dict[str, Any], page_url: str | None = None, m
         return extract_base_domain(apply_url)
     if provider and "." in provider:
         return extract_base_domain(provider)
+    if page_url:
+        page_domain = extract_base_domain(page_url)
+        main_lookup_domain = extract_base_domain(main_domain)
+        if page_domain and page_domain != main_lookup_domain:
+            return page_domain
     if is_ats is False and page_url:
         return extract_base_domain(page_url)
     if is_ats is False and main_domain:
@@ -170,16 +175,113 @@ def _derive_lookup_domain(result: dict[str, Any], page_url: str | None = None, m
     return None
 
 
+def _is_external_lookup_domain(lookup_domain: str | None, main_domain: str | None) -> bool:
+    main_lookup_domain = extract_base_domain(main_domain)
+    return bool(lookup_domain and main_lookup_domain and lookup_domain != main_lookup_domain)
+
+
+def _set_detection_value(result: dict[str, Any], detected: bool) -> None:
+    if "ats_detected" in result:
+        result["ats_detected"] = detected
+    if "is_ats" in result:
+        result["is_ats"] = detected
+    if "ats_detected" not in result and "is_ats" not in result:
+        result["is_ats"] = detected
+
+
+def classify_job_url_by_domain(job_url: str, main_domain: str | None) -> dict[str, Any]:
+    job_domain = extract_base_domain(job_url)
+    main_lookup_domain = extract_base_domain(main_domain)
+    is_external = bool(job_domain and main_lookup_domain and job_domain != main_lookup_domain)
+
+    if not job_domain:
+        return {
+            "job_url": job_url,
+            "is_ats": None,
+            "ats_detected": None,
+            "provider": None,
+            "ats_provider": None,
+            "application_type": "unknown",
+            "application_style": "unknown",
+            "confidence": "uncertain",
+            "ats_confidence": "uncertain",
+            "detection_method": "domain_rule",
+            "reason": "Could not determine job URL domain.",
+            "reasoning": "Could not determine job URL domain.",
+            "ats_lookup_domain": None,
+            "domain_registry_status": "not_checked",
+            "registry_agreement": "neutral",
+        }
+
+    classification = get_domain_classification(job_domain)
+    if classification["status"] == "known_ats":
+        is_ats = True
+        provider = job_domain
+        application_type = "external_ats" if is_external else "native_form"
+        confidence = "high"
+        reason = f"{job_domain} is in the known ATS registry."
+    elif classification["status"] == "known_non_ats":
+        is_ats = False
+        provider = None
+        application_type = "external_link" if is_external else "native_form"
+        confidence = "high"
+        reason = f"{job_domain} is in the known non-ATS registry."
+    elif is_external:
+        is_ats = True
+        provider = job_domain
+        application_type = "external_ats"
+        confidence = "high"
+        reason = f"{job_domain} is external to {main_lookup_domain} and not in either registry list; treated as unknown ATS."
+    else:
+        is_ats = False
+        provider = None
+        application_type = "native_form"
+        confidence = "high"
+        reason = f"{job_domain} matches the company domain and is not in the ATS registry."
+
+    result = {
+        "job_url": job_url,
+        "is_ats": is_ats,
+        "ats_detected": is_ats,
+        "provider": provider,
+        "ats_provider": provider,
+        "application_type": application_type,
+        "application_style": application_type,
+        "confidence": confidence,
+        "ats_confidence": confidence,
+        "detection_method": "domain_registry" if classification["status"] != "unlisted" else "domain_mismatch_rule",
+        "reason": reason,
+        "reasoning": reason,
+        "is_external_application": is_external,
+        "page_access_status": "not_checked",
+        "page_access_issue_detail": None,
+    }
+    return reconcile_ats_result(result, page_url=job_url, main_domain=main_domain)
+
+
 def reconcile_ats_result(result: dict[str, Any], *, page_url: str | None = None, main_domain: str | None = None) -> dict[str, Any]:
     reconciled = dict(result or {})
     lookup_domain = _derive_lookup_domain(reconciled, page_url=page_url, main_domain=main_domain)
     registry_status = "not_checked"
     registry_agreement = "neutral"
+    registry_reason = None
 
     if lookup_domain:
         classification = get_domain_classification(lookup_domain)
         is_detected_ats = reconciled.get("ats_detected", reconciled.get("is_ats"))
+        is_external = _is_external_lookup_domain(lookup_domain, main_domain)
         if classification["status"] == "known_ats":
+            if is_detected_ats is not True:
+                registry_reason = (
+                    f"{lookup_domain} is in the known ATS list, overriding detected value "
+                    f"{is_detected_ats!r} to true."
+                )
+            _set_detection_value(reconciled, True)
+            reconciled["ats_provider"] = reconciled.get("ats_provider") or reconciled.get("provider") or lookup_domain
+            reconciled["provider"] = reconciled.get("provider") or reconciled.get("ats_provider")
+            reconciled["confidence"] = reconciled.get("confidence") or reconciled.get("ats_confidence") or "high"
+            reconciled["ats_confidence"] = reconciled.get("ats_confidence") or reconciled.get("confidence")
+            reconciled["detection_method"] = reconciled.get("detection_method") or "domain_registry"
             if is_detected_ats is True:
                 registry_status = "known_ats"
                 registry_agreement = "agree"
@@ -192,15 +294,39 @@ def reconcile_ats_result(result: dict[str, Any], *, page_url: str | None = None,
             if is_detected_ats is True:
                 registry_status = "conflict_known_non_ats_listed_as_ats"
                 registry_agreement = "conflict"
+                registry_reason = (
+                    f"{lookup_domain} is in the known non-ATS list, but page/AI signals marked it as ATS. "
+                    "Keeping the ATS detection and surfacing the registry conflict for review."
+                )
             elif is_detected_ats is False:
                 registry_status = "known_non_ats"
                 registry_agreement = "agree"
             else:
                 registry_status = "known_non_ats"
         else:
-            registry_status = "unlisted"
+            if is_external and is_detected_ats is not False:
+                registry_status = "unknown_ats"
+                registry_reason = f"{lookup_domain} is external to {extract_base_domain(main_domain)} and not in either registry list."
+            elif is_external and is_detected_ats is False:
+                _set_detection_value(reconciled, True)
+                reconciled["ats_provider"] = reconciled.get("ats_provider") or reconciled.get("provider") or lookup_domain
+                reconciled["provider"] = reconciled.get("provider") or reconciled.get("ats_provider")
+                reconciled["application_type"] = reconciled.get("application_type") or reconciled.get("application_style") or "external_ats"
+                reconciled["application_style"] = reconciled.get("application_style") or reconciled.get("application_type")
+                reconciled["confidence"] = reconciled.get("confidence") or reconciled.get("ats_confidence") or "high"
+                reconciled["ats_confidence"] = reconciled.get("ats_confidence") or reconciled.get("confidence")
+                reconciled["detection_method"] = "domain_mismatch_rule"
+                existing_reason = str(reconciled.get("reasoning") or reconciled.get("reason") or "").strip()
+                registry_reason = f"{lookup_domain} is external to {extract_base_domain(main_domain)} and not in either registry list; treated as unknown ATS."
+                reconciled["reasoning"] = f"{existing_reason} {registry_reason}".strip()
+                reconciled["reason"] = reconciled.get("reason") or reconciled.get("reasoning")
+                registry_status = "unknown_ats"
+            else:
+                registry_status = "unlisted"
 
     reconciled["ats_lookup_domain"] = lookup_domain
     reconciled["domain_registry_status"] = registry_status
     reconciled["registry_agreement"] = registry_agreement
+    if registry_reason:
+        reconciled["registry_reason"] = registry_reason
     return reconciled

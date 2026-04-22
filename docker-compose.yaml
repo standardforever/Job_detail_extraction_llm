@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  chrome:
+    # image: selenium/standalone-chrome:latest # Production
+    image: selenium/standalone-chromium:latest # Developement
+    shm_size: "2g"
+    ports:
+      - "4445:4444" # WebDriver / Selenium Grid
+      - "7901:7900" # noVNC live view (password: secret)
+    environment:
+      # --- Keep session alive ---
+      - SE_NODE_SESSION_TIMEOUT=999999999
+      - SE_SESSION_REQUEST_TIMEOUT=999999999
+      - SE_SESSION_RETRY_INTERVAL=5
+
+      # --- Browser args ---
+      - SE_BROWSER_ARGS_DISABLE_DSHM=--disable-dev-shm-usage
+      - SE_BROWSER_ARGS_NO_SANDBOX=--no-sandbox
+
+    volumes:
+      - ./chrome-profile:/home/seluser/chrome-profile
+
+    restart: unless-stopped

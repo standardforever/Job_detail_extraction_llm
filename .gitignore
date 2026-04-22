@@ -205,3 +205,14 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+
+logs/
+source/job_runs/
+source/progress_store/
+source/domain_lists/
+chrome-profile/
+.playwright/
+.pycache
+my-env/
+tests/

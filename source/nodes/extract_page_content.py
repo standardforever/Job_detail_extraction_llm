@@ -49,6 +49,7 @@ async def extract_page_content_node(state: JobScraperState) -> JobScraperState:
 
     extracted_content = await extract_page_content(
         browser_session.page if browser_session is not None else None,
+        sections=["body"],
     )
     if extracted_content is None:
         log_event(

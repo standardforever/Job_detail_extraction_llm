@@ -212,10 +212,9 @@ def build_graph() -> Callable[[JobScraperState], Awaitable[JobScraperState]]:
     graph.add_node("navigation", _wrap_node("navigation", navigation_node))
     graph.add_node("extract_page_content", _wrap_node("extract_page_content", extract_page_content_node))
     graph.add_node("button_click", _wrap_node("button_click", button_click_node))
-    
     graph.add_node("career_page_category", _wrap_node("career_page_category", career_page_category_node))
+    
     graph.add_node("ats_check", _wrap_node("ats_check", ats_check_node))
-
     graph.add_node("next_job_url_selection", _wrap_node("next_job_url_selection", next_job_url_selection_node))
     graph.add_node("job_detail_page_extraction", _wrap_node("job_detail_page_extraction", job_detail_page_extraction_node))
     graph.add_node("convert_job_page_to_json", _wrap_node("convert_job_page_to_json", convert_job_page_to_json_node))

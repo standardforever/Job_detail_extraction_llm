@@ -15,8 +15,12 @@ def _normalize_ats_result(response: dict[str, Any]) -> dict[str, Any]:
     indicators = [str(item).strip() for item in (response.get("indicators_found") or []) if str(item).strip()]
     page_validity_issues = [str(item).strip() for item in (response.get("page_validity_issues") or []) if str(item).strip()]
     reasoning = str(response.get("reasoning", "") or response.get("reason", "") or "").strip()
-    return {
-        "ats_detected": response.get("is_ats") if "is_ats" in response else bool(response.get("ats_detected", False)),
+    normalized = {
+        "ats_detected": (
+            response.get("is_ats")
+            if "is_ats" in response
+            else response.get("ats_detected") if "ats_detected" in response else None
+        ),
         "confidence": str(response.get("confidence", "") or "").strip() or None,
         "is_job_related": bool(response.get("is_job_related", False)),
         "provider": str(response.get("ats_provider", "") or response.get("provider", "") or "").strip() or None,
@@ -31,7 +35,22 @@ def _normalize_ats_result(response: dict[str, Any]) -> dict[str, Any]:
         "page_access_status": str(response.get("page_access_status", "") or "").strip() or None,
         "page_access_issue_detail": str(response.get("page_access_issue_detail", "") or "").strip() or None,
         "reason": reasoning,
+        "detection_method": str(response.get("detection_method", "") or "").strip() or "ai_analysis",
     }
+    page_access_status = str(normalized.get("page_access_status") or "").strip().lower()
+    is_accessible = page_access_status in {"", "accessible"}
+    has_no_ats_evidence = (
+        not normalized.get("provider")
+        and not normalized.get("apply_url")
+        and not normalized.get("indicators_found")
+        and not normalized.get("requires_scraping")
+    )
+    if normalized.get("ats_detected") is None and is_accessible and normalized.get("is_job_related") and has_no_ats_evidence:
+        normalized["ats_detected"] = False
+        normalized["confidence"] = normalized.get("confidence") if normalized.get("confidence") in {"high", "medium"} else "high"
+        fallback_reason = "Accessible job page with no ATS URL, provider, or indicators; defaulted to non-ATS."
+        normalized["reason"] = f"{normalized.get('reason') or ''} {fallback_reason}".strip()
+    return normalized
 
 
 async def ats_check_node(state: JobScraperState) -> JobScraperState:

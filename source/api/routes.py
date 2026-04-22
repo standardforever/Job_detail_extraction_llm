@@ -7,6 +7,7 @@ from pathlib import Path
 from fastapi import APIRouter, BackgroundTasks, File, Form, HTTPException, UploadFile
 
 from schemas.job_api import (
+    DebugOutputOptions,
     JobRunProgressResponse,
     JobRunTaskListResponse,
     JobRunTaskResponse,
@@ -202,6 +203,7 @@ def _queue_run(
     processing_mode: str,
     agent_count: int,
     artifact_name: str | None,
+    debug_options: DebugOutputOptions | None = None,
 ) -> JobRunTaskResponse:
     settings = get_settings()
     grid_url = settings.selenium_remote_url
@@ -212,6 +214,7 @@ def _queue_run(
         "processing_mode": processing_mode,
         "agent_count": agent_count,
         "artifact_name": artifact_name,
+        "debug_options": (debug_options or DebugOutputOptions()).model_dump(),
     }
     task_record = create_task_record(
         artifact_name=artifact_path.name,
@@ -323,6 +326,7 @@ async def run_from_url_list(payload: URLListRunRequest, background_tasks: Backgr
         processing_mode=payload.processing_mode,
         agent_count=payload.agent_count,
         artifact_name=payload.artifact_name,
+        debug_options=payload.debug_options,
     )
 
 
@@ -333,6 +337,11 @@ async def run_from_csv(
     processing_mode: ProcessingMode = Form("both"),
     agent_count: int = Form(1),
     artifact_name: str | None = Form(None),
+    save_markdown: bool = Form(False),
+    save_selector_map: bool = Form(False),
+    save_all_urls: bool = Form(False),
+    save_raw_extracted_jobs: bool = Form(False),
+    save_main_result_in_debug: bool = Form(False),
 ) -> JobRunTaskResponse:
     if not file.filename.lower().endswith(".csv"):
         raise HTTPException(status_code=400, detail="Uploaded file must be a CSV")
@@ -343,6 +352,13 @@ async def run_from_csv(
         processing_mode=processing_mode,
         agent_count=agent_count,
         artifact_name=artifact_name,
+        debug_options=DebugOutputOptions(
+            save_markdown=save_markdown,
+            save_selector_map=save_selector_map,
+            save_all_urls=save_all_urls,
+            save_raw_extracted_jobs=save_raw_extracted_jobs,
+            save_main_result_in_debug=save_main_result_in_debug,
+        ),
     )
 
 

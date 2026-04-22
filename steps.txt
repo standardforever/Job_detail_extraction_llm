@@ -1,0 +1,51 @@
+
+""" 
+1. BROWSER_SESSION_NODE -> create/start a browser session to use
+2. PAGE_TAB_CREATION_NODE -> create Tab/page to run the agent on 
+3. NEXT_URL_SELECTION_NODE -> it pick the next url to use from the list of url allocated to the agent and assign to navigate_url
+3. URL_NAVIGATION_NODE -> select url to navigate to from navigate_url
+4. PAGE_EXTRACTION_NODE -> ignore footer sectiona and header
+5. PAGE_CATEGORY_NODE -> not_category_job, error_page_bot, need_navigation, job_page
+6. BUTTON_CLICKING_NODE -> if navigation requires button clicking 
+7. JOB_PAGE_FEATURES -> check if any of this features are present on the page[filter, pagination, sort]
+8. PAGE_FILTER_NODE -> try to filte base on uk job if possible
+9: PAGE_PAGINATION_NODE -> # NOTE Don't implement it now 
+10: SORT_NODE -> Sort the page base on most recent
+11. JOB_URL_EXTRACTION -> extract jobs url
+12. NEXT_JOB_URL_SELECTION_NODE -> select the job url to process
+13. JOB_PAGE_EXTRACTION -> this layer will use custom base extraction (extractions build for specific urls)
+14. CONVERT_PAGE_TO_JSON -> this is an hybrid approach, we use the most optimize logic to convert 
+"""
+
+"""_summary_
+1. create browser session using BROWSER_SESSION_NODE
+2. create new page/tab sung PAGE_TAB_CREATION_NODE
+3. use the NEXT_URL_SELECTION_NODE to loop through each url and assign them to navigate_url
+4. use the URL_NAVIGATION_NODE to navigate to the url provided in the {{navigate_url}} parameter
+5. use the PAGE_EXTRACTION_NODE to extract structure page content on the navigated page.
+6. use the PAGE_CATEGORY_NODE  an llm agent use to classify pages into
+    a. not_category/job page - > end the process
+    b. error_page/bot. - end the process
+    c. need_navigation -> button or link to use to navigate
+    d. job_page - ready to extract job
+    
+6a. if we are not on category_page or job page just stop the process and return status
+6b. if we encouter http error code like 404/403/401 or if a captcha/bot stope the proces and return
+6c. if need_navigation assing the {{navigate_url}} paramter to the new url and return back to process '4'
+6d. if job_page move to JOB_PAGE_CATEGORY_NODE
+7. use the JOB_PAGE_CATEGORY_NODE an llm agent use to classify job pages features
+    a. filter:  
+        i. types of filters present
+    b. pagination: 
+        i. types of pagination
+    c. sort:
+        i. sort to most recent jobs
+7a. if filter is present we try to see if we can filter base on uk related job usng PAGE_FILTER_NODE
+7b. if pagination on the page we put a flag that pagination present using the PAGE_PAGINATION_NODE
+7c. if sorting and we can sort by time or date, most recent job should be taken as priority 
+8. use the JOB_URL_EXTRACTION to extract the job urls on the page 
+9. use the NEXT_JOB_URL_SELECTION_NODE to select the next job to process
+10 use the JOB_PAGE_EXTRACTION to extract the job page(this process depends on domain), some domain has specific agent to extract there data
+11. use the CONVERT_PAGE_TO_JSON to convert the page data to json.
+"""
+

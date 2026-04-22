@@ -26,7 +26,12 @@ async def job_detail_page_extraction_node(state: JobScraperState) -> JobScraperS
         }
 
     if use_embedded_job_page:
-        extracted_content = record.get("extracted_content") or state.get("extracted_content")
+        extracted_content = await extract_job_detail_page_content(
+            browser_session.page if browser_session else None,
+            page_url=selected_job_url,
+        )
+        if extracted_content is None:
+            extracted_content = record.get("extracted_content") or state.get("extracted_content")
         if extracted_content is None:
             error_message = "Embedded job page content is missing"
             record_errors.append(error_message)

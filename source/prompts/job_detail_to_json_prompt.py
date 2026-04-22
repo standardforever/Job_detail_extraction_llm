@@ -27,6 +27,10 @@ Rules:
 - If the page contains multiple jobs, return one item per job.
 - If the page is not clearly a job page, still return one item in `jobs` with `is_job_page` set to false and explain why.
 - Do not merge multiple distinct jobs into one object.
+- If the page contains multiple embedded vacancies, treat each distinct role heading/section as a separate job.
+- Do not create a parent "Work With Us" / careers-summary job when the page actually contains multiple role sections underneath it.
+- Shared intro/apply text may be repeated into each job if it clearly applies to all roles.
+- Do not use `additional_sections` to store other jobs; `additional_sections` must only contain extra content for that specific job.
 
 Return valid JSON only with this exact schema:
 {

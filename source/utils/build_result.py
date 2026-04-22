@@ -67,7 +67,10 @@ def _extract_ats_items(record: dict[str, Any]) -> list[dict[str, Any]]:
 def _classify_ats_item(item: dict[str, Any]) -> str:
     detected = item.get("ats_detected", item.get("is_ats"))
     provider = str(item.get("provider") or item.get("ats_provider") or "").strip() or None
+    registry_status = str(item.get("domain_registry_status") or "").strip()
     if detected is True:
+        if registry_status in {"unknown_ats", "unlisted", "conflict_known_non_ats_listed_as_ats"}:
+            return "ats_unknown"
         return "ats_true" if provider else "ats_unknown"
     if detected is False:
         return "ats_false"
@@ -99,9 +102,13 @@ def _build_ats_breakdown(records: list[dict[str, Any]]) -> tuple[dict[str, Any],
                 "ats_provider": ats_item.get("provider") or ats_item.get("ats_provider"),
                 "confidence": ats_item.get("ats_confidence") or ats_item.get("confidence"),
                 "reasoning": ats_item.get("reason") or ats_item.get("reasoning"),
-                "detection_method": ats_item.get("detection_method") or ats_item.get("application_style") or ats_item.get("application_type"),
+                "detection_method": ats_item.get("detection_method") or "ai_analysis",
                 "status": ats_item.get("status"),
                 "error": ats_item.get("error"),
+                "ats_lookup_domain": ats_item.get("ats_lookup_domain"),
+                "domain_registry_status": ats_item.get("domain_registry_status"),
+                "registry_agreement": ats_item.get("registry_agreement"),
+                "registry_reason": ats_item.get("registry_reason"),
             }
             bucket = _classify_ats_item(ats_item)
             if bucket == "ats_true":
@@ -149,6 +156,32 @@ def _job_urls_from_analysis(url: str, analysis: dict[str, Any]) -> list[str]:
     return []
 
 
+def _listing_pages_from_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    listing_pages: list[dict[str, Any]] = []
+    for record in records:
+        for url, analysis in dict(record.get("career_page_analyses", {}) or {}).items():
+            if not isinstance(analysis, dict):
+                continue
+            jobs_listed_on_page = [
+                dict(item)
+                for item in list(analysis.get("jobs_listed_on_page", []) or [])
+                if isinstance(item, dict)
+            ]
+            listing_ui = analysis.get("listing_ui")
+            has_listing_ui = isinstance(listing_ui, dict) and any(value not in (None, "", [], {}) for value in listing_ui.values())
+            if not jobs_listed_on_page and not has_listing_ui:
+                continue
+            listing_pages.append(
+                {
+                    "url": str(url),
+                    "page_category": analysis.get("page_category"),
+                    "jobs_listed_on_page": jobs_listed_on_page,
+                    "listing_ui": listing_ui if isinstance(listing_ui, dict) else None,
+                }
+            )
+    return _dedupe_dicts(listing_pages)
+
+
 def _build_scrape_results(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     scrape_results: list[dict[str, Any]] = []
     for record in records:
@@ -169,10 +202,15 @@ def _build_scrape_results(records: list[dict[str, Any]]) -> list[dict[str, Any]]
             page_access_status = str(analysis.get("page_access_status") or "").strip() or None
             page_category = str(analysis.get("page_category") or "").strip()
             job_urls = _job_urls_from_analysis(str(url), analysis)
+            external_job_board_url = str(metadata.get("external_job_board_url") or "").strip() or None
+            external_job_board_provider = str(metadata.get("external_job_board_provider") or "").strip() or None
 
             if page_access_status and page_access_status != "accessible":
                 result_type = "access_blocked"
                 status = "failed"
+            elif metadata.get("external_job_board_status") == "external_job_board_found" and external_job_board_url:
+                result_type = "external_job_board"
+                status = "success"
             elif page_category == "navigation_required":
                 result_type = "navigation_required"
                 status = "success"
@@ -200,6 +238,12 @@ def _build_scrape_results(records: list[dict[str, Any]]) -> list[dict[str, Any]]
                         "job_urls": job_urls,
                     },
                     "ats_check": record.get("ats_check_result"),
+                    "external_job_board": {
+                        "provider": external_job_board_provider,
+                        "url": external_job_board_url,
+                    }
+                    if metadata.get("external_job_board_status") == "external_job_board_found" and external_job_board_url
+                    else None,
                     "scraping_details": {
                         "visited_urls": _dedupe_strings(visited_urls + [str(url)]),
                         "total_tokens": int(analysis.get("analysis_tokens", 0) or 0) + int(metadata.get("job_detail_json_tokens", 0) or 0),
@@ -218,7 +262,63 @@ def _derive_run_status(
     scrape_results: list[dict[str, Any]],
     ats_detection: dict[str, Any] | None,
     manual_reviews: list[dict[str, Any]],
+    errors: list[str] | None = None,
+    metadata_items: list[dict[str, Any]] | None = None,
 ) -> str:
+    normalized_errors = "\n".join(str(error or "") for error in (errors or [])).lower()
+    metadata_items = metadata_items or []
+    url_extraction_statuses = {
+        str(metadata.get("url_extraction_status") or "").strip().lower()
+        for metadata in metadata_items
+        if isinstance(metadata, dict)
+    }
+    career_scan_statuses = {
+        str(metadata.get("career_page_scan_status") or "").strip().lower()
+        for metadata in metadata_items
+        if isinstance(metadata, dict)
+    }
+
+    if "domain_access_failed" in url_extraction_statuses:
+        if "err_name_not_resolved" in normalized_errors:
+            return "Site Not Reachable - DNS Resolution Failed"
+        if "err_connection" in normalized_errors or "connection refused" in normalized_errors:
+            return "Site Not Reachable - Connection Failed"
+        if "timeout" in normalized_errors or "timed out" in normalized_errors:
+            return "Site Not Reachable - Timeout"
+        return "Site Not Reachable - Failed to Load Homepage"
+
+    if "redirected" in url_extraction_statuses:
+        return "Domain Redirected"
+
+    if "invalid_input" in url_extraction_statuses:
+        return "Invalid Domain or URL"
+
+    if "session_not_established" in url_extraction_statuses:
+        return "Browser Session Not Established"
+
+    if "bot_detected" in normalized_errors or "captcha" in normalized_errors or "cloudflare" in normalized_errors:
+        return "Access Blocked - Bot Detected"
+
+    if "login_required" in normalized_errors or "login required" in normalized_errors or "sign in" in normalized_errors:
+        return "Access Blocked - Login Required"
+
+    if "404" in normalized_errors or "not_found" in normalized_errors or "not found" in normalized_errors:
+        return "Page Not Found"
+
+    if "500" in normalized_errors or "503" in normalized_errors or "http error" in normalized_errors:
+        return "HTTP Error"
+
+    external_job_board_result = next(
+        (result for result in scrape_results if result.get("result_type") == "external_job_board"),
+        None,
+    )
+    if external_job_board_result is not None:
+        provider = (
+            ((external_job_board_result.get("external_job_board") or {}).get("provider"))
+            or "external_job_board"
+        )
+        return f"External Job Board - {provider}"
+
     if any(result.get("result_type") == "linkedin_indeed_redirect" for result in scrape_results):
         return "LinkedIn/Indeed Redirect"
 
@@ -235,6 +335,10 @@ def _derive_run_status(
         return "Access Blocked - Login Required"
 
     if ats_detection is None:
+        if "no_job_page_found" in career_scan_statuses:
+            return "No Job Page Found - Cannot Detect ATS or Extract Jobs"
+        if "not_started" in career_scan_statuses and not scrape_results:
+            return "Career Page Check Not Started"
         if any(result.get("job_alert") for result in scrape_results) and manual_reviews:
             return "No Jobs Found - Job Alert Set | Manual Review Required"
         if any(result.get("job_alert") for result in scrape_results):
@@ -243,6 +347,8 @@ def _derive_run_status(
             return "No Jobs Found - Manual Review Required"
         if any(result.get("jobs", {}).get("count", 0) for result in scrape_results):
             return "Jobs Found"
+        if scrape_results:
+            return "No Jobs Found"
         return "No Jobs Found"
 
     if ats_detection["ats_status"] == "true":
@@ -252,6 +358,8 @@ def _derive_run_status(
         provider = ats_detection.get("ats_provider") or "Unknown"
         return f"ATS Detected - Unknown ({provider})"
     if ats_detection["ats_status"] == "false":
+        if ats_detection.get("detection_method") == "file_type_rule":
+            return "No ATS - Document Only Application"
         return "No ATS - Direct Application"
     if ats_detection["ats_status"] == "uncertain":
         return f"ATS Uncertain - Manual Review Needed ({ats_detection.get('job_url')})"
@@ -271,6 +379,7 @@ def _build_domain_payload(domain: str, records: list[dict[str, Any]]) -> dict[st
     latest_ats_check: dict[str, Any] | None = None
     career_url_value: str | None = None
     career_url_reasoning: str | None = None
+    metadata_items: list[dict[str, Any]] = []
 
     for record in records:
         for error in record.get("errors", []) or []:
@@ -307,25 +416,30 @@ def _build_domain_payload(domain: str, records: list[dict[str, Any]]) -> dict[st
         token_used += _collect_int_metadata(record)
 
         metadata = dict(record.get("metadata", {}) or {})
+        metadata_items.append(metadata)
         candidate_career_url = (
             str(metadata.get("career_page_found_url") or "").strip()
-            or str(record.get("navigate_to") or record.get("current_input_url") or "").strip()
             or None
         )
         if candidate_career_url:
             career_url_value = candidate_career_url
-            if not metadata.get("career_page_found_url"):
-                career_url_reasoning = "Derived from domain record navigation target."
-            else:
-                career_url_reasoning = "Derived from discovered career page in scan."
+            career_url_reasoning = "Derived from discovered career page in scan."
 
     scrape_results = _build_scrape_results(records)
+    listing_pages = _listing_pages_from_records(records)
     ats_breakdown, priority_ats_detection = _build_ats_breakdown(records)
-    run_status = _derive_run_status(scrape_results, priority_ats_detection, manual_reviews)
+    run_status = _derive_run_status(
+        scrape_results,
+        priority_ats_detection,
+        manual_reviews,
+        errors=errors,
+        metadata_items=metadata_items,
+    )
 
     successful_scrapes = sum(1 for item in scrape_results if item.get("status") == "success")
     failed_scrapes = sum(1 for item in scrape_results if item.get("status") != "success")
     linkedin_indeed_redirects = sum(1 for item in scrape_results if item.get("result_type") == "linkedin_indeed_redirect")
+    external_job_board_redirects = sum(1 for item in scrape_results if item.get("result_type") == "external_job_board")
     access_blocked_scrapes = sum(1 for item in scrape_results if item.get("result_type") == "access_blocked")
 
     return {
@@ -338,6 +452,7 @@ def _build_domain_payload(domain: str, records: list[dict[str, Any]]) -> dict[st
         },
         "ats_detection": priority_ats_detection,
         "ats_check": latest_ats_check,
+        "listing_pages": listing_pages,
         "errors": _dedupe_strings(errors),
         "job_urls": _dedupe_strings(job_urls),
         "non_webpage_job_urls": _dedupe_strings(non_webpage_job_urls),
@@ -353,6 +468,7 @@ def _build_domain_payload(domain: str, records: list[dict[str, Any]]) -> dict[st
             "successful_scrapes": successful_scrapes,
             "failed_scrapes": failed_scrapes,
             "linkedin_indeed_redirects": linkedin_indeed_redirects,
+            "external_job_board_redirects": external_job_board_redirects,
             "access_blocked_scrapes": access_blocked_scrapes,
             "ats_jobs_found": ats_breakdown["ats_true_count"] + ats_breakdown["ats_unknown_count"],
             "ats_breakdown": ats_breakdown,

@@ -1,0 +1,28 @@
+[project]
+name = "job-detail-extraction-llm"
+version = "0.1.0"
+description = "LangGraph-based job scraping pipeline with incremental node testing."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115.0",
+  "langgraph>=0.2.0",
+  "langchain>=0.3.0",
+  "openai>=1.99.0",
+  "playwright>=1.54.0",
+  "pydantic>=2.7.0",
+  "python-multipart>=0.0.9",
+  "requests>=2.31.0",
+  "selenium>=4.21.0",
+  "uvicorn>=0.30.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

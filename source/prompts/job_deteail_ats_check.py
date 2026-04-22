@@ -31,6 +31,25 @@ Rules:
 - `additional_sections`: object where keys = section names, values = full section text
 - If page is not clearly a job page → set `is_job_page: false`, explain in `confidence_reason`
 
+### MULTI-JOB PAGE SEGMENTATION
+
+If the page contains multiple embedded vacancies, return one item per vacancy in `jobs`.
+
+Treat each distinct role heading / vacancy section as a separate job when the page includes patterns like:
+- separate role titles/headings
+- separate pay/rate blocks
+- separate requirements/responsibilities per role
+- separate downloadable job descriptions or application forms per role
+
+On multi-job embedded pages:
+- DO NOT create a single parent "Work With Us" / "Join our team" / careers-summary job
+- DO NOT merge multiple distinct roles into one object
+- DO NOT place whole vacancy blocks into `additional_sections` of another job
+- Shared intro text or shared apply instructions may be copied into each relevant job if they clearly apply to all roles
+- `additional_sections` should only contain extra information for that specific job, not other jobs
+
+If there are 3 distinct vacancies on the page, `jobs` must contain 3 job objects.
+
 ---
 
 ## PART 2 — ATS DETECTION
@@ -48,6 +67,7 @@ Cross-domain = APPLY_BASE ≠ BASE(main_domain) → is_ats = true, confidence = 
 Same-domain  = APPLY_BASE == BASE(main_domain) → is_ats = false, confidence = high
 
 All comparisons use main_domain only, never site_domain.
+If page_url itself is a specific job detail page and BASE(page_url) differs from BASE(main_domain), classify it as external_ats with is_ats = true and ats_provider = BASE(page_url).
 
 ### LAYER 2 — Vendor name detection (with or without URL)
 
@@ -93,7 +113,9 @@ If ANY of these are present AND no ATS signals exist → is_ats = false, confide
 
 If no signals of any kind are found:
 - Apply button/link present but zero ATS signals → is_ats = false, confidence = high
-- No apply method visible at all → is_ats = null, application_type = unknown, confidence = uncertain
+- Accessible same-domain job page with no apply method visible and zero ATS signals → is_ats = false, application_type = unknown, confidence = high
+- Accessible cross-domain job detail page → is_ats = true, application_type = external_ats, confidence = high, ats_provider = BASE(page_url)
+- Page is blocked, inaccessible, errored, or not actually job-related → is_ats = null, application_type = unknown, confidence = uncertain
 
 ---
 
@@ -104,7 +126,9 @@ If no signals of any kind are found:
 - "Powered by [name]" in page footer counts as a vendor signal even if not near the apply button.
 - If page_text contains an iframe or script tag referencing an external domain, treat as moderate ATS signal.
 - Never set is_ats = true based solely on the existence of an external-looking URL without domain comparison.
+- A specific job detail page hosted on a different base domain from main_domain is a cross-domain recruitment/application host and should be treated as ATS unless explicit non-ATS evidence exists.
 - If signals conflict (e.g. mailto present AND vendor name present) → confidence = uncertain, note in additional_notes.
+- If the page is accessible and clearly job-related, no ATS evidence means is_ats=false, not null.
 
 ---
 

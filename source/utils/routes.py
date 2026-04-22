@@ -65,6 +65,8 @@ def _route_after_career_page_category(state: JobScraperState) -> str:
         return "button_click"
     if status == "ats_check_required":
         return "ats_check"
+    if status in {"external_job_board_found", "external_ats_found"}:
+        return "select_next_url"
     if status in {"found_listing_page", "single_job_only_found"}:
         return "next_job_url_selection"
     return "select_next_url"

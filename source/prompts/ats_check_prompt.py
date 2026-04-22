@@ -30,6 +30,8 @@ Strip subdomains and paths. Use the registrable root only.
 Cross-domain = APPLY_BASE ≠ BASE(main_domain) → is_ats = true, application_type = external_ats
 Same-domain = APPLY_BASE == BASE(main_domain) → is_ats = false
 
+If the page_url itself is a specific job detail page and BASE(page_url) ≠ BASE(main_domain), treat it as external_ats with is_ats=true.
+
 ---
 
 ## ATS DETECTION SIGNALS
@@ -79,13 +81,14 @@ page_access_issue_detail: short description of issue, or null if accessible.
 
 ## DECISION RULES
 
-1. apply_url found AND cross-domain → is_ats=true, external_ats, confidence=high, ats_provider REQUIRED
-2. apply_url found AND same-domain → is_ats=false, native_form/redirect_required, confidence=high
-3. No apply_url BUT strong text ATS signals → is_ats=true, confidence=medium, apply_url=null
-4. Apply button/link present but NO ATS signals in text → is_ats=false, confidence=high, application_type by context
-5. No apply method visible at all → is_job_related=false OR application_type=unknown
-6. Page not job-related → is_job_related=false, is_ats=null, confidence=high
-7. Conflicting signals → is_ats=null, confidence=uncertain
+1. page_url is a specific job detail page AND cross-domain from main_domain → is_ats=true, external_ats, confidence=high, ats_provider=BASE(page_url)
+2. apply_url found AND cross-domain → is_ats=true, external_ats, confidence=high, ats_provider REQUIRED
+3. apply_url found AND same-domain → is_ats=false, native_form/redirect_required, confidence=high
+4. No apply_url BUT strong text ATS signals → is_ats=true, confidence=medium, apply_url=null
+5. Apply button/link present but NO ATS signals in text → is_ats=false, confidence=high, application_type by context
+6. Accessible same-domain job page with no apply URL, no ATS vendor/signals, and no apply method visible → is_ats=false, confidence=high, application_type=unknown
+7. Page not job-related → is_job_related=false, is_ats=null, confidence=high
+8. Conflicting signals, blocked pages, inaccessible pages, or pages that are not job-related → is_ats=null, confidence=uncertain/high as appropriate
 
 ---
 
@@ -93,7 +96,9 @@ page_access_issue_detail: short description of issue, or null if accessible.
 - is_ats=true → apply_url populated OR confidence=medium (text-only)
 - is_ats=true → ats_provider MUST be set (never null)
 - Cross-domain claim → apply_url must be verbatim in response
+- Cross-domain page_url claim → use BASE(page_url) as ats_provider
 - Apply button alone with no ATS text signals → is_ats=false
+- If the page is accessible and clearly job-related, no ATS evidence means is_ats=false, not null
 
 ---
 

@@ -1,0 +1,45 @@
+{
+  "grid_url": "http://127.0.0.1:4445/wd/hub",
+  "base_url": "http://127.0.0.1:4445",
+  "session_count": 1,
+  "sessions": [
+    {
+      "index": 1,
+      "session_id": "b1bc574ae88389b7bf95e155b3da1342",
+      "cdp_url": "ws://127.0.0.1:4445/session/b1bc574ae88389b7bf95e155b3da1342/se/cdp",
+      "node_uri": "http://172.19.0.2:4444",
+      "tabs": [
+        {
+          "context_index": 0,
+          "page_index": 0,
+          "url": "chrome://new-tab-page/",
+          "title": "New Tab"
+        },
+        {
+          "context_index": 0,
+          "page_index": 1,
+          "url": "https://duckduckgo.com/",
+          "title": "DuckDuckGo - Protection. Privacy. Peace of mind."
+        },
+        {
+          "context_index": 0,
+          "page_index": 2,
+          "url": "data:,",
+          "title": ""
+        },
+        {
+          "context_index": 0,
+          "page_index": 3,
+          "url": "https://www.linkedin.com/login/",
+          "title": "LinkedIn Login, Sign in | LinkedIn"
+        },
+        {
+          "context_index": 0,
+          "page_index": 4,
+          "url": "https://duckduckgo.com/",
+          "title": "DuckDuckGo - Protection. Privacy. Peace of mind."
+        }
+      ]
+    }
+  ]
+}

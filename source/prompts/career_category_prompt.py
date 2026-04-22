@@ -1,10 +1,13 @@
-def create_job_page_analysis_prompt(url: str | None, text: str) -> str:
+def create_job_page_analysis_prompt(url: str | None, text: str, interactive_links: str | None = None) -> str:
     return f"""Analyze the webpage and classify its job-related status. Never hallucinate — only use what is explicitly in the page text.
 
 URL: {url}
 
 PAGE CONTENT:
 {text}
+
+VISIBLE INTERACTIVE LINKS/BUTTONS:
+{interactive_links or "None"}
 
 ---
 
@@ -43,6 +46,8 @@ BASE URL: {url}
 **Navigation vs job links:** Links next to job titles (Apply, View Details, More Info) are `job_url`, not navigation targets.
 
 **Preview page:** If SOME jobs are shown AND a "view all" link exists → `job_listings_preview_page`, populate `next_action_target`.
+
+**Selector map links:** The `VISIBLE INTERACTIVE LINKS/BUTTONS` section is extracted from the DOM selector map. If page text mentions a navigation link/button but the URL is missing from the markdown, use the matching URL from this section.
 
 ---
 

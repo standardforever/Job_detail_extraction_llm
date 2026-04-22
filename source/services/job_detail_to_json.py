@@ -11,6 +11,29 @@ from services.openai_service import OpenAIAnalysisService
 from state import ExtractedPageContent
 
 
+def _has_no_ats_evidence(data: dict) -> bool:
+    return (
+        not data.get("ats_provider")
+        and not data.get("apply_url")
+        and not data.get("indicators_found")
+        and not data.get("requires_scraping")
+    )
+
+
+def _default_accessible_job_without_ats_to_false(data: dict) -> dict:
+    page_access_status = str(data.get("page_access_status") or "").strip().lower()
+    is_accessible = page_access_status in {"", "accessible"}
+    is_job_related = data.get("is_job_related") is True or data.get("is_job_page") is True
+    if data.get("is_ats") is None and is_accessible and is_job_related and _has_no_ats_evidence(data):
+        data["is_ats"] = False
+        data["ats_confidence"] = data.get("ats_confidence") if data.get("ats_confidence") in {"high", "medium"} else "high"
+        reason = "Accessible job page with no ATS URL, provider, or indicators; defaulted to non-ATS."
+        existing_reason = str(data.get("confidence_reason") or "").strip()
+        data["confidence_reason"] = f"{existing_reason} {reason}".strip()
+        data["additional_notes"] = data.get("additional_notes") or reason
+    return data
+
+
 def _normalize_job_detail_json(response: dict) -> dict:
     location = response.get("location") or {}
     salary = response.get("salary") or {}
@@ -118,8 +141,10 @@ def _normalize_job_detail_and_ats_json(response: dict, *, page_url: str | None =
             "additional_notes": str(response.get("additional_notes")) if response.get("additional_notes") is not None else None,
             "page_access_status": str(response.get("page_access_status")) if response.get("page_access_status") is not None else None,
             "page_access_issue_detail": str(response.get("page_access_issue_detail")) if response.get("page_access_issue_detail") is not None else None,
+            "detection_method": str(response.get("detection_method")) if response.get("detection_method") is not None else "ai_analysis",
         }
     )
+    normalized = _default_accessible_job_without_ats_to_false(normalized)
     return reconcile_ats_result(normalized, page_url=page_url, main_domain=main_domain)
 
 

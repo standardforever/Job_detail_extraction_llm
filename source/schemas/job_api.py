@@ -8,11 +8,20 @@ from pydantic import BaseModel, Field, field_validator
 ProcessingMode = Literal["ats_check", "convert_jobs_to_dict", "both"]
 
 
+class DebugOutputOptions(BaseModel):
+    save_markdown: bool = False
+    save_selector_map: bool = False
+    save_all_urls: bool = False
+    save_raw_extracted_jobs: bool = False
+    save_main_result_in_debug: bool = False
+
+
 class URLListRunRequest(BaseModel):
     urls: list[str] = Field(..., min_length=1)
     processing_mode: ProcessingMode = "both"
     agent_count: int = Field(default=1, ge=1)
     artifact_name: str | None = None
+    debug_options: DebugOutputOptions = Field(default_factory=DebugOutputOptions)
 
     @field_validator("urls")
     @classmethod

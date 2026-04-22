@@ -3,6 +3,7 @@ from __future__ import annotations
 from services.domain_state import append_manual_review, current_domain_record, set_domain_record
 from state import JobScraperState
 
+from services.ats_domain_registry import classify_job_url_by_domain, extract_base_domain
 from services.job_detail_to_json import convert_job_detail_content_to_json
 from utils.logging import get_logger, log_event
 
@@ -20,10 +21,19 @@ async def convert_job_page_to_json_node(state: JobScraperState) -> JobScraperSta
     main_domain = str(record.get("domain") or "").strip() or None
     if not selected_job_url or not detail_content:
         return state
+    selected_job_domain = extract_base_domain(selected_job_url)
+    main_lookup_domain = extract_base_domain(main_domain)
+    use_domain_ats_detection = (
+        processing_mode == "both"
+        and bool(selected_job_domain)
+        and bool(main_lookup_domain)
+        and selected_job_domain != main_lookup_domain
+    )
+    conversion_mode = "convert_jobs_to_dict" if use_domain_ats_detection else processing_mode
 
     structured_job_details, token_usage, error = await convert_job_detail_content_to_json(
         detail_content,
-        processing_mode=processing_mode,
+        processing_mode=conversion_mode,
         main_domain=main_domain,
     )
     if structured_job_details is None:
@@ -59,7 +69,35 @@ async def convert_job_page_to_json_node(state: JobScraperState) -> JobScraperSta
     extracted_jobs = list(record.get("extracted_jobs") or state.get("extracted_jobs", []))
     normalized_jobs: list[dict] = []
     ats_results: list[dict] = []
+    domain_ats_result = (
+        classify_job_url_by_domain(selected_job_url, main_domain)
+        if use_domain_ats_detection
+        else None
+    )
     for structured_job_detail in structured_job_details:
+        if domain_ats_result:
+            structured_job_detail = {
+                **structured_job_detail,
+                "is_ats": domain_ats_result.get("is_ats"),
+                "is_job_related": structured_job_detail.get("is_job_related", structured_job_detail.get("is_job_page", True)),
+                "ats_confidence": domain_ats_result.get("ats_confidence") or domain_ats_result.get("confidence"),
+                "application_type": domain_ats_result.get("application_type"),
+                "ats_provider": domain_ats_result.get("ats_provider"),
+                "apply_url": (structured_job_detail.get("application_method") or {}).get("url"),
+                "apply_button_text": None,
+                "detail_button": None,
+                "requires_scraping": False,
+                "indicators_found": [],
+                "page_validity_issues": None,
+                "additional_notes": domain_ats_result.get("registry_reason") or domain_ats_result.get("reason"),
+                "page_access_status": structured_job_detail.get("page_access_status") or "accessible",
+                "page_access_issue_detail": structured_job_detail.get("page_access_issue_detail"),
+                "detection_method": domain_ats_result.get("detection_method"),
+                "ats_lookup_domain": domain_ats_result.get("ats_lookup_domain"),
+                "domain_registry_status": domain_ats_result.get("domain_registry_status"),
+                "registry_agreement": domain_ats_result.get("registry_agreement"),
+                "registry_reason": domain_ats_result.get("registry_reason"),
+            }
         job_with_source = {
             "job_url": selected_job_url,
             **structured_job_detail,
@@ -74,14 +112,16 @@ async def convert_job_page_to_json_node(state: JobScraperState) -> JobScraperSta
                     "provider": structured_job_detail.get("ats_provider"),
                     "application_style": structured_job_detail.get("application_type"),
                     "apply_url": structured_job_detail.get("apply_url"),
-                    "reason": structured_job_detail.get("confidence_reason"),
+                    "reason": structured_job_detail.get("additional_notes") or structured_job_detail.get("confidence_reason"),
                     "ats_confidence": structured_job_detail.get("ats_confidence"),
+                    "detection_method": structured_job_detail.get("detection_method") or "ai_analysis",
                     "page_access_status": structured_job_detail.get("page_access_status"),
                     "page_access_issue_detail": structured_job_detail.get("page_access_issue_detail"),
                     "indicators_found": structured_job_detail.get("indicators_found", []),
                     "ats_lookup_domain": structured_job_detail.get("ats_lookup_domain"),
                     "domain_registry_status": structured_job_detail.get("domain_registry_status"),
                     "registry_agreement": structured_job_detail.get("registry_agreement"),
+                    "registry_reason": structured_job_detail.get("registry_reason"),
                 }
             )
         extracted_jobs.append(
@@ -121,6 +161,10 @@ async def convert_job_page_to_json_node(state: JobScraperState) -> JobScraperSta
         record_metadata["job_detail_json_tokens"] = token_usage
         if processing_mode == "both":
             record_metadata["job_detail_ats_status"] = "completed"
+            if use_domain_ats_detection:
+                record_metadata["job_detail_ats_status"] = "completed_by_domain_rule"
+                record_metadata["job_detail_ats_llm_skipped"] = True
+                record_metadata["job_detail_ats_skip_reason"] = "selected_job_url_domain_differs_from_main_domain"
         record["metadata"] = record_metadata
         return set_domain_record(updated_state, domain_key, record)
     return updated_state

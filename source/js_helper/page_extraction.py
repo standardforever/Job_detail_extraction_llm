@@ -701,8 +701,34 @@ async def page_extraction() -> str:
                 // Forms
                 if (tag === 'form') {
                     processed.add(el);
-                    el.querySelectorAll('*').forEach(c => processed.add(c));
-                    extractForm(el).forEach(l => lines.push(l));
+                    const isAppWrapperForm = Boolean(
+                        el.querySelector(
+                            [
+                                '#job-search-outer',
+                                '.Mhr-jobSearchOuter',
+                                '.Mhr-jobSearchResultsOuter',
+                                '.Mhr-jobSearchJobs',
+                                '.Mhr-jobSearchProfile',
+                                '[class*="jobSearch"]',
+                                '[class*="job-search"]',
+                                'main',
+                                'article'
+                            ].join(',')
+                        )
+                    );
+                    if (!isAppWrapperForm) {
+                        el.querySelectorAll('*').forEach(c => processed.add(c));
+                        extractForm(el).forEach(l => lines.push(l));
+                        return;
+                    }
+                    el.childNodes.forEach(child => {
+                        if (child.nodeType === Node.ELEMENT_NODE) {
+                            processElement(child);
+                        } else if (child.nodeType === Node.TEXT_NODE) {
+                            const text = clean(child.textContent);
+                            if (text) lines.push(text);
+                        }
+                    });
                     return;
                 }
 
@@ -934,8 +960,50 @@ async def page_extraction() -> str:
                     // Only emit orphaned inline elements not inside a known block parent
                     const parentTag = (el.parentElement ? el.parentElement.tagName.toLowerCase() : '');
                     if (!BLOCK_PARENT.has(parentTag)) {
-                        const text = clean(el.innerText || el.textContent);
-                        if (text) lines.push(text);
+                        const parts = [];
+                        function collectInlineParts(node) {
+                            if (node.nodeType === Node.TEXT_NODE) {
+                                const text = clean(node.textContent);
+                                if (text) parts.push({ type: 'text', value: text });
+                                return;
+                            }
+                            if (node.nodeType !== Node.ELEMENT_NODE) return;
+                            const nodeTag = node.tagName.toLowerCase();
+                            if (['script','style','noscript'].includes(nodeTag)) return;
+                            if (nodeTag === 'a') {
+                                const href = node.getAttribute('href');
+                                const text = clean(node.innerText || node.textContent || '');
+                                if (text && href && href !== '#' && !href.startsWith('javascript')) {
+                                    try { parts.push({ type: 'link', text, url: new URL(href, location.href).href }); }
+                                    catch(e) { parts.push({ type: 'text', value: text }); }
+                                } else if (text) {
+                                    parts.push({ type: 'text', value: text });
+                                }
+                                return;
+                            }
+                            if (getTriggerType(node) || getInteractiveType(node)) {
+                                processElement(node);
+                                return;
+                            }
+                            Array.from(node.childNodes).forEach(collectInlineParts);
+                        }
+
+                        Array.from(el.childNodes).forEach(collectInlineParts);
+                        let textBuffer = [];
+                        function flushInlineBuffer() {
+                            const merged = textBuffer.filter(Boolean).join(' ').trim();
+                            if (merged) lines.push(merged);
+                            textBuffer = [];
+                        }
+                        parts.forEach(part => {
+                            if (part.type === 'text') {
+                                textBuffer.push(part.value);
+                                return;
+                            }
+                            flushInlineBuffer();
+                            lines.push(part.text + ' → ' + part.url);
+                        });
+                        flushInlineBuffer();
                         processed.add(el);
                         el.querySelectorAll('*').forEach(c => processed.add(c));
                     } else {
