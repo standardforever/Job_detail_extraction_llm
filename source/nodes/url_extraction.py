@@ -184,6 +184,10 @@ async def career_url_extraction_node(state: JobScraperState) -> JobScraperState:
         non_domain_career_urls = _dedupe_career_items(list(non_domain_careers_result.get("result", []) or []))
         if not target["is_main_domain_input"]:
             combined_job_urls = _dedupe_urls([target["normalized_url"], *combined_job_urls])
+        elif not combined_job_urls:
+            status = "no_candidates_found"
+            should_skip_current_url = True
+            skip_reason = "no_job_or_career_candidates_found"
 
     if should_skip_current_url and navigate_to not in completed_urls:
         completed_urls.append(navigate_to)
@@ -253,7 +257,13 @@ async def career_url_extraction_node(state: JobScraperState) -> JobScraperState:
                 "url_extraction_history": history,
                 "current_candidate_url": combined_job_urls[0] if combined_job_urls and status in {"ready_for_navigation", "seed_url_retained"} else None,
                 "checked_candidate_urls": [],
-                "career_page_scan_status": "ready" if combined_job_urls and status in {"ready_for_navigation", "seed_url_retained"} else "not_started",
+                "career_page_scan_status": (
+                    "ready"
+                    if combined_job_urls and status in {"ready_for_navigation", "seed_url_retained"}
+                    else "no_job_page_found"
+                    if status == "no_candidates_found"
+                    else "not_started"
+                ),
                 "career_page_found_url": None,
                 "career_navigation_steps": 0,
                 "career_navigation_target_url": None,

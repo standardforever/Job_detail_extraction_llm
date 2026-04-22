@@ -296,6 +296,9 @@ def _derive_run_status(
     if "session_not_established" in url_extraction_statuses:
         return "Browser Session Not Established"
 
+    if "no_candidates_found" in url_extraction_statuses:
+        return "No Career Page Found - Cannot Detect ATS or Extract Jobs"
+
     if "bot_detected" in normalized_errors or "captcha" in normalized_errors or "cloudflare" in normalized_errors:
         return "Access Blocked - Bot Detected"
 
