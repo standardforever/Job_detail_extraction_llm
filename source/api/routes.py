@@ -36,15 +36,59 @@ logger = get_logger("api")
 router = APIRouter(tags=["job-runs"])
 
 
-def _parse_csv_urls(file_bytes: bytes) -> list[str]:
+def _parse_csv_domains(file_bytes: bytes) -> list[str]:
     decoded = file_bytes.decode("utf-8-sig")
     reader = csv.DictReader(io.StringIO(decoded))
-    if "url" not in (reader.fieldnames or []):
-        raise HTTPException(status_code=400, detail="CSV must contain a 'url' column")
-    urls = [str(row.get("url") or "").strip() for row in reader if str(row.get("url") or "").strip()]
-    if not urls:
-        raise HTTPException(status_code=400, detail="CSV did not contain any non-empty url values")
-    return urls
+    field_map = {str(field or "").strip().lower(): field for field in (reader.fieldnames or [])}
+    domain_field = field_map.get("domain")
+    if domain_field is None:
+        raise HTTPException(status_code=400, detail="CSV must contain a 'domain' column")
+    domains = [str(row.get(domain_field) or "").strip() for row in reader if str(row.get(domain_field) or "").strip()]
+    if not domains:
+        raise HTTPException(status_code=400, detail="CSV did not contain any non-empty domain values")
+    return domains
+
+
+def _parse_xlsx_domains(file_bytes: bytes) -> list[str]:
+    try:
+        from openpyxl import load_workbook
+    except ImportError as exc:
+        raise HTTPException(
+            status_code=500,
+            detail="XLSX upload requires the 'openpyxl' package to be installed",
+        ) from exc
+
+    workbook = load_workbook(io.BytesIO(file_bytes), read_only=True, data_only=True)
+    worksheet = workbook.active
+    rows = worksheet.iter_rows(values_only=True)
+    header_row = next(rows, None)
+    if not header_row:
+        raise HTTPException(status_code=400, detail="XLSX file is empty")
+
+    headers = [str(value or "").strip().lower() for value in header_row]
+    try:
+        domain_index = headers.index("domain")
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail="XLSX must contain a 'domain' column") from exc
+
+    domains = []
+    for row in rows:
+        value = row[domain_index] if domain_index < len(row) else None
+        normalized = str(value or "").strip()
+        if normalized:
+            domains.append(normalized)
+    if not domains:
+        raise HTTPException(status_code=400, detail="XLSX did not contain any non-empty domain values")
+    return domains
+
+
+def _parse_upload_domains(filename: str, file_bytes: bytes) -> list[str]:
+    extension = Path(filename or "").suffix.lower()
+    if extension == ".csv":
+        return _parse_csv_domains(file_bytes)
+    if extension == ".xlsx":
+        return _parse_xlsx_domains(file_bytes)
+    raise HTTPException(status_code=400, detail="Uploaded file must be a CSV or XLSX file")
 
 
 def _build_domain_response(task_record: dict) -> dict[str, dict]:
@@ -331,6 +375,7 @@ async def run_from_url_list(payload: URLListRunRequest, background_tasks: Backgr
 
 
 @router.post("/runs/csv", response_model=JobRunTaskResponse, status_code=202)
+@router.post("/runs/upload", response_model=JobRunTaskResponse, status_code=202)
 async def run_from_csv(
     background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
@@ -343,9 +388,7 @@ async def run_from_csv(
     save_raw_extracted_jobs: bool = Form(False),
     save_main_result_in_debug: bool = Form(False),
 ) -> JobRunTaskResponse:
-    if not file.filename.lower().endswith(".csv"):
-        raise HTTPException(status_code=400, detail="Uploaded file must be a CSV")
-    urls = _parse_csv_urls(await file.read())
+    urls = _parse_upload_domains(file.filename, await file.read())
     return _queue_run(
         background_tasks=background_tasks,
         urls=urls,
