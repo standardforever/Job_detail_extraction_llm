@@ -5,10 +5,12 @@ import json
 import os
 from dataclasses import dataclass
 from typing import Any
-from dotenv import load_dotenv
+
 from openai import OpenAI
 
-load_dotenv()
+from core.config import load_environment
+
+load_environment()
 
 @dataclass(slots=True)
 class AnalysisResult:
@@ -22,6 +24,8 @@ class OpenAIAnalysisService:
     def __init__(self, model: str | None = None, api_key: str | None = None) -> None:
         self._model = model or os.getenv("OPENAI_MODEL", "gpt-5-nano")
         self._api_key = api_key or os.getenv("OPENAI_API_KEY")
+        if not self._api_key:
+            raise ValueError("OPENAI_API_KEY is not configured")
         self._client = OpenAI(api_key=self._api_key)
 
     async def analyze_data(

@@ -2,6 +2,21 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+
+def load_environment() -> None:
+    """Load env files from both repo root and source/ for local API runs."""
+    source_env = Path(__file__).resolve().parents[1] / ".env"
+    repo_env = Path(__file__).resolve().parents[2] / ".env"
+    for env_path in (repo_env, source_env):
+        if env_path.exists():
+            load_dotenv(env_path, override=False)
+
+
+load_environment()
 
 
 @dataclass(slots=True)

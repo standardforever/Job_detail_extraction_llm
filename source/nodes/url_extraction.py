@@ -176,7 +176,7 @@ async def career_url_extraction_node(state: JobScraperState) -> JobScraperState:
         non_domain_careers_result = await extractor._extract_career_urls_from_page(
             target["registered_domain"] or target["discovery_domain"]
         )
-        search_query = f"site:{target['discovery_domain']} jobs careers vacancies openings"
+        search_query = f"{target['discovery_domain']} jobs careers vacancies openings"
         search_result = await extractor.search_duckduckgo(search_query, target["discovery_domain"])
         combined_job_urls = _dedupe_urls(
             list(fallback_urls.get("result", []) or []) + list(search_result.get("result", []) or [])

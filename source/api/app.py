@@ -4,10 +4,12 @@ from fastapi import FastAPI
 
 from api.ats_domain_routes import router as ats_domain_router
 from api.routes import router as api_router
+from core.config import load_environment
 from utils.logging import configure_logging
 
 
 def create_app() -> FastAPI:
+    load_environment()
     configure_logging()
     app = FastAPI(title="Job Scraper API", version="0.1.0", root_path="/ats")
     app.include_router(ats_domain_router, prefix="/api")

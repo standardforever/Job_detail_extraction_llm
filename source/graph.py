@@ -62,6 +62,48 @@ def _persist_api_task_progress(state: JobScraperState, status: str | None = None
         )
 
 
+def _mark_current_domain_failed(state: JobScraperState, name: str, exc: Exception) -> JobScraperState:
+    updated_state: JobScraperState = {**state}
+    completed_urls = list(updated_state.get("completed_urls", []) or [])
+    domain_key, record = current_domain_record(updated_state)
+    if domain_key and record is not None:
+        record = dict(record)
+        record_errors = list(record.get("errors", []))
+        record_errors.append(f"{name} failed: {exc}")
+        record["errors"] = record_errors
+        record_metadata = dict(record.get("metadata", {}) or {})
+        record_metadata[f"{name}_status"] = "failed"
+        record_metadata[f"{name}_error"] = str(exc)
+        record_metadata["pipeline_status"] = "failed"
+        record_metadata["pipeline_failed_node"] = name
+        record_metadata["pipeline_failure_reason"] = str(exc)
+        if name in {"career_page_category", "ats_check"}:
+            record_metadata["career_page_scan_status"] = f"{name}_failed"
+        current_input = str(record.get("current_input_url") or record.get("navigate_to") or updated_state.get("navigate_to") or "").strip()
+        if current_input and current_input not in completed_urls:
+            completed_urls.append(current_input)
+        record["metadata"] = record_metadata
+        updated_state["completed_urls"] = completed_urls
+        return set_domain_record(updated_state, domain_key, record)
+
+    errors = list(state.get("errors", []))
+    errors.append(f"{name} failed: {exc}")
+    updated_state["errors"] = errors
+    updated_state["metadata"] = {
+        **state.get("metadata", {}),
+        f"{name}_status": "failed",
+        f"{name}_error": str(exc),
+        "pipeline_status": "failed",
+        "pipeline_failed_node": name,
+        "pipeline_failure_reason": str(exc),
+    }
+    navigate_to = str(updated_state.get("navigate_to") or "").strip()
+    if navigate_to:
+        completed_urls.append(navigate_to)
+        updated_state["completed_urls"] = completed_urls
+    return updated_state
+
+
 def _wrap_node(name: str, node_fn: Callable[[JobScraperState], Awaitable[JobScraperState]]) -> Callable[[JobScraperState], Awaitable[JobScraperState]]:
     async def _wrapped(state: JobScraperState) -> JobScraperState:
         try:
@@ -84,31 +126,10 @@ def _wrap_node(name: str, node_fn: Callable[[JobScraperState], Awaitable[JobScra
         except StopRunRequested:
             raise
         except Exception as exc:
-            updated_state: JobScraperState = {**state}
-            domain_key, record = current_domain_record(updated_state)
-            if domain_key and record is not None:
-                record_errors = list(record.get("errors", []))
-                record_errors.append(f"{name} failed: {exc}")
-                record["errors"] = record_errors
-                record_metadata = dict(record.get("metadata", {}) or {})
-                record_metadata[f"{name}_status"] = "failed"
-                record_metadata[f"{name}_error"] = str(exc)
-                record["metadata"] = record_metadata
-                failed_state = set_domain_record(updated_state, domain_key, record)
-                persist_worker_progress(failed_state)
-                _persist_api_task_progress(failed_state)
-                return failed_state
-            errors = list(state.get("errors", []))
-            errors.append(f"{name} failed: {exc}")
-            updated_state["errors"] = errors
-            updated_state["metadata"] = {
-                **state.get("metadata", {}),
-                f"{name}_status": "failed",
-                f"{name}_error": str(exc),
-            }
-            persist_worker_progress(updated_state)
-            _persist_api_task_progress(updated_state)
-            return updated_state
+            failed_state = _mark_current_domain_failed(state, name, exc)
+            persist_worker_progress(failed_state)
+            _persist_api_task_progress(failed_state)
+            return failed_state
 
     return _wrapped
 

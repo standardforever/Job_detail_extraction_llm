@@ -277,6 +277,18 @@ def _derive_run_status(
         for metadata in metadata_items
         if isinstance(metadata, dict)
     }
+    failed_metadata = next(
+        (
+            metadata
+            for metadata in metadata_items
+            if isinstance(metadata, dict) and str(metadata.get("pipeline_status") or "").strip().lower() == "failed"
+        ),
+        None,
+    )
+
+    if failed_metadata:
+        failed_node = str(failed_metadata.get("pipeline_failed_node") or "pipeline").strip()
+        return f"Pipeline Failed - {failed_node}"
 
     if "domain_access_failed" in url_extraction_statuses:
         if "err_name_not_resolved" in normalized_errors:
