@@ -12,6 +12,14 @@ from utils.logging import get_logger, log_event
 logger = get_logger("navigation_node")
 
 
+def _next_unchecked_candidate(candidates: list[str], checked: set[str], visited: set[str]) -> str | None:
+    for candidate in candidates:
+        normalized = str(candidate or "").strip()
+        if normalized and normalized not in checked and normalized not in visited:
+            return normalized
+    return None
+
+
 async def navigation_node(state: JobScraperState) -> JobScraperState:
     
     settings = get_settings()
@@ -55,7 +63,24 @@ async def navigation_node(state: JobScraperState) -> JobScraperState:
         if domain_key and record is not None:
             record["errors"] = record_errors
             record["navigation_results"] = []
-            record_metadata["navigation_status"] = "already_visited"
+            checked_candidate_urls = {
+                str(url) for url in (record_metadata.get("checked_candidate_urls") or []) if str(url).strip()
+            }
+            checked_candidate_urls.add(navigate_to)
+            next_candidate_url = _next_unchecked_candidate(
+                [str(url) for url in (record.get("discovered_job_urls") or []) if url],
+                checked_candidate_urls,
+                set(visited_candidate_urls),
+            )
+            record_metadata["checked_candidate_urls"] = list(checked_candidate_urls)
+            record_metadata["current_candidate_url"] = next_candidate_url
+            record_metadata["navigation_attempt_count"] = 0
+            record_metadata["extract_attempt_count"] = 0
+            record_metadata["navigation_status"] = "already_visited_advanced" if next_candidate_url else "already_visited"
+            if not next_candidate_url:
+                record_metadata["career_page_scan_status"] = (
+                    "single_job_only_found" if (record.get("job_urls") or []) else "no_job_page_found"
+                )
             record = append_manual_review(record, "navigation_target_already_visited", navigate_to)
             return set_domain_record(updated_state, domain_key, record)
         return updated_state
