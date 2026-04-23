@@ -24,6 +24,43 @@ def _page_domain(page: Page | None) -> str:
         return "unknown"
 
 
+def _selector_link_lines(selector_map: dict[str, Any]) -> list[str]:
+    lines: list[str] = []
+    seen: set[tuple[str, str]] = set()
+    for item in dict(selector_map or {}).values():
+        if not isinstance(item, dict):
+            continue
+        action_url = str(item.get("action_url") or "").strip()
+        if not action_url:
+            attributes = dict(item.get("attributes") or {})
+            action_url = str(attributes.get("href") or attributes.get("data-href") or attributes.get("data-url") or "").strip()
+        if not action_url:
+            continue
+        label = str(item.get("label") or item.get("text") or item.get("name") or "").strip() or "link"
+        kind = str(item.get("kind") or "").strip() or ("link" if item.get("is_link") else "interactive")
+        marker = (label.lower(), action_url)
+        if marker in seen:
+            continue
+        seen.add(marker)
+        lines.append(f"- [{kind}] {label} -> {action_url}")
+    return lines
+
+
+def _append_missing_selector_links(markdown: str, selector_map: dict[str, Any]) -> str:
+    content = str(markdown or "").strip()
+    missing_lines = []
+    for line in _selector_link_lines(selector_map):
+        url = line.rsplit(" -> ", 1)[-1].strip()
+        if url and url not in content:
+            missing_lines.append(line)
+
+    if not missing_lines:
+        return content
+
+    section = "\n".join(["", "H2: Extracted selector links", *missing_lines])
+    return f"{content}\n{section}".strip()
+
+
 COOKIE_SELECTORS = [
     "button:has-text('Accept all')",
     "button:has-text('Accept All')",
@@ -693,6 +730,7 @@ async def extract_page_content(
     page_url = str(result.get("page_url", "") or page.url or "")
     content = str(result.get("content", "") or "")
     selector_map = result.get("selector_map", {})
+    content = _append_missing_selector_links(content, dict(selector_map or {}))
     log_event(
         logger,
         "info",

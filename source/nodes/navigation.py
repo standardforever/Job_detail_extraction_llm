@@ -109,6 +109,11 @@ async def navigation_node(state: JobScraperState) -> JobScraperState:
         completed_urls.append(navigate_to)
     if navigate_to == outer_navigate_to and navigation_result["status"] != "navigated" and next_navigation_attempt_count >= 3 and navigate_to not in completed_urls:
         completed_urls.append(navigate_to)
+    if navigation_result["status"] == "navigation_non_web_url":
+        if outer_navigate_to and outer_navigate_to not in completed_urls:
+            completed_urls.append(outer_navigate_to)
+        if navigate_to not in completed_urls:
+            completed_urls.append(navigate_to)
 
     if navigation_result["status"] == "navigated" and settings.post_navigation_delay_ms > 0:
         await asyncio.sleep(settings.post_navigation_delay_ms / 1000)
@@ -129,11 +134,14 @@ async def navigation_node(state: JobScraperState) -> JobScraperState:
                 "last_navigate_to": navigate_to,
                 "navigated_url_count": sum(1 for result in navigation_results if result["status"] == "navigated"),
                 "navigation_status": navigation_result["status"],
-                "navigation_attempt_count": next_navigation_attempt_count,
+                "navigation_attempt_count": 3 if navigation_result["status"] == "navigation_non_web_url" else next_navigation_attempt_count,
                 "post_navigation_delay_ms": settings.post_navigation_delay_ms,
                 "visited_candidate_urls": visited_candidate_urls,
             }
         )
+        if navigation_result["status"] == "navigation_non_web_url":
+            record_metadata["career_page_scan_status"] = "no_job_page_found"
+            record_metadata["non_web_navigation_target_url"] = navigate_to
         if navigation_result["status"] in {"navigation_failed", "navigation_timeout"} and next_navigation_attempt_count >= 3:
             record = append_manual_review(record, "navigation_failed_after_retries", navigate_to)
             record_metadata = dict(record.get("metadata", {}) or {})

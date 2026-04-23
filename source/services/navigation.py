@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+from urllib.parse import urlparse
 
 try:
     from playwright.async_api import Page, TimeoutError as PlaywrightTimeoutError
@@ -9,6 +10,16 @@ except Exception:  # pragma: no cover - handled gracefully at runtime
     PlaywrightTimeoutError = TimeoutError
 
 from state import NavigationResult
+
+
+WEB_NAVIGATION_SCHEMES = {"", "http", "https"}
+
+
+def _is_web_navigation_url(url: str | None) -> bool:
+    normalized = str(url or "").strip()
+    if not normalized:
+        return False
+    return urlparse(normalized).scheme.lower() in WEB_NAVIGATION_SCHEMES
 
 
 def _is_download_start_error(exc: Exception) -> bool:
@@ -125,6 +136,16 @@ async def navigate_to_url(
             "status": "idle",
             "current_url": page.url,
             "error": None,
+        }
+
+    if not _is_web_navigation_url(url):
+        return {
+            "agent_index": agent_index,
+            "handle": tab_handle,
+            "url": url,
+            "status": "navigation_non_web_url",
+            "current_url": page.url,
+            "error": f"Navigation target is not a web page URL: {url}",
         }
 
     status, error = await _goto_with_retry(page, url, post_navigation_delay_ms=post_navigation_delay_ms)

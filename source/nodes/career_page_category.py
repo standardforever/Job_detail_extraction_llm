@@ -5,7 +5,7 @@ from typing import Any
 from prompts.career_category_prompt import create_job_page_analysis_prompt
 from services.ats_domain_registry import classify_job_url_by_domain, extract_base_domain
 from services.domain_state import append_manual_review, current_domain_record, set_domain_record
-from services.flow_safety import detect_external_job_board, normalize_navigation_url
+from services.flow_safety import detect_external_job_board, is_email_navigation_url, is_web_navigation_url, normalize_navigation_url
 from services.openai_service import OpenAIAnalysisService
 from state import JobScraperState
 
@@ -70,6 +70,56 @@ def _find_navigation_target_from_selector_map(extracted_content: dict[str, Any])
                 "element_type": "link" if target["kind"] == "link" else target["kind"],
             }
     return best_target
+
+
+def _normalize_match_text(value: str | None) -> str:
+    return " ".join(str(value or "").lower().replace("\u2013", "-").replace("\u2014", "-").split())
+
+
+def _fill_job_urls_from_selector_map(
+    jobs_listed: list[dict[str, Any]],
+    extracted_content: dict[str, Any],
+) -> list[dict[str, Any]]:
+    interactive_targets = [
+        target
+        for target in _extract_interactive_targets(extracted_content)
+        if target.get("url") and target.get("kind") == "link"
+    ]
+    if not interactive_targets:
+        return jobs_listed
+
+    target_index: list[tuple[str, str, str]] = []
+    for target in interactive_targets:
+        label = str(target.get("label") or "").strip()
+        url = str(target.get("url") or "").strip()
+        if not label or not url:
+            continue
+        target_index.append((_normalize_match_text(label), label, url))
+
+    filled_jobs: list[dict[str, Any]] = []
+    for job in jobs_listed:
+        job_copy = dict(job)
+        if job_copy.get("job_url"):
+            filled_jobs.append(job_copy)
+            continue
+        title = str(job_copy.get("title") or "").strip()
+        normalized_title = _normalize_match_text(title)
+        if not normalized_title:
+            filled_jobs.append(job_copy)
+            continue
+
+        exact_match = next((url for normalized_label, _, url in target_index if normalized_label == normalized_title), None)
+        contains_match = next(
+            (
+                url
+                for normalized_label, _, url in target_index
+                if normalized_title in normalized_label or normalized_label in normalized_title
+            ),
+            None,
+        )
+        job_copy["job_url"] = exact_match or contains_match
+        filled_jobs.append(job_copy)
+    return filled_jobs
 
 
 def _normalize_career_analysis(response: dict[str, Any]) -> dict[str, Any]:
@@ -176,6 +226,10 @@ async def career_page_category_node(state: JobScraperState) -> JobScraperState:
         return set_domain_record(updated_state, domain_key, record) if domain_key else updated_state
 
     normalized = _normalize_career_analysis(analysis.response)
+    normalized["jobs_listed_on_page"] = _fill_job_urls_from_selector_map(
+        normalized["jobs_listed_on_page"],
+        extracted_content,
+    )
     selector_navigation_target = None
     if (
         normalized["page_category"] == "navigation_required"
@@ -260,7 +314,14 @@ async def career_page_category_node(state: JobScraperState) -> JobScraperState:
         target_url = normalize_navigation_url(normalized["next_action_target"]["url"], current_candidate_url)
         target_button = normalized["next_action_target"]["button"]
         external_job_board = detect_external_job_board(target_url)
-        if target_url and should_run_ats_check and _is_external_domain(target_url, record.get("domain") or domain_key):
+        if target_url and not is_web_navigation_url(target_url):
+            if is_email_navigation_url(target_url):
+                existing_job_urls = _dedupe_urls([current_candidate_url, *existing_job_urls])
+                scan_status = "ats_check_required" if should_run_ats_check else "single_job_only_found"
+            elif next_candidate is None:
+                scan_status = "single_job_only_found" if existing_job_urls else "no_job_page_found"
+            target_button = target_button or normalized["next_action_target"]["button"]
+        elif target_url and should_run_ats_check and _is_external_domain(target_url, record.get("domain") or domain_key):
             external_ats_result = {
                 **classify_job_url_by_domain(target_url, record.get("domain") or domain_key),
                 "status": "success",
@@ -382,6 +443,8 @@ async def career_page_category_node(state: JobScraperState) -> JobScraperState:
             "external_ats_status": "external_ats_found" if external_ats_result else record_metadata.get("external_ats_status"),
             "external_ats_url": target_url if external_ats_result else record_metadata.get("external_ats_url"),
             "external_ats_reason": external_ats_result.get("reason") if external_ats_result else record_metadata.get("external_ats_reason"),
+            "non_web_navigation_target_url": target_url if target_url and not is_web_navigation_url(target_url) else record_metadata.get("non_web_navigation_target_url"),
+            "non_web_navigation_target_type": "email" if is_email_navigation_url(target_url) else record_metadata.get("non_web_navigation_target_type"),
         }
     )
     record["metadata"] = record_metadata

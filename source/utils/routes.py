@@ -37,7 +37,7 @@ def _route_after_navigation(state: JobScraperState) -> str:
 
     if navigation_status == "navigated":
         return "extract_page_content"
-    if navigation_status == "navigation_download":
+    if navigation_status in {"navigation_download", "navigation_non_web_url"}:
         return "select_next_url"
     if state.get("navigate_to") and navigation_attempt_count < 3:
         return "navigation"

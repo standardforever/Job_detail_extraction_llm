@@ -698,6 +698,39 @@ async def page_extraction() -> str:
 
                 if (SKIP_TAGS.has(tag)) { processed.add(el); return; }
 
+                // Job/card containers often wrap linked titles in nested anchors.
+                // Preserve those links before generic text flattening turns cards into plain text.
+                const classAndId = `${cls} ${el.getAttribute('id') || ''}`.toLowerCase();
+                const isLikelyListingCard = (
+                    ['article', 'li'].includes(tag) ||
+                    classAndId.includes('vacanc') ||
+                    classAndId.includes('job') ||
+                    classAndId.includes('card') ||
+                    classAndId.includes('post')
+                );
+                if (isLikelyListingCard && !BLOCK_TAGS.has(tag) && !HEADING_TAGS.has(tag)) {
+                    const cardLinks = [];
+                    const seenCardUrls = new Set();
+                    Array.from(el.querySelectorAll('a[href]')).forEach(anchor => {
+                        const text = clean(anchor.innerText || anchor.textContent || '');
+                        const href = anchor.getAttribute('href');
+                        if (!text || !href || href === '#' || href.startsWith('javascript')) return;
+                        let absolute = null;
+                        try { absolute = new URL(href, location.href).href; } catch(e) {}
+                        if (!absolute || seenCardUrls.has(absolute)) return;
+                        const linkHaystack = `${text} ${absolute}`.toLowerCase();
+                        if (!/(vacanc|job|career|role|assistant|support|worker|officer|manager|teacher|employer|disabled)/.test(linkHaystack)) return;
+                        seenCardUrls.add(absolute);
+                        cardLinks.push({ text, url: absolute });
+                    });
+                    if (cardLinks.length > 0 && cardLinks.length <= 5) {
+                        processed.add(el);
+                        el.querySelectorAll('*').forEach(c => processed.add(c));
+                        cardLinks.forEach(link => lines.push(link.text + ' → ' + link.url));
+                        return;
+                    }
+                }
+
                 // Forms
                 if (tag === 'form') {
                     processed.add(el);
